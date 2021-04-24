@@ -1,86 +1,44 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, ScrollView, Button, Dimensions, useEffect } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 
-export default function App() {
-    let [token, setToken] = React.useState('');
-    let [discussionpostsArray, setDiscussionpostsArray] = React.useState([]);
-    
-    async function loginAsGuest() {
-        try {
-            let response = await fetch('http://localhost/login.php', {
-                method: 'POST',
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  guest: true
-                })
-              });
-            let responseJson = await response.json();
-            console.log(responseJson);
-            setToken(responseJson.token);
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }       
-    async function getData() {
-        try {
-            if (!token) {
-                loginAsGuest();
-                console.log(token);
-            }
-            let response = await fetch(
-                'http://localhost/api/get_posts.php?token='+token,
-            );
-            let responseJson = await response.json();
-            console.log(responseJson);
-            setDiscussionpostsArray(responseJson.postData);
-            return responseJson;
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }
-    function ShowPosts() {
-        if (discussionpostsArray.length > 0) {
-            discussionpostsArray.map((post, index) => {
+const PostPreview = (props) => {
 
-                return (
-                    <View key={index} style={styles.discussionpostWrapper}>
-                        <View key={'post'+index.toString()} style={styles.discussionpost}>
-                            <Text key={'title'+index.toString()} style={styles.discussionpostTitle}>{post.data.discussionpostTitle}</Text>
-                            <Text key={'break'+index.toString()}> </Text>
-                            <Text key={'body'+index.toString()} style={styles.discussionpostBody}>{post.data.discussionpostBody}</Text>
-                            <Text key={'link'+index.toString()} style={{color:'red'}}>read more</Text>
-                        </View>
-                    </View>
-                );
-            });
-        }
-        else {
-            return (
-                <View style={styles.discussionpostWrapper}>
-                    <View style={styles.discussionpost}>
-                        <Text style={styles.discussionpostTitle}>No posts available.</Text>
-                    </View>
-                </View>
-            );
-        }
-    }
+    let title = props.title;
+    let body = props.body.substring(0, 1600);
+    let key = parseInt(props.index);
+    return (
+        <View key={key} style={styles.discussionpostWrapper}>
+            <View key={'post'+key.toString()} style={styles.discussionpost}>
+                <Text key={'title'+key.toString()} style={styles.discussionpostTitle}>{title}</Text>
+                <Text key={'break'+key.toString()}> </Text>
+                <Text key={'body'+key.toString()} style={styles.discussionpostBody}>{body}</Text>
+                <Text key={'link'+key.toString()} style={styles.discussionpostLink}>read more</Text>
+            </View>
+        </View>
+    );
+};
+
+
+const App = () => {
+    let body = "this is the body this is the bodythis is the bodythis is the bodythis is the body".repeat(20)
+    let [token, setToken] = useState('');
+    let [discussionpostsArray, setDiscussionpostsArray] = useState([]);
+
+    let post = discussionpostsArray[0];
     return (
         <View style={styles.container}>
 
-            <Text style={styles.header} onPress={getData}>Discuss My School</Text>
+            <Text style={styles.header}>Discuss My School</Text>
             
             <ScrollView>
-                <ShowPosts></ShowPosts>
+                <PostPreview title="this is the title" body={body} index="0"></PostPreview>
             </ScrollView>
         </View>
-        );
+    );
 }
+
+export default App;
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
@@ -88,9 +46,15 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'rgb(26, 26, 26)',
         alignItems: 'center',
-        //justifyContent: 'center',
         width: windowWidth,
+        height: windowHeight,
         color: 'white'
+    },
+    header: {
+        color: 'red',
+        marginTop: 30,
+        marginBottom: 30,
+        fontSize: 30
     },
     discussionpostWrapper: {
         marginBottom: 10
@@ -101,24 +65,31 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: windowWidth-40,
         height: 'fit-content',
-        maxHeight: 200,
+        maxHeight: 700,
         overflow: 'hidden',
         borderRadius: 24,
-        textAlign: 'center'
+        textAlign: 'center',
+        paddingRight: 6,
+        paddingLeft: 6
         
-    },
-    header: {
-        color: 'red',
-        marginTop: 40,
-        marginBottom: 10,
-        fontSize: 30
     },
     discussionpostTitle: {
         color: 'white',
-        flex: 1
+        flex: 1,
+        fontWeight: 'bold',
+        marginTop: 10
     },
     discussionpostBody: {
         color: 'white',
         flex: 1
+    },
+    discussionpostLink: {
+        width:  windowWidth-40,
+        color: 'red',
+        marginBottom: 5,
+        paddingTop: 10,
+        backgroundColor : 'rgb(40,40,40)',
+        backgroundColor: 'linear-gradient(0deg, rgba(40,40,40,1) 39%, rgba(255,0,0,0) 100%)',
+        textAlign: 'center'
     }
 });
