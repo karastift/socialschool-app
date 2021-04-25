@@ -8,13 +8,12 @@ const Discussionpost = ({ navigation, route }) => {
 
     useEffect(() => {
         // call to api
-        setTitle('sjgjdfhsdhfkjsdhfkjlshjfksdhjkfsdjkhfkjlhfjky'+route.params.id);
+        setTitle('sjgjdfhsdhfkjsdhfkjlshjfksdhjkfsdjkhfkjlhfdasdasdasdasdjky'+route.params.id);
         setBody('sfhuisdhoifjiodsjyfiojiodsjfiodsjiofjoidhiuewhf    iusf'.repeat(20));
     }, []);
 
-    const PostPreview = (props) => {
+    const PostPreview = () => {
         
-        let id = parseInt(props.id);
         return (
             <View style={styles.discussionpostWrapper}>
                 <View style={styles.discussionpost}>
@@ -80,10 +79,12 @@ const styles = StyleSheet.create({
     discussionpostTitle: {
         color: 'white',
         fontWeight: 'bold',
+        textAlign: 'center',
         marginTop: 10
     },
     discussionpostBody: {
         color: 'white',
+        textAlign: 'center',
         paddingBottom: 10
     },
     load: {
