@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Dimensions, ScrollView, SafeAreaView } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const Welcome = ({ navigation }) => {
 
@@ -53,7 +54,11 @@ const Welcome = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
             <View>
 
+            <LinearGradient
+                // Button Linear Gradient
+                colors={['#4c669f', '#3b5998', '#192f6a']}>
                 <Text style={styles.header}>Discuss My School</Text>
+            </LinearGradient>
 
                 <ScrollView style={styles.scrollView}>
                     {discussionPostArray.map((post, index) => {
@@ -142,6 +147,7 @@ const styles = StyleSheet.create({
     },
     discussionpostBody: {
         color: 'white',
+        textAlign: 'center'
     },
     discussionpostLink: {
         width:  windowWidth-40,
