@@ -72,3 +72,4 @@ return (
         </ScrollView>
     </View>
     );
+            {/* <ActivityIndicator color="red" hidesWhenStopped={true} animating={isLoading} size="large" style={styles.load}></ActivityIndicator> */}
