@@ -53,14 +53,11 @@ const Welcome = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <View>
+                <View style={styles.headerBackground}>
+                    <Text style={styles.headerText}>Discuss My School</Text>
+                </View>
 
-            <LinearGradient
-                // Button Linear Gradient
-                colors={['#4c669f', '#3b5998', '#192f6a']}>
-                <Text style={styles.header}>Discuss My School</Text>
-            </LinearGradient>
-
-                <ScrollView style={styles.scrollView}>
+                <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
                     {discussionPostArray.map((post, index) => {
                         return (
                             <PostPreview key={index} body={post.discussionpostBody.repeat(5)} title={post.discussionpostTitle} id={post.discussionpostId} />
@@ -108,17 +105,17 @@ const styles = StyleSheet.create({
         height: windowHeight,
         color: 'white'
     },
-    header: {
-        zIndex: 2,
-        width: windowWidth,
+    headerText: {
         color: 'red',
-        paddingTop: 30,
-        paddingBottom: 15,
-        marginBottom: 15,
-        fontSize: 30,
-        position: 'absolute',
-        backgroundColor: 'rgb(26, 26, 26)',
+        fontSize: 30
         
+    },
+    headerBackground: {
+        width: windowWidth,        
+        position: 'absolute',
+        paddingTop: 30,
+        paddingBottom: 5,
+        marginBottom: 5
     },
     scrollView: {
         zIndex: 1,
