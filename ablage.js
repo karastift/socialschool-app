@@ -73,3 +73,30 @@ return (
     </View>
     );
             {/* <ActivityIndicator color="red" hidesWhenStopped={true} animating={isLoading} size="large" style={styles.load}></ActivityIndicator> */}
+
+            useEffect(() => {
+                // callApi();
+                console.log();
+                setArray([
+                {
+                    discussionpostTitle: 'Ich bin so nice. Das ist ein Titel, der nur zum Test dient.',
+                    discussionpostBody: 'Das ist ein anderer Test 1. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test.',
+                    discussionpostId: 1
+                },
+                {
+                    discussionpostTitle: 'Ich bin so nice. Das ist ein Titel, der nur zum Test dient.',
+                    discussionpostBody: 'Das ist ein anderer Test 2. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test.',
+                    discussionpostId: 2
+                },
+                {
+                    discussionpostTitle: 'Ich bin so nice. Das ist ein Titel, der nur zum Test dient.',
+                    discussionpostBody: 'Das ist ein anderer Test 3 Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test.',
+                    discussionpostId: 3
+                },
+                {
+                    discussionpostTitle: 'Ich bin so nice. Das ist ein Titel, der nur zum Test dient.',
+                    discussionpostBody: 'Das ist ein anderer Test 4. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test.',
+                    discussionpostId: 4
+                },
+                ]);
+            }, []);
