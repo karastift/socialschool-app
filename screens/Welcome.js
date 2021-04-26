@@ -4,6 +4,61 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const Welcome = ({ navigation }) => {
 
+    let [token, setToken] = useState('noToken');
+    let [discussionPostArray, setArray] = useState([]);
+
+    async function loginAsGuest() {
+        try {
+            let response = await fetch('http://192.168.178.113/api/login.php', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                            'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    guest: true
+                })
+              });
+            let responseJson = await response.json();
+
+            console.log(responseJson.token);
+            setToken(responseJson.token);
+            if (discussionPostArray == []) {
+                getData();
+            }
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+
+    async function getData() {
+        try {
+            if (token == 'noToken') {
+                console.log('there is no token');
+                loginAsGuest();
+            }
+            else {
+                let response = await fetch(
+                    `http://192.168.178.113/api/get_posts.php?token=${token}`, {
+                    method: 'GET',
+                    headers: {
+                        Accept: 'application/json',
+                                'Content-Type': 'application/json'
+                    }
+                });
+                let responseJson = await response.json();
+                console.log(responseJson);
+                setArray(responseJson.postData);
+            }
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+    
+    useEffect(()=>{ getData();}, []);
+
     const PostPreview = (props) => {
         let title = props.title;
         let body = props.body.substring(0, 1300);
@@ -20,35 +75,6 @@ const Welcome = ({ navigation }) => {
             </View>
         );
     };
-    
-    let [discussionPostArray, setArray] = useState([]);
-    
-    useEffect(() => {
-        // callApi();
-        console.log('did not call api');
-        setArray([
-        {
-            discussionpostTitle: 'Ich bin so nice. Das ist ein Titel, der nur zum Test dient.',
-            discussionpostBody: 'Das ist ein anderer Test 1. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test.',
-            discussionpostId: 1
-        },
-        {
-            discussionpostTitle: 'Ich bin so nice. Das ist ein Titel, der nur zum Test dient.',
-            discussionpostBody: 'Das ist ein anderer Test 2. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test.',
-            discussionpostId: 2
-        },
-        {
-            discussionpostTitle: 'Ich bin so nice. Das ist ein Titel, der nur zum Test dient.',
-            discussionpostBody: 'Das ist ein anderer Test 3 Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test.',
-            discussionpostId: 3
-        },
-        {
-            discussionpostTitle: 'Ich bin so nice. Das ist ein Titel, der nur zum Test dient.',
-            discussionpostBody: 'Das ist ein anderer Test 4. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test. Das ist ein anderer Test.',
-            discussionpostId: 4
-        },
-        ]);
-    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -60,34 +86,13 @@ const Welcome = ({ navigation }) => {
                 <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
                     {discussionPostArray.map((post, index) => {
                         return (
-                            <PostPreview key={index} body={post.discussionpostBody.repeat(5)} title={post.discussionpostTitle} id={post.discussionpostId} />
+                            <PostPreview key={index} body={post.data.discussionpostBody} title={post.data.discussionpostTitle} id={post.discussionpostId} />
                         );
                     })}
                 </ScrollView>
             </View>
         </SafeAreaView>
     );
-
-    async function callApi () {
-        try {
-            let response = await fetch('http://localhost/login.php', { // fix api call
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                            'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    guest: true
-                })
-              });
-            let responseJson = await response.json();
-            setArray([responseJson.token]);
-            setLoadingState(false);
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }
 };
 
 export default Welcome;
