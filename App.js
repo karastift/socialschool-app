@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AppLoading from 'expo-app-loading';
+import configData from "./config.json";
 
 import Welcome from './screens/Welcome';
 import Discussionpost from './screens/Discussionpost';
@@ -17,11 +18,12 @@ const App = () => {
     const [gotToken, setGotToken] = useState(false);
     const [error, setError] = useState('');
 
-    const host = 'http://192.168.178.113/api/';
+    const host = configData.serverData.serverUrl;
+    const loginUrl = configData.serverData.loginUrl;
 
     async function loginAsGuest() {
         try {
-            let response = await fetch(`${host}login.php`, {
+            let response = await fetch(`${host}${loginUrl}`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

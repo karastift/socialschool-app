@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions, ScrollView, SafeAreaView, Button, RefreshControl } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, ScrollView, SafeAreaView, Button, RefreshControl, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import configData from "../config.json";
 
-const host = 'http://192.168.178.113/api/';
-const wait = (timeout) => {
-    return new Promise(resolve => setTimeout(resolve, timeout));
-}
+const host = configData.serverData.serverUrl;
+const getPostsUrl = configData.serverData.getPostsUrl;
+
 const Welcome = ({ navigation, token }) => {
 
     let [discussionPostArray, setArray] = useState([]);
-
-    const [refreshing, setRefreshing] = React.useState(false);
-
-    const onRefresh = React.useCallback(() => {
-        setRefreshing(true);
-        getData();
-        wait(2000).then(() => setRefreshing(false));
-    }, []);
 
     let getData = async () => {
         try {
@@ -25,7 +17,7 @@ const Welcome = ({ navigation, token }) => {
             }
             else {
                 let response = await fetch(
-                    `${host}get_posts.php?token=${token}`, {
+                    `${host}${getPostsUrl}?token=${token}`, {
                     method: 'GET',
                     headers: {
                         Accept: 'application/json',
@@ -44,6 +36,9 @@ const Welcome = ({ navigation, token }) => {
     useEffect(()=>{ getData(); }, []);
 
     const PostPreview = (props) => {
+        let username = props.username;
+        let created = props.created;
+        let upvotes = props.upvotes;
         let title = props.title;
         let body = props.body.substring(0, 1300);
         let id = parseInt(props.id);
@@ -54,7 +49,7 @@ const Welcome = ({ navigation, token }) => {
                     <Text key={'title'+key.toString()} style={styles.discussionpostTitle}>{title}</Text>
                     <Text key={'break'+key.toString()}> </Text>
                     <Text key={'body'+key.toString()} style={styles.discussionpostBody}>{body}...</Text>
-                    <Text key={'link'+key.toString()} style={styles.discussionpostLink} onPress={() => navigation.navigate('Discussionpost', { id: id })}>read more</Text>
+                    <Text key={'info'+key.toString()} style={styles.discussionpostInfo}>posted by {username} | {upvotes}</Text>
                 </View>
             </View>
         );
@@ -65,16 +60,24 @@ const Welcome = ({ navigation, token }) => {
             <View>
                 <View style={styles.headerBackground}>
                     <Text style={styles.headerText}>Discuss My School</Text>
-                    <Button
+                    {/*<Button
                         title="Go to Sign In"
                         onPress={() => navigation.navigate('Login')}
-                    />
+                    />*/}
                 </View>
 
                 <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
                     {discussionPostArray.map((post, index) => {
                         return (
-                            <PostPreview key={index} body={post.data.discussionpostBody} title={post.data.discussionpostTitle} id={post.discussionpostId} />
+                            <TouchableOpacity key={'forpress'+index.toString()} onPress={() => navigation.navigate('Discussionpost', { id: post.data.discussionpostId, token: token })}>
+                                <PostPreview key={index} 
+                                            body={post.data.discussionpostBody} 
+                                            title={post.data.discussionpostTitle} 
+                                            id={post.data.discussionpostId} 
+                                            username={post.data.discussionpostUsername} 
+                                            upvotes={post.data.discussionpostUpvotes}
+                                />
+                            </TouchableOpacity>
                         );
                     })}
                 </ScrollView>
@@ -106,13 +109,14 @@ const styles = StyleSheet.create({
     headerBackground: {
         width: windowWidth,        
         position: 'absolute',
-        paddingTop: 30,
+        paddingTop: 50,
         paddingBottom: 5,
+        marginTop: 10,
         marginBottom: 5
     },
     scrollView: {
         zIndex: 1,
-        marginTop: 100,
+        marginTop: 120,
     },
     discussionpostWrapper: {
         marginBottom: 10,
@@ -121,7 +125,6 @@ const styles = StyleSheet.create({
         color: 'white',
         backgroundColor: 'rgb(40, 40, 40)',
         borderRadius: 24,
-        textAlign: 'center',
         alignItems: 'center',
         width: windowWidth-40,
         maxHeight: 700,
@@ -130,10 +133,16 @@ const styles = StyleSheet.create({
         paddingLeft: 6
         
     },
+    discussionpostInfo: {
+        color: 'grey',
+        textAlign: 'left',
+        fontWeight: '300',
+        marginTop: 10
+    },
     discussionpostTitle: {
         color: 'white',
         fontWeight: 'bold',
-        marginTop: 10
+        marginTop: 5
     },
     discussionpostBody: {
         color: 'white',
