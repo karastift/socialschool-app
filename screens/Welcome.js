@@ -1,46 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions, ScrollView, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, ScrollView, SafeAreaView, Button, RefreshControl } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const Welcome = ({ navigation }) => {
+const host = 'http://192.168.178.113/api/';
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
+const Welcome = ({ navigation, token }) => {
 
-    let [token, setToken] = useState('noToken');
     let [discussionPostArray, setArray] = useState([]);
 
-    async function loginAsGuest() {
-        try {
-            let response = await fetch('http://192.168.178.113/api/login.php', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                            'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    guest: true
-                })
-              });
-            let responseJson = await response.json();
+    const [refreshing, setRefreshing] = React.useState(false);
 
-            console.log(responseJson.token);
-            setToken(responseJson.token);
-            if (discussionPostArray == []) {
-                getData();
-            }
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        getData();
+        wait(2000).then(() => setRefreshing(false));
+    }, []);
 
-    async function getData() {
+    let getData = async () => {
         try {
             if (token == 'noToken') {
-                console.log('there is no token');
-                loginAsGuest();
+                console.log('no token given');
             }
             else {
                 let response = await fetch(
-                    `http://192.168.178.113/api/get_posts.php?token=${token}`, {
+                    `${host}get_posts.php?token=${token}`, {
                     method: 'GET',
                     headers: {
                         Accept: 'application/json',
@@ -48,7 +33,6 @@ const Welcome = ({ navigation }) => {
                     }
                 });
                 let responseJson = await response.json();
-                console.log(responseJson);
                 setArray(responseJson.postData);
             }
         }
@@ -57,7 +41,7 @@ const Welcome = ({ navigation }) => {
         }
     }
     
-    useEffect(()=>{ getData();}, []);
+    useEffect(()=>{ getData(); }, []);
 
     const PostPreview = (props) => {
         let title = props.title;
@@ -81,6 +65,10 @@ const Welcome = ({ navigation }) => {
             <View>
                 <View style={styles.headerBackground}>
                     <Text style={styles.headerText}>Discuss My School</Text>
+                    <Button
+                        title="Go to Sign In"
+                        onPress={() => navigation.navigate('Login')}
+                    />
                 </View>
 
                 <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
