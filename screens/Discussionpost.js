@@ -1,16 +1,40 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Dimensions, SafeAreaView } from 'react-native';
+import configData from "../config.json";
 
 const Discussionpost = ({ navigation, route }) => {
     
-    let [title, setTitle] = useState('');
-    let [body, setBody] = useState('');
+    const [title, setTitle] = useState('');
+    const [body, setBody] = useState('');
+    
+    const host = configData.serverData.serverUrl;
+    const getPostUrl = configData.serverData.getPostUrl;
 
-    useEffect(() => {
-        // call to api
-        setTitle('sjgjdfhsdhfkjsdhfkjlshjfksdhjkfsdjkhfkjlhfdasdasdasdasdjky'+route.params.id);
-        setBody('sfhuisdhoifjiodsjyfiojiodsjfiodsjiofjoidhiuewhf    iusf'.repeat(20));
-    }, []);
+    let getData = async () => {
+        try {
+            if (route.params.token == 'noToken') {
+                console.log('no token given');
+            }
+            else {
+                let response = await fetch(
+                    `${host}${getPostUrl}?token=${route.params.token}&discussionpostId=${route.params.id}`, {
+                    method: 'GET',
+                    headers: {
+                        Accept: 'application/json',
+                                'Content-Type': 'application/json'
+                    }
+                });
+                let responseJson = await response.json();
+                setTitle(responseJson.data.discussionpostTitle);
+                setBody(responseJson.data.discussionpostBody);
+            }
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+    
+    useEffect(()=>{ getData(); }, []);
 
     const PostPreview = () => {
         
