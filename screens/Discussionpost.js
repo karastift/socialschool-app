@@ -1,42 +1,83 @@
+import { useCardAnimation } from '@react-navigation/stack';
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Dimensions, SafeAreaView } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import configData from "../config.json";
 
 const Discussionpost = ({ navigation, route }) => {
     
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
-    
+    const [commentArray, setArray] = useState([]);
+    let commentIdArray = [];
+
     const host = configData.serverData.serverUrl;
     const getPostUrl = configData.serverData.getPostUrl;
+    const getCommentUrl = configData.serverData.getCommentUrl;
 
-    let getData = async () => {
+    const getComments = async () => {
+        setArray([]);
+        commentIdArray.map((id, index) => {
+            try {
+
+                if (route.params.token == 'noToken') {
+                    console.log('no token given');
+                }
+                else {
+                    fetch(
+                        `${host}${getCommentUrl}?token=${route.params.token}&commentId=${id}`, {
+                        method: 'GET',
+                        headers: {
+                            Accept: 'application/json',
+                                    'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then((data) => {
+                        setArray(commentArray => [...commentArray, data.data]);
+                        console.log(data.data)
+                    });
+                }
+            }
+            catch (error) {
+                console.error(error);
+            }
+        });
+        console.log(commentArray.length);
+        console.log(commentArray);
+    }
+
+    const getData = async () => {
         try {
             if (route.params.token == 'noToken') {
                 console.log('no token given');
             }
             else {
-                let response = await fetch(
+                fetch(
                     `${host}${getPostUrl}?token=${route.params.token}&discussionpostId=${route.params.id}`, {
                     method: 'GET',
                     headers: {
                         Accept: 'application/json',
                                 'Content-Type': 'application/json'
                     }
-                });
-                let responseJson = await response.json();
+                })
+                .then(response => response.json())
+                .then((responseJson) => {
                 setTitle(responseJson.data.discussionpostTitle);
                 setBody(responseJson.data.discussionpostBody);
+                commentIdArray = responseJson.data.commentIds;
+                })
+                .then(() => { getComments(); })
             }
         }
         catch (error) {
             console.error(error);
         }
-    }
+    };
     
     useEffect(()=>{ getData(); }, []);
 
-    const PostPreview = () => {
+    const Post = () => {
         
         return (
             <View style={styles.discussionpostWrapper}>
@@ -48,12 +89,38 @@ const Discussionpost = ({ navigation, route }) => {
             </View>
         );
     };
+    const randomWords = ['says:', 'claims:', 'thinks:', 'believes:', 'is of the view:', 'is of the opinion:'];
+    const Comment = (props) => {
+        let username = props.username;
+        let body = props.body;
+        let index = props.id;
+        let randWord = randomWords[Math.floor(Math.random() * randomWords.length)];
+        return (
+            <View style={styles.commentWrapper} key={index}>
+                <View style={styles.comment}>
+                    <Text style={styles.commentInfo} key={index.toString()+'info'}>{username} {randWord}</Text>
+                    <Text style={styles.commentBody} key={index.toString()+'body'}>{body}</Text>
+                </View>
+            </View>
+        );
+    };
 
     return (
         <SafeAreaView style={styles.container}>
             <View>
                 <Text style={styles.header} onPress={() => navigation.navigate('Welcome')}>Discuss My School</Text>
-                <PostPreview/>
+                <Post/>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    {commentArray.map((comment, index) => {
+                        return (
+                            <Comment
+                                username={comment.commentUserId}
+                                body={comment.commentContent}
+                                id={index}
+                            />
+                        );
+                    })}
+                </ScrollView>
             </View>
         </SafeAreaView>
     );
@@ -114,5 +181,31 @@ const styles = StyleSheet.create({
     load: {
         marginTop: '60%',
         marginBottom: '40%'
-    }
+    },
+    commentWrapper: {
+        marginTop: 15,
+    },
+    comment: {
+        color: 'white',
+        backgroundColor: 'rgb(35, 35, 35)',
+        // alignItems: 'center',
+        width: windowWidth-40,
+        borderRadius: 24,
+        paddingRight: 6,
+        paddingLeft: 6
+        
+    },
+    commentInfo: {
+        color: '#bdbdbd',
+        fontWeight: 'bold',
+        textAlign: 'left',
+        marginTop: 10,
+        marginBottom: 5,
+        marginLeft: 15
+    },
+    commentBody: {
+        color: '#a3a3a3',
+        textAlign: 'center',
+        paddingBottom: 10
+    },
 });
