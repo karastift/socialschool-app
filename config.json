@@ -1,8 +1,9 @@
 {
     "serverData": {
-        "serverUrl": "http://192.168.178.61/api/",
+        "serverUrl": "http://localhost/api/",
         "loginUrl": "login.php",
         "getPostsUrl": "get_posts.php",
-        "getPostUrl": "get_post.php"
+        "getPostUrl": "get_post.php",
+        "getCommentUrl": "get_comment.php"
     }
 }
