@@ -34,8 +34,15 @@ const Discussionpost = ({ navigation, route }) => {
                     })
                     .then(response => response.json())
                     .then((data) => {
-                        setArray(commentArray => [...commentArray, data.data]);
-                        console.log(data.data)
+                        if (data.message != 'Unable to access comment.') {
+                            setArray(commentArray => [...commentArray, data.data]);
+                        }
+                        else {
+                            setArray(commentArray => [...commentArray, {
+                                commentUserId: '',
+                                commentContent: 'You could be the very first one to comment.'
+                            }]);
+                        }
                     });
                 }
             }
@@ -43,8 +50,6 @@ const Discussionpost = ({ navigation, route }) => {
                 console.error(error);
             }
         });
-        console.log(commentArray.length);
-        console.log(commentArray);
     }
 
     const getData = async () => {
@@ -62,10 +67,10 @@ const Discussionpost = ({ navigation, route }) => {
                     }
                 })
                 .then(response => response.json())
-                .then((responseJson) => {
-                setTitle(responseJson.data.discussionpostTitle);
-                setBody(responseJson.data.discussionpostBody);
-                commentIdArray = responseJson.data.commentIds;
+                .then((responseJson) => {  
+                    setTitle(responseJson.data.discussionpostTitle);
+                    setBody(responseJson.data.discussionpostBody);
+                    commentIdArray = responseJson.data.commentIds;
                 })
                 .then(() => { getComments(); })
             }
@@ -78,7 +83,6 @@ const Discussionpost = ({ navigation, route }) => {
     useEffect(()=>{ getData(); }, []);
 
     const Post = () => {
-        
         return (
             <View style={styles.discussionpostWrapper}>
                 <View style={styles.discussionpost}>
@@ -95,11 +99,20 @@ const Discussionpost = ({ navigation, route }) => {
         let body = props.body;
         let index = props.id;
         let randWord = randomWords[Math.floor(Math.random() * randomWords.length)];
+        if (username.length != 0) {
+            return (
+                <View style={styles.commentWrapper} key={index}>
+                    <View style={styles.comment} key={index.toString()+'view'}>
+                        <Text style={styles.commentInfo} key={index.toString()+'info'}>{username} {randWord}</Text>
+                        <Text style={styles.commentBody} key={index.toString()+'body'}>{body}</Text>
+                    </View>
+                </View>
+            );
+        }
         return (
             <View style={styles.commentWrapper} key={index}>
-                <View style={styles.comment}>
-                    <Text style={styles.commentInfo} key={index.toString()+'info'}>{username} {randWord}</Text>
-                    <Text style={styles.commentBody} key={index.toString()+'body'}>{body}</Text>
+                <View style={styles.comment} key={index.toString()+'view'}>
+                    <Text style={styles.commentInfo} key={index.toString()+'body'}>{body}</Text>
                 </View>
             </View>
         );
@@ -114,6 +127,7 @@ const Discussionpost = ({ navigation, route }) => {
                     {commentArray.map((comment, index) => {
                         return (
                             <Comment
+                                key={index.toString()+'commentHimSelf'}
                                 username={comment.commentUserId}
                                 body={comment.commentContent}
                                 id={index}

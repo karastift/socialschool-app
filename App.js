@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { AsyncStorage } from '@react-native-community/async-storage';
 import AppLoading from 'expo-app-loading';
 import configData from "./config.json";
 
@@ -13,7 +14,6 @@ const RootStack = createStackNavigator();
 
 const App = () => {
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [token, setToken] = useState('noToken');
     const [gotToken, setGotToken] = useState(false);
     const [error, setError] = useState('');
@@ -44,16 +44,6 @@ const App = () => {
         }
     }
 
-    const handleSignIn = () => {
-        // code
-        setIsAuthenticated(true);
-    };
-
-    const handleSignOut = () => {
-        // code
-        setIsAuthenticated(false);
-    };
-
     if (!gotToken) {
         return (
             <AppLoading 
@@ -77,7 +67,7 @@ const App = () => {
                 <>
                 <RootStack.Screen name="Welcome" options={{ headerShown: false }}>
                     {(props) => (
-                        <Welcome {...props} token={token}/>
+                        <Welcome/>
                     )}
                 </RootStack.Screen>
                 <RootStack.Screen name= "Discussionpost" component={Discussionpost} options={{
@@ -85,7 +75,7 @@ const App = () => {
                 }}/>
                 <RootStack.Screen name="Login" options={{ headerShown: false }}>
                     {(props) => (
-                        <Login {...props} onSignIn={handleSignIn}/>
+                        <Login/>
                     )}
                 </RootStack.Screen>
             </>
