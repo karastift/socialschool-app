@@ -5,16 +5,17 @@ import configData from '../config.json';
 import schoolData from '../schools.json'
 
 const host = configData.serverData.serverUrl;
-const loginUrl = configData.serverData.loginUrl;
+const registerUrl = configData.serverData.registerUrl;
 
 const Login = ({ navigation }) => {
 
     const [username, setUsername] = useState('');
-    const [school, setSchool] = useState('Private Fachoberschule Blumbergg');
+    const [school, setSchool] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState(null);
 
-    async function login() {
+    async function register() {
         if (username.length == 0) {
             setError('Enter your username.');
         }
@@ -27,9 +28,12 @@ const Login = ({ navigation }) => {
         else if (password.length < 4) {
             setError('Entered password is too short.');
         }
+        else if (confirmPassword != password) {
+            setError('Your passwords do not match.');
+        }
         else {
             try {
-                let response = await fetch(`${host}${loginUrl}`, {
+                let response = await fetch(`${host}${registerUrl}`, {
                     method: 'POST',
                     headers: {
                         Accept: 'application/json',
@@ -38,16 +42,21 @@ const Login = ({ navigation }) => {
                     body: JSON.stringify({
                         username: username,
                         school: school,
-                        password: password
+                        password: password,
+                        confirm_password: confirmPassword
                     })
                 })
                 .then(response => response.json())
                 .then((data) => {
-                    if (data.message == 'Successful login.') {
-                        navigation.navigate('Welcome', { token: data.token, loggedIn: true })
+                    if (data.message == 'User was created.') {
+                        console.log(data.message);
+                        console.log(data);
+                        navigation.navigate('Login');
                     }
                     else {
-                        setError('Login failed.');
+                        console.log(data.message);
+                        console.log(data);
+                        setError('Register process failed.');
                     }
                 })
                 
@@ -90,6 +99,18 @@ const Login = ({ navigation }) => {
                         style={styles.field}
                     />
                 </View>
+                <View style={styles.fieldWrapper}>
+                    <TextInput  
+                        placeholder="confirm password" 
+                        placeholderTextColor="#fff"
+                        secureTextEntry={true}
+                        onChangeText={text => setConfirmPassword(text)}
+                        textAlign={'center'}
+                        spellCheck={false}
+                        returnKeyType="done"
+                        style={styles.field}
+                    />
+                </View>
                 <Picker
                     style={{height: 170, width: '100%', color: 'white'}}
                     itemStyle={{color: 'white'}}
@@ -104,11 +125,11 @@ const Login = ({ navigation }) => {
                     })}
                 </Picker>
 
-                <TouchableOpacity style={{padding: 25}} onPress={()=>{login();}}>
-                    <Text style={styles.submit}>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{padding: 5}} onPress={()=>{navigation.navigate('Register');}}>
+                <TouchableOpacity style={{padding: 25}} onPress={()=>{register();}}>
                     <Text style={styles.submit}>Register</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{padding: 5}} onPress={()=>{navigation.navigate('Login');}}>
+                    <Text style={styles.submit}>Login</Text>
                 </TouchableOpacity>
             </View>
         </View>

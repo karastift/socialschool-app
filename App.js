@@ -7,6 +7,7 @@ import configData from "./config.json";
 import Welcome from './screens/Welcome';
 import Discussionpost from './screens/Discussionpost';
 import Login from './screens/Login';
+import Register from './screens/Register';
 import Error from './screens/Error';
 
 const RootStack = createStackNavigator();
@@ -77,6 +78,11 @@ const App = () => {
                 <RootStack.Screen name="Login" options={{ headerShown: false }}>
                     {(props) => (
                         <Login {...props}/>
+                    )}
+                </RootStack.Screen>
+                <RootStack.Screen name="Register" options={{ headerShown: false }}>
+                    {(props) => (
+                        <Register {...props}/>
                     )}
                 </RootStack.Screen>
             </>

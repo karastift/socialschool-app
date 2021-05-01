@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions, ScrollView, SafeAreaView, TouchableOpacity, Button } from 'react-native';
+import { DevSettings, StyleSheet, Text, View, Dimensions, ScrollView, SafeAreaView, TouchableOpacity, Button } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import configData from "../config.json";
 
@@ -7,7 +7,9 @@ const host = configData.serverData.serverUrl;
 const getPostsUrl = configData.serverData.getPostsUrl;
 
 const Welcome = ({ navigation, token, route }) => {
-    let [discussionPostArray, setArray] = useState([]);
+    const [discussionPostArray, setArray] = useState([]);
+    const [loggedIn, setLoggedIn] = useState(false);
+
 
     let getData = async () => {
         console.log('called');
@@ -20,6 +22,7 @@ const Welcome = ({ navigation, token, route }) => {
             if (typeof route.params != "undefined") {
                 if ((typeof route.params.token != "undefined")) {
                     thisToken = route.params.token;
+                    setLoggedIn(route.params.loggedIn);
                     console.log('costum token in use');
                 }
             }
@@ -70,9 +73,15 @@ const Welcome = ({ navigation, token, route }) => {
             <View>
                 <View style={styles.headerBackground}>
                     <Text style={styles.headerText}>Discuss My School</Text>
+                    {loggedIn == false ? (
                     <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.loginButton}>
                         <Text style={styles.loginText}>Login</Text>
                     </TouchableOpacity>
+                    ) : (
+                        <TouchableOpacity onPress={() => {setLoggedIn(false); DevSettings.reload();}} style={styles.loginButton}>
+                            <Text style={styles.loginText}>Logout</Text>
+                        </TouchableOpacity>
+                    )}
                 </View>
 
                 <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
@@ -117,7 +126,7 @@ const styles = StyleSheet.create({
         
     },
     loginButton: {
-        width: 50,
+        width: 55,
         backgroundColor:'rgb(40, 40, 40)',
         borderRadius: 25,
         height: 50,
