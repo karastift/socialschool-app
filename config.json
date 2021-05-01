@@ -2,6 +2,7 @@
     "serverData": {
         "serverUrl": "http://192.168.178.61/api/",
         "loginUrl": "login.php",
+        "registerUrl": "register.php",
         "getPostsUrl": "get_posts.php",
         "getPostUrl": "get_post.php",
         "getCommentUrl": "get_comment.php"

@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native';
-import configData from "../config.json";
+import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native';
+import {Picker} from '@react-native-picker/picker';
+import configData from '../config.json';
+import schoolData from '../schools.json'
+
+const host = configData.serverData.serverUrl;
+const loginUrl = configData.serverData.loginUrl;
 
 const Login = ({ navigation }) => {
-    const host = configData.serverData.serverUrl;
-    const loginUrl = configData.serverData.loginUrl;
 
     const [username, setUsername] = useState('');
-    const [school, setSchool] = useState('');
+    const [school, setSchool] = useState('Private Fachoberschule Blumbergg');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
-
-    function validateSchools(school) {
-        return true;
-    }
 
     async function login() {
         if (username.length == 0) {
@@ -21,9 +20,6 @@ const Login = ({ navigation }) => {
         }
         else if (username.length < 4) {
             setError('Entered username is too short.');
-        }
-        else if (!validateSchools(school)) {
-            setError('Invalid school.');
         }
         else if (password.length == 0) {
             setError('Enter your password.');
@@ -48,7 +44,7 @@ const Login = ({ navigation }) => {
                 .then(response => response.json())
                 .then((data) => {
                     if (data.message == 'Successful login.') {
-                        navigation.navigate('Welcome', { token: data.token })
+                        navigation.navigate('Welcome', { token: data.token, loggedIn: true })
                     }
                     else {
                         setError('Login failed.');
@@ -61,7 +57,7 @@ const Login = ({ navigation }) => {
                 console.error(e);
                 return Promise.reject();
             }
-    }
+        }
     }
 
     return (
@@ -84,17 +80,6 @@ const Login = ({ navigation }) => {
                 </View>
                 <View style={styles.fieldWrapper}>
                     <TextInput  
-                        placeholder="school" 
-                        placeholderTextColor="#fff"
-                        onChangeText={text => setSchool(text)}
-                        textAlign={'center'}
-                        spellCheck={false}
-                        returnKeyType="done"
-                        style={styles.field}
-                    />
-                </View>
-                <View style={styles.fieldWrapper}>
-                    <TextInput  
                         placeholder="password" 
                         placeholderTextColor="#fff"
                         secureTextEntry={true}
@@ -103,13 +88,27 @@ const Login = ({ navigation }) => {
                         spellCheck={false}
                         returnKeyType="done"
                         style={styles.field}
-                        onSubmitEditing={login}
                     />
                 </View>
-                
+                <Picker
+                    style={{height: 170, width: '100%', color: 'white'}}
+                    itemStyle={{color: 'white'}}
+                    selectedValue={school}
+                    onValueChange={(itemValue, itemIndex) =>
+                        setSchool(itemValue)
+                    }>
+                    {schoolData.schools.sort().map((school2, index) => {
+                        return (
+                            <Picker.Item key={index} color="white" label={school2} value={school2}/>
+                        );
+                    })}
+                </Picker>
 
-                <TouchableOpacity style={{padding: 20}} onPress={()=>{login();}}>
+                <TouchableOpacity style={{padding: 25}} onPress={()=>{login();}}>
                     <Text style={styles.submit}>Login</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{padding: 5}} onPress={()=>{navigation.navigate('Register');}}>
+                    <Text style={styles.submit}>Register</Text>
                 </TouchableOpacity>
             </View>
         </View>

@@ -3,15 +3,15 @@ import { StyleSheet, Text, View, Dimensions, SafeAreaView } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import configData from "../config.json";
 
+const host = configData.serverData.serverUrl;
+const getPostUrl = configData.serverData.getPostUrl;
+const getCommentUrl = configData.serverData.getCommentUrl;
+
 const Discussionpost = ({ navigation, route }) => {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [commentArray, setArray] = useState([]);
     let commentIdArray = [];
-
-    const host = configData.serverData.serverUrl;
-    const getPostUrl = configData.serverData.getPostUrl;
-    const getCommentUrl = configData.serverData.getCommentUrl;
 
     const getComments = async () => {
         setArray([]);
