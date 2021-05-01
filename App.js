@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { AsyncStorage } from '@react-native-community/async-storage';
 import AppLoading from 'expo-app-loading';
 import configData from "./config.json";
 
@@ -67,7 +66,7 @@ const App = () => {
                 <>
                 <RootStack.Screen name="Welcome" options={{ headerShown: false }}>
                     {(props) => (
-                        <Welcome/>
+                        <Welcome token={token}/>
                     )}
                 </RootStack.Screen>
                 <RootStack.Screen name= "Discussionpost" component={Discussionpost} options={{
