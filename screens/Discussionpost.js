@@ -1,11 +1,9 @@
-import { useCardAnimation } from '@react-navigation/stack';
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Dimensions, SafeAreaView } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import configData from "../config.json";
 
 const Discussionpost = ({ navigation, route }) => {
-    
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [commentArray, setArray] = useState([]);

@@ -31,7 +31,7 @@ const App = () => {
                 body: JSON.stringify({
                     guest: true
                 })
-              });
+            });
             let responseJson = await response.json();
 
             setToken(responseJson.token);
@@ -66,15 +66,17 @@ const App = () => {
                 <>
                 <RootStack.Screen name="Welcome" options={{ headerShown: false }}>
                     {(props) => (
-                        <Welcome token={token}/>
+                        <Welcome {...props} token={token}/>
                     )}
                 </RootStack.Screen>
-                <RootStack.Screen name= "Discussionpost" component={Discussionpost} options={{
-                    headerShown: false
-                }}/>
+                <RootStack.Screen name= "Discussionpost" options={{headerShown: false}}>
+                    {(props) => (
+                            <Discussionpost {...props} token={token}/>
+                        )}
+                </RootStack.Screen>
                 <RootStack.Screen name="Login" options={{ headerShown: false }}>
                     {(props) => (
-                        <Login/>
+                        <Login {...props}/>
                     )}
                 </RootStack.Screen>
             </>

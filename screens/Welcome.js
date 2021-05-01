@@ -1,42 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions, ScrollView, SafeAreaView, Button, RefreshControl, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, ScrollView, SafeAreaView, TouchableOpacity, Button } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import configData from "../config.json";
 
 const host = configData.serverData.serverUrl;
 const getPostsUrl = configData.serverData.getPostsUrl;
 
-const Welcome = ({ navigation, token }) => {
-
+const Welcome = ({ navigation, token, route }) => {
     let [discussionPostArray, setArray] = useState([]);
 
     let getData = async () => {
+        console.log('called');
+        let thisToken;
         try {
-            if (token == 'noToken') {
-                console.log('no token given');
+            if (token != 'noToken') {
+                thisToken = token;
+                console.log('guest token in use');
             }
-            else {
-                let response = await fetch(
-                    `${host}${getPostsUrl}?token=${token}`, {
-                    method: 'GET',
-                    headers: {
-                        Accept: 'application/json',
-                                'Content-Type': 'application/json'
-                    }
-                });
-                let responseJson = await response.json();
-                setArray(responseJson.postData);
+            if (typeof route.params != "undefined") {
+                if ((typeof route.params.token != "undefined")) {
+                    thisToken = route.params.token;
+                    console.log('costum token in use');
+                }
             }
+            let response = await fetch(
+                `${host}${getPostsUrl}?token=${thisToken}`, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                            'Content-Type': 'application/json'
+                }
+            });
+            let responseJson = await response.json();
+            setArray(responseJson.postData);
+        
+            token = thisToken;
         }
         catch (error) {
             console.error(error);
         }
     }
     
-    useEffect(()=>{ getData(); }, []);
+    useEffect(()=>{ getData(); }, [route.params]);
+
 
     const PostPreview = (props) => {
         let username = props.username;
+        let status = props.status;
         let created = props.created;
         let upvotes = props.upvotes;
         let title = props.title;
@@ -49,7 +59,7 @@ const Welcome = ({ navigation, token }) => {
                     <Text key={'title'+key.toString()} style={styles.discussionpostTitle}>{title}</Text>
                     <Text key={'break'+key.toString()}> </Text>
                     <Text key={'body'+key.toString()} style={styles.discussionpostBody}>{body}...</Text>
-                    <Text key={'info'+key.toString()} style={styles.discussionpostInfo}>posted by {username} | {upvotes}</Text>
+                    <Text key={'info'+key.toString()} style={styles.discussionpostInfo}>posted by {username} | {status} | {upvotes}</Text>
                 </View>
             </View>
         );
@@ -60,10 +70,9 @@ const Welcome = ({ navigation, token }) => {
             <View>
                 <View style={styles.headerBackground}>
                     <Text style={styles.headerText}>Discuss My School</Text>
-                    {/*<Button
-                        title="Go to Sign In"
-                        onPress={() => navigation.navigate('Login')}
-                    />*/}
+                    <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.loginButton}>
+                        <Text style={styles.loginText}>Login</Text>
+                    </TouchableOpacity>
                 </View>
 
                 <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
@@ -76,6 +85,7 @@ const Welcome = ({ navigation, token }) => {
                                             id={post.data.discussionpostId} 
                                             username={post.data.discussionpostUsername} 
                                             upvotes={post.data.discussionpostUpvotes}
+                                            status={post.data.discussionpostStatus}
                                 />
                             </TouchableOpacity>
                         );
@@ -103,8 +113,23 @@ const styles = StyleSheet.create({
     },
     headerText: {
         color: 'red',
-        fontSize: 30
+        fontSize: 30,
         
+    },
+    loginButton: {
+        width: 50,
+        backgroundColor:'rgb(40, 40, 40)',
+        borderRadius: 25,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        top: 43,
+        right: 40
+    },
+    loginText: {
+        color: 'grey',
+        fontWeight: 'bold'
     },
     headerBackground: {
         width: windowWidth,        
@@ -112,7 +137,10 @@ const styles = StyleSheet.create({
         paddingTop: 50,
         paddingBottom: 5,
         marginTop: 10,
-        marginBottom: 5
+        marginBottom: 5,
+        alignItems: 'center',
+        flexDirection:'row',
+        flexWrap:'wrap'
     },
     scrollView: {
         zIndex: 1,
@@ -129,8 +157,7 @@ const styles = StyleSheet.create({
         width: windowWidth-40,
         maxHeight: 700,
         overflow: 'hidden',
-        paddingRight: 6,
-        paddingLeft: 6
+        paddingHorizontal: 6
         
     },
     discussionpostInfo: {
@@ -147,15 +174,6 @@ const styles = StyleSheet.create({
     },
     discussionpostBody: {
         color: 'white',
-        textAlign: 'center'
-    },
-    discussionpostLink: {
-        width:  windowWidth-40,
-        color: 'red',
-        marginBottom: 5,
-        paddingTop: 10,
-        backgroundColor : 'rgb(40,40,40)',
-        backgroundColor: 'linear-gradient(0deg, rgba(40,40,40,1) 39%, rgba(255,0,0,0) 100%)',
         textAlign: 'center'
     },
     load: {
