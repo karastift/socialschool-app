@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Dimensions, SafeAreaView } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import configData from "../config.json";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const host = configData.serverData.serverUrl;
 const getPostUrl = configData.serverData.getPostUrl;
@@ -11,19 +12,57 @@ const Discussionpost = ({ navigation, route }) => {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [commentArray, setArray] = useState([]);
+    const [token, setToken] = useState('');
+    const [loggedIn, setLoggedIn] = useState(false);
     let commentIdArray = [];
+
+    const getStoredData = async () => {
+        console.log('called');
+        try {
+            const tmpToken = await AsyncStorage.getItem('@token')
+            const tmpGuestToken = await AsyncStorage.getItem('@guestToken')
+            if (tmpToken != null) {
+                setToken(JSON.parse(tmpToken));
+                console.log('set token: '+token);
+            }
+            else if (tmpGuestToken !== null) {
+                setToken(JSON.parse(tmpGuestToken));
+                console.log('set guest token: '+token);
+            }
+            const tmpLoggedIn = await AsyncStorage.getItem('@loggedIn')
+            if (tmpLoggedIn !== null) {
+                setLoggedIn(JSON.parse(tmpLoggedIn));
+            }
+        }
+        catch (e) {
+            console.error(e);
+        }
+    }
+
+    const setGuestToken = async () => {
+        try {
+            const tmpGuestToken = await AsyncStorage.getItem('@guestToken')
+            if (tmpGuestToken != null) {
+                setToken(JSON.parse(tmpGuestToken));
+                console.log('set guestt token: '+tmpGuestToken);
+            }
+        }
+        catch (e) {
+            console.error(e);
+        }
+    };
 
     const getComments = async () => {
         setArray([]);
         commentIdArray.map((id, index) => {
             try {
 
-                if (route.params.token == 'noToken') {
+                if (token == '') {
                     console.log('no token given');
                 }
                 else {
                     fetch(
-                        `${host}${getCommentUrl}?token=${route.params.token}&commentId=${id}`, {
+                        `${host}${getCommentUrl}?token=${token}&commentId=${id}`, {
                         method: 'GET',
                         headers: {
                             Accept: 'application/json',
@@ -37,7 +76,7 @@ const Discussionpost = ({ navigation, route }) => {
                         }
                         else {
                             setArray(commentArray => [...commentArray, {
-                                commentUserId: '',
+                                commentUsername: '',
                                 commentContent: 'You could be the very first one to comment.'
                             }]);
                         }
@@ -52,12 +91,12 @@ const Discussionpost = ({ navigation, route }) => {
 
     const getData = async () => {
         try {
-            if (route.params.token == 'noToken') {
+            if (token == 'noToken') {
                 console.log('no token given');
             }
             else {
                 fetch(
-                    `${host}${getPostUrl}?token=${route.params.token}&discussionpostId=${route.params.id}`, {
+                    `${host}${getPostUrl}?token=${token}&discussionpostId=${route.params.id}`, {
                     method: 'GET',
                     headers: {
                         Accept: 'application/json',
@@ -70,7 +109,7 @@ const Discussionpost = ({ navigation, route }) => {
                     setBody(responseJson.data.discussionpostBody);
                     commentIdArray = responseJson.data.commentIds;
                 })
-                .then(() => { getComments(); })
+                .then(() => { getComments();})
             }
         }
         catch (error) {
@@ -78,7 +117,8 @@ const Discussionpost = ({ navigation, route }) => {
         }
     };
     
-    useEffect(()=>{ getData(); }, []);
+    useEffect(()=>{ getStoredData() }, [route.params]);
+    useEffect(()=>{ getData(); }, [token]);
 
     const Post = () => {
         return (

@@ -131,6 +131,9 @@ const Login = ({ navigation }) => {
                 <TouchableOpacity style={{padding: 5}} onPress={()=>{navigation.navigate('Login');}}>
                     <Text style={styles.submit}>Login</Text>
                 </TouchableOpacity>
+                <TouchableOpacity style={{padding: 5}} onPress={()=>{navigation.navigate('Welcome');}}>
+                    <Text style={styles.submit}>back</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -192,10 +195,10 @@ const styles = StyleSheet.create({
     },
     submit: {
         color: 'red',
-        marginTop: 20
+        marginTop: 10
     },
     error: {
         color: 'lightblue',
-        marginBottom: 20
+        transform: [{translateY: 230}],
     }
 });

@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AppLoading from 'expo-app-loading';
 import configData from "./config.json";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Welcome from './screens/Welcome';
 import Discussionpost from './screens/Discussionpost';
@@ -13,13 +14,39 @@ import Error from './screens/Error';
 const RootStack = createStackNavigator();
 
 const App = () => {
+    useEffect(()=>{ console.log('-'.repeat(30)); }, []);
 
-    const [token, setToken] = useState('noToken');
     const [gotToken, setGotToken] = useState(false);
     const [error, setError] = useState('');
 
     const host = configData.serverData.serverUrl;
     const loginUrl = configData.serverData.loginUrl;
+
+    const storeToken = async (key, value) => {
+        console.log('storing...' + value);
+        try {
+            const jsonValue = JSON.stringify(value);
+            await AsyncStorage.setItem(key, jsonValue);
+        }
+        catch (e) {
+            console.error(e);
+        }
+    }
+    /*
+    const isPrevToken = async () => {
+        console.log('called');
+        try {
+            const tmpToken = await AsyncStorage.getItem('@token')
+            if (tmpToken.length > 10) {
+                console.log('already got a token: '+tmpToken);
+                return true;
+            }
+            return false;
+        }
+        catch (e) {
+            console.error(e);
+        }
+    }*/
 
     async function loginAsGuest() {
         try {
@@ -35,7 +62,9 @@ const App = () => {
             });
             let responseJson = await response.json();
 
-            setToken(responseJson.token);
+            storeToken('@token', responseJson.token);
+            storeToken('@guestToken', responseJson.token);
+
             return Promise.resolve();   
         }
         catch (e) {
@@ -67,12 +96,12 @@ const App = () => {
                 <>
                 <RootStack.Screen name="Welcome" options={{ headerShown: false }}>
                     {(props) => (
-                        <Welcome {...props} token={token}/>
+                        <Welcome {...props}/>
                     )}
                 </RootStack.Screen>
                 <RootStack.Screen name= "Discussionpost" options={{headerShown: false}}>
                     {(props) => (
-                            <Discussionpost {...props} token={token}/>
+                            <Discussionpost {...props}/>
                         )}
                 </RootStack.Screen>
                 <RootStack.Screen name="Login" options={{ headerShown: false }}>

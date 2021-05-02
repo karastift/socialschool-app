@@ -1,50 +1,98 @@
 import React, { useState, useEffect } from 'react';
 import { DevSettings, StyleSheet, Text, View, Dimensions, ScrollView, SafeAreaView, TouchableOpacity, Button } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import configData from "../config.json";
+import { createIconSetFromFontello } from 'react-native-vector-icons';
 
 const host = configData.serverData.serverUrl;
 const getPostsUrl = configData.serverData.getPostsUrl;
 
-const Welcome = ({ navigation, token, route }) => {
+const Welcome = ({ navigation, route }) => {
     const [discussionPostArray, setArray] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
+    const [token, setToken] = useState('');
 
-
-    let getData = async () => {
-        let thisToken;
+    const getStoredData = async () => {
         console.log('called');
         try {
-            if (token != 'noToken') {
-                thisToken = token;
-                console.log('guest token in use');
+            const tmpToken = await AsyncStorage.getItem('@token')
+            const tmpGuestToken = await AsyncStorage.getItem('@guestToken')
+            if (tmpToken != null) {
+                setToken(JSON.parse(tmpToken));
+                console.log('set token: '+token);
             }
-            if (typeof route.params != "undefined") {
-                if ((typeof route.params.token != "undefined")) {
-                    thisToken = route.params.token;
-                    setLoggedIn(route.params.loggedIn);
-                    console.log('costum token in use');
-                }
+            else if (tmpGuestToken !== null) {
+                setToken(JSON.parse(tmpGuestToken));
+                console.log('set guest token: '+token);
             }
-            let response = await fetch(
-                `${host}${getPostsUrl}?token=${thisToken}`, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                            'Content-Type': 'application/json'
-                }
-            });
-            let responseJson = await response.json();
-            setArray(responseJson.postData);
-        
-            token = thisToken;
+            const tmpLoggedIn = await AsyncStorage.getItem('@loggedIn')
+            if (tmpLoggedIn !== null) {
+                setLoggedIn(JSON.parse(tmpLoggedIn));
+            }
         }
-        catch (error) {
-            console.error(error);
+        catch (e) {
+            console.error(e);
         }
     }
+
+    const storeData = async (key, value) => {
+        console.log('storing...' + value);
+        try {
+            const jsonValue = JSON.stringify(value);
+            await AsyncStorage.setItem(key, jsonValue);
+        }
+        catch (e) {
+            console.error(e);
+        }
+    }
+
+    const setGuestToken = async () => {
+        try {
+            const tmpGuestToken = await AsyncStorage.getItem('@guestToken')
+            if (tmpGuestToken != null) {
+                setToken(JSON.parse(tmpGuestToken));
+                console.log('set guestt token: '+tmpGuestToken);
+            }
+        }
+        catch (e) {
+            console.error(e);
+        }
+    };
+
+    async function logout () {
+        storeData('@token', '')
+        .then(storeData('@loggedIn', false))
+        .then(setGuestToken())
+        .then(setLoggedIn(false));
+    }
+
+    let getData = async () => {
+        if (token.length != 0) {
+            console.log('got token: '+token)
+            try {
+                let response = fetch(
+                    `${host}${getPostsUrl}?token=${token}`, {
+                    method: 'GET',
+                    headers: {
+                        Accept: 'application/json',
+                                'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then((data) => {
+                    setArray(data.postData);
+                })
+            }
+            catch (error) {
+                console.error(error);
+            }
+        }
+        else {console.log('no token yet');}
+    }
     
-    useEffect(()=>{ getData(); }, [route.params]);
+    useEffect(()=>{ getStoredData() }, [route.params]);
+    useEffect(()=>{ getData(); }, [token]);
 
 
     const PostPreview = (props) => {
@@ -67,27 +115,28 @@ const Welcome = ({ navigation, token, route }) => {
             </View>
         );
     };
-
     return (
         <SafeAreaView style={styles.container}>
             <View>
                 <View style={styles.headerBackground}>
                     <Text style={styles.headerText}>Discuss My School</Text>
-                    {loggedIn == false ? (
+                    {loggedIn != true ? (
                     <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.loginButton}>
                         <Text style={styles.loginText}>Login</Text>
                     </TouchableOpacity>
                     ) : (
-                        <TouchableOpacity onPress={() => {setLoggedIn(false); DevSettings.reload();}} style={styles.loginButton}>
+                        <TouchableOpacity 
+                            onPress={() => {logout();}} 
+                            style={styles.loginButton}>
                             <Text style={styles.loginText}>Logout</Text>
                         </TouchableOpacity>
                     )}
                 </View>
-
+                
                 <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
                     {discussionPostArray.map((post, index) => {
                         return (
-                            <TouchableOpacity key={'forpress'+index.toString()} onPress={() => navigation.navigate('Discussionpost', { id: post.data.discussionpostId, token: token })}>
+                            <TouchableOpacity key={'forpress'+index.toString()} onPress={() => navigation.navigate('Discussionpost', { id: post.data.discussionpostId})}>
                                 <PostPreview key={index} 
                                             body={post.data.discussionpostBody} 
                                             title={post.data.discussionpostTitle} 
