@@ -12,8 +12,8 @@ const Welcome = ({ navigation, token, route }) => {
 
 
     let getData = async () => {
-        console.log('called');
         let thisToken;
+        console.log('called');
         try {
             if (token != 'noToken') {
                 thisToken = token;

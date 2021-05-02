@@ -126,7 +126,7 @@ const Discussionpost = ({ navigation, route }) => {
                         return (
                             <Comment
                                 key={index.toString()+'commentHimSelf'}
-                                username={comment.commentUserId}
+                                username={comment.commentUsername}
                                 body={comment.commentContent}
                                 id={index}
                             />
