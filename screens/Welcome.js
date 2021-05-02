@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DevSettings, StyleSheet, Text, View, Dimensions, ScrollView, SafeAreaView, TouchableOpacity, Button } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import {LinearGradient} from 'expo-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import configData from "../config.json";
 import { createIconSetFromFontello } from 'react-native-vector-icons';
@@ -118,8 +118,12 @@ const Welcome = ({ navigation, route }) => {
     return (
         <SafeAreaView style={styles.container}>
             <View>
-                <View style={styles.headerBackground}>
-                    <Text style={styles.headerText}>Discuss My School</Text>
+                <LinearGradient 
+                    style={styles.headerBackground}
+                    start={{x: 0.5, y: 0}}
+                    end={{x: 0.5, y: 1}}
+                    colors={['#1a1a1a', '#1a1a1a', 'transparent']}
+                >
                     {loggedIn != true ? (
                     <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.loginButton}>
                         <Text style={styles.loginText}>Login</Text>
@@ -131,7 +135,7 @@ const Welcome = ({ navigation, route }) => {
                             <Text style={styles.loginText}>Logout</Text>
                         </TouchableOpacity>
                     )}
-                </View>
+                </LinearGradient>
                 
                 <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
                     {discussionPostArray.map((post, index) => {
@@ -169,11 +173,6 @@ const styles = StyleSheet.create({
         height: windowHeight,
         color: 'white'
     },
-    headerText: {
-        color: 'red',
-        fontSize: 30,
-        
-    },
     loginButton: {
         width: 55,
         backgroundColor:'rgb(40, 40, 40)',
@@ -182,7 +181,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
-        top: 43,
+        top: 0,
         right: 40
     },
     loginText: {
@@ -202,7 +201,7 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         zIndex: 1,
-        marginTop: 120,
+        marginTop: 80,
     },
     discussionpostWrapper: {
         marginBottom: 10,

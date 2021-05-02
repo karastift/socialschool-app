@@ -1,6 +1,6 @@
 {
     "serverData": {
-        "serverUrl": "http://192.168.178.61/api/",
+        "serverUrl": "http://192.168.178.113/api/",
         "loginUrl": "login.php",
         "registerUrl": "register.php",
         "getPostsUrl": "get_posts.php",

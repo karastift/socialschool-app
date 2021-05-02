@@ -89,7 +89,6 @@ const Login = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.headerBackground} >
-                <Text style={styles.headerText}>Discuss My School</Text>
             </View>
             <View style={styles.inputView}>
                 <Text style={styles.error}>{error}</Text>
@@ -135,9 +134,6 @@ const Login = ({ navigation }) => {
                 </TouchableOpacity>
                 <TouchableOpacity style={{padding: 5}} onPress={()=>{navigation.navigate('Register');}}>
                     <Text style={styles.submit}>Register</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{padding: 5}} onPress={()=>{navigation.navigate('Welcome');}}>
-                    <Text style={styles.submit}>back</Text>
                 </TouchableOpacity>
             </View>
         </View>
