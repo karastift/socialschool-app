@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import configData from '../config.json';
 import schoolData from '../schools.json'
 
@@ -10,9 +11,31 @@ const loginUrl = configData.serverData.loginUrl;
 const Login = ({ navigation }) => {
 
     const [username, setUsername] = useState('');
-    const [school, setSchool] = useState('Private Fachoberschule Blumbergg');
+    const [school, setSchool] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+
+    const storeToken = async (value) => {
+        console.log('storing...' + value);
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('@token', jsonValue)
+        }
+        catch (e) {
+            console.error(e);
+        }
+    }
+
+    const setLoggedIn = async () => {
+        console.log('setting logged in...');
+        try {
+            const jsonValue = JSON.stringify(true)
+            await AsyncStorage.setItem('@loggedIn', jsonValue)
+        }
+        catch (e) {
+            console.error(e);
+        }
+    }
 
     async function login() {
         if (username.length == 0) {
@@ -44,7 +67,10 @@ const Login = ({ navigation }) => {
                 .then(response => response.json())
                 .then((data) => {
                     if (data.message == 'Successful login.') {
-                        navigation.navigate('Welcome', { token: data.token, loggedIn: true })
+
+                        storeToken(data.token);
+                        setLoggedIn();
+                        navigation.navigate('Welcome', { justForRefresh: null })
                     }
                     else {
                         setError('Login failed.');
@@ -62,7 +88,7 @@ const Login = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.headerBackground}>
+            <View style={styles.headerBackground} >
                 <Text style={styles.headerText}>Discuss My School</Text>
             </View>
             <View style={styles.inputView}>
@@ -92,7 +118,7 @@ const Login = ({ navigation }) => {
                 </View>
                 <Picker
                     style={{height: 170, width: '100%', color: 'white'}}
-                    itemStyle={{color: 'white'}}
+                    itemStyle={{color: 'black'}}
                     selectedValue={school}
                     onValueChange={(itemValue, itemIndex) =>
                         setSchool(itemValue)
@@ -109,6 +135,9 @@ const Login = ({ navigation }) => {
                 </TouchableOpacity>
                 <TouchableOpacity style={{padding: 5}} onPress={()=>{navigation.navigate('Register');}}>
                     <Text style={styles.submit}>Register</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{padding: 5}} onPress={()=>{navigation.navigate('Welcome');}}>
+                    <Text style={styles.submit}>back</Text>
                 </TouchableOpacity>
             </View>
         </View>
