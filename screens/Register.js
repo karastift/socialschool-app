@@ -71,15 +71,14 @@ const Login = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.headerBackground}>
-                <Text style={styles.headerText}>Discuss My School</Text>
+            <View style={styles.headerground}>
             </View>
             <View style={styles.inputView}>
                 <Text style={styles.error}>{error}</Text>
                 <View style={styles.fieldWrapper}>
                     <TextInput  
                         placeholder="username" 
-                        placeholderTextColor="#fff"
+                        placeholderTextColor="rgba(255, 255, 255, 0.7)"
                         onChangeText={text => setUsername(text)}
                         textAlign={'center'}
                         spellCheck={false}
@@ -90,7 +89,7 @@ const Login = ({ navigation }) => {
                 <View style={styles.fieldWrapper}>
                     <TextInput  
                         placeholder="password" 
-                        placeholderTextColor="#fff"
+                        placeholderTextColor="rgba(255, 255, 255, 0.7)"
                         secureTextEntry={true}
                         onChangeText={text => setPassword(text)}
                         textAlign={'center'}
@@ -102,7 +101,7 @@ const Login = ({ navigation }) => {
                 <View style={styles.fieldWrapper}>
                     <TextInput  
                         placeholder="confirm password" 
-                        placeholderTextColor="#fff"
+                        placeholderTextColor="rgba(255, 255, 255, 0.7)"
                         secureTextEntry={true}
                         onChangeText={text => setConfirmPassword(text)}
                         textAlign={'center'}
@@ -130,9 +129,6 @@ const Login = ({ navigation }) => {
                 </TouchableOpacity>
                 <TouchableOpacity style={{padding: 5}} onPress={()=>{navigation.navigate('Login');}}>
                     <Text style={styles.submit}>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{padding: 5}} onPress={()=>{navigation.navigate('Welcome');}}>
-                    <Text style={styles.submit}>back</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -185,7 +181,7 @@ const styles = StyleSheet.create({
     fieldWrapper: {
         width: '70%',
         marginVertical: 15,
-        borderBottomColor: 'white',
+        borderBottomColor: 'rgba(255, 255, 255, 0.8)',
         borderBottomWidth: 1,
     },
     field: {

@@ -11,6 +11,8 @@ import Login from './screens/Login';
 import Register from './screens/Register';
 import Error from './screens/Error';
 
+// use header from navigation stack as header
+
 const RootStack = createStackNavigator();
 
 const App = () => {
@@ -87,29 +89,46 @@ const App = () => {
         <NavigationContainer>
             <RootStack.Navigator>
             {error.length != 0 ? (
-                <RootStack.Screen name="Error" options={{ headerShown: false }}>
+                <RootStack.Screen name="Error" options={{}}>
                 {(props) => (
                     <Error {...props} error={error}/>
                 )}
             </RootStack.Screen>
             ) : (
                 <>
-                <RootStack.Screen name="Welcome" options={{ headerShown: false }}>
+                <RootStack.Screen name="Welcome" options={{
+                    headerTitleStyle: {color: 'red', fontWeight: '700'},
+                    headerTransparent: true,
+                    headerBackTitleStyle: {color: 'white'},
+                    title: 'Discuss My School'
+                }}>
                     {(props) => (
                         <Welcome {...props}/>
                     )}
                 </RootStack.Screen>
-                <RootStack.Screen name= "Discussionpost" options={{headerShown: false}}>
+                <RootStack.Screen name= "Discussionpost" options={{
+                    headerTitleStyle: {color: 'red', fontWeight: '700'},
+                    headerBackTitleStyle: {color: 'white'},
+                    headerTransparent: true,
+                }}>
                     {(props) => (
                             <Discussionpost {...props}/>
                         )}
                 </RootStack.Screen>
-                <RootStack.Screen name="Login" options={{ headerShown: false }}>
+                <RootStack.Screen name="Login" options={{
+                    headerTitleStyle: {color: 'red', fontWeight: '700'},
+                    headerBackTitleStyle: {color: 'white'},
+                    headerTransparent: true,
+                }}>
                     {(props) => (
                         <Login {...props}/>
                     )}
                 </RootStack.Screen>
-                <RootStack.Screen name="Register" options={{ headerShown: false }}>
+                <RootStack.Screen name="Register" options={{
+                    headerTitleStyle: {color: 'red', fontWeight: '700'},
+                    headerBackTitleStyle: {color: 'white'},
+                    headerTransparent: true,
+                }}>
                     {(props) => (
                         <Register {...props}/>
                     )}
