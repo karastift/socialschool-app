@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { MenuProvider } from 'react-native-popup-menu';
 import AppLoading from 'expo-app-loading';
 import configData from "./config.json";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,8 +11,8 @@ import Discussionpost from './screens/Discussionpost';
 import Login from './screens/Login';
 import Register from './screens/Register';
 import Error from './screens/Error';
-
-// use header from navigation stack as header
+import DiscussionpostCreation from './screens/DiscussionpostCreation';
+import GradepostCreation from './screens/GradepostCreation';
 
 const RootStack = createStackNavigator();
 
@@ -86,57 +87,79 @@ const App = () => {
     }
 
     return (
-        <NavigationContainer>
-            <RootStack.Navigator>
-            {error.length != 0 ? (
-                <RootStack.Screen name="Error" options={{}}>
-                {(props) => (
-                    <Error {...props} error={error}/>
-                )}
-            </RootStack.Screen>
-            ) : (
-                <>
-                <RootStack.Screen name="Welcome" options={{
-                    headerTitleStyle: {color: 'red', fontWeight: '700'},
-                    headerTransparent: true,
-                    headerBackTitleStyle: {color: 'white'},
-                    title: 'Discuss My School'
-                }}>
+        <MenuProvider>
+            <NavigationContainer>
+                <RootStack.Navigator>
+                {error.length != 0 ? (
+                    <RootStack.Screen name="Error" options={{}}>
                     {(props) => (
-                        <Welcome {...props}/>
+                        <Error {...props} error={error}/>
                     )}
                 </RootStack.Screen>
-                <RootStack.Screen name= "Discussionpost" options={{
-                    headerTitleStyle: {color: 'red', fontWeight: '700'},
-                    headerBackTitleStyle: {color: 'white'},
-                    headerTransparent: true,
-                }}>
-                    {(props) => (
-                            <Discussionpost {...props}/>
+                ) : (
+                    <>
+                    <RootStack.Screen name="Welcome" options={{
+                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerTransparent: true,
+                        headerBackTitleStyle: {color: 'white'},
+                        title: 'Discuss My School'
+                    }}>
+                        {(props) => (
+                            <Welcome {...props}/>
                         )}
-                </RootStack.Screen>
-                <RootStack.Screen name="Login" options={{
-                    headerTitleStyle: {color: 'red', fontWeight: '700'},
-                    headerBackTitleStyle: {color: 'white'},
-                    headerTransparent: true,
-                }}>
-                    {(props) => (
-                        <Login {...props}/>
-                    )}
-                </RootStack.Screen>
-                <RootStack.Screen name="Register" options={{
-                    headerTitleStyle: {color: 'red', fontWeight: '700'},
-                    headerBackTitleStyle: {color: 'white'},
-                    headerTransparent: true,
-                }}>
-                    {(props) => (
-                        <Register {...props}/>
-                    )}
-                </RootStack.Screen>
-            </>
-        )}
-            </RootStack.Navigator>
-        </NavigationContainer>
+                    </RootStack.Screen>
+                    <RootStack.Screen name= "Discussionpost" options={{
+                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerBackTitleStyle: {color: 'white'},
+                        headerTransparent: true,
+                    }}>
+                        {(props) => (
+                                <Discussionpost {...props}/>
+                            )}
+                    </RootStack.Screen>
+                    <RootStack.Screen name="Login" options={{
+                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerBackTitleStyle: {color: 'white'},
+                        headerTransparent: true,
+                    }}>
+                        {(props) => (
+                            <Login {...props}/>
+                        )}
+                    </RootStack.Screen>
+                    <RootStack.Screen name="Register" options={{
+                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerBackTitleStyle: {color: 'white'},
+                        headerTransparent: true,
+                    }}>
+                        {(props) => (
+                            <Register {...props}/>
+                        )}
+                    </RootStack.Screen>
+                    <RootStack.Screen name="DiscussionpostCreation" options={{
+                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerBackTitleStyle: {color: 'white'},
+                        headerTransparent: true,
+                        title: 'new discussion'
+                    }}>
+                        {(props) => (
+                            <DiscussionpostCreation {...props}/>
+                        )}
+                    </RootStack.Screen>
+                    <RootStack.Screen name="GradepostCreation" options={{
+                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerBackTitleStyle: {color: 'white'},
+                        headerTransparent: true,
+                        title: 'new grade'
+                    }}>
+                        {(props) => (
+                            <GradepostCreation {...props}/>
+                        )}
+                    </RootStack.Screen>
+                </>
+            )}
+                </RootStack.Navigator>
+            </NavigationContainer>
+        </MenuProvider>
     );
     
 }
