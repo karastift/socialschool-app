@@ -159,7 +159,6 @@ const Discussionpost = ({ navigation, route }) => {
     return (
         <SafeAreaView style={styles.container}>
             <View>
-                <Text style={styles.header} onPress={() => navigation.navigate('Welcome')}>Discuss My School</Text>
                 <Post/>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {commentArray.map((comment, index) => {
