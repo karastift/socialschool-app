@@ -15,6 +15,7 @@ const host = configData.serverData.serverUrl;
 const getPostsUrl = configData.serverData.getPostsUrl;
 
 const Welcome = ({ navigation, route }) => {
+
     const [discussionPostArray, setArray] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
     const [token, setToken] = useState('');
@@ -73,11 +74,11 @@ const Welcome = ({ navigation, route }) => {
         .then(setLoggedIn(false));
     }
 
-    let getData = async () => {
+    const getData = async () => {
         if (token.length != 0) {
             console.log('got token: '+token)
             try {
-                let response = fetch(
+                const response = await fetch(
                     `${host}${getPostsUrl}?token=${token}`, {
                     method: 'GET',
                     headers: {
@@ -85,10 +86,8 @@ const Welcome = ({ navigation, route }) => {
                                 'Content-Type': 'application/json'
                     }
                 })
-                .then(response => response.json())
-                .then((data) => {
-                    setArray(data.postData);
-                })
+                const data = await response.json();
+                setArray(data.postData);
             }
             catch (error) {
                 console.error(error);
@@ -97,8 +96,8 @@ const Welcome = ({ navigation, route }) => {
         else {console.log('no token yet');}
     }
     
-    useEffect(()=>{ getStoredData() }, [route.params]);
-    useEffect(()=>{ getData(); }, [token]);
+    useEffect(()=>{ getStoredData(); }, [route.params]);
+    useEffect(()=>{  getData(); }, [token]);
 
     return (
         <SafeAreaView style={styles.container}>

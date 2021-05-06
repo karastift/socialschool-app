@@ -7,6 +7,7 @@ import schoolData from '../schools.json'
 
 const host = configData.serverData.serverUrl;
 const loginUrl = configData.serverData.loginUrl;
+const validateTokenUrl = configData.serverData.validateTokenUrl;
 
 const Login = ({ navigation }) => {
 
@@ -76,7 +77,6 @@ const Login = ({ navigation }) => {
                         setError('Login failed.');
                     }
                 })
-                
                 return Promise.resolve();   
             }
             catch (e) {
@@ -88,8 +88,6 @@ const Login = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.headerBackground} >
-            </View>
             <View style={styles.inputView}>
                 <Text style={styles.error}>{error}</Text>
                 <View style={styles.fieldWrapper}>
