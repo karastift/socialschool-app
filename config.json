@@ -5,6 +5,7 @@
         "registerUrl": "register.php",
         "getPostsUrl": "get_posts.php",
         "getPostUrl": "get_post.php",
-        "getCommentUrl": "get_comment.php"
+        "getCommentUrl": "get_comment.php",
+        "validateTokenUrl": "validate_token.php"
     }
 }

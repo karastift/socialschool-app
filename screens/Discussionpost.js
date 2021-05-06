@@ -95,7 +95,7 @@ const Discussionpost = ({ navigation, route }) => {
                 console.log('no token given');
             }
             else {
-                fetch(
+                await fetch(
                     `${host}${getPostUrl}?token=${token}&discussionpostId=${route.params.id}`, {
                     method: 'GET',
                     headers: {

@@ -16,14 +16,13 @@ import GradepostCreation from './screens/GradepostCreation';
 
 const RootStack = createStackNavigator();
 
+const host = configData.serverData.serverUrl;
+const loginUrl = configData.serverData.loginUrl;
+
 const App = () => {
-    useEffect(()=>{ console.log('-'.repeat(30)); }, []);
 
     const [gotToken, setGotToken] = useState(false);
     const [error, setError] = useState('');
-
-    const host = configData.serverData.serverUrl;
-    const loginUrl = configData.serverData.loginUrl;
 
     const storeToken = async (key, value) => {
         console.log('storing...' + value);
@@ -34,22 +33,7 @@ const App = () => {
         catch (e) {
             console.error(e);
         }
-    }
-    /*
-    const isPrevToken = async () => {
-        console.log('called');
-        try {
-            const tmpToken = await AsyncStorage.getItem('@token')
-            if (tmpToken.length > 10) {
-                console.log('already got a token: '+tmpToken);
-                return true;
-            }
-            return false;
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }*/
+    };
 
     async function loginAsGuest() {
         try {
@@ -67,6 +51,9 @@ const App = () => {
 
             storeToken('@token', responseJson.token);
             storeToken('@guestToken', responseJson.token);
+            storeToken('@id', 'undefined');
+            storeToken('@school', 'public');
+            storeToken('@username', 'undefined');
 
             return Promise.resolve();   
         }
@@ -91,7 +78,11 @@ const App = () => {
             <NavigationContainer>
                 <RootStack.Navigator>
                 {error.length != 0 ? (
-                    <RootStack.Screen name="Error" options={{}}>
+                    <RootStack.Screen name="Error" options={{
+                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerTransparent: true,
+                        headerBackTitleStyle: {color: 'white'},
+                    }}>
                     {(props) => (
                         <Error {...props} error={error}/>
                     )}
