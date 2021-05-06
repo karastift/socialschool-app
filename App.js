@@ -13,6 +13,7 @@ import Register from './screens/Register';
 import Error from './screens/Error';
 import DiscussionpostCreation from './screens/DiscussionpostCreation';
 import GradepostCreation from './screens/GradepostCreation';
+import User from './screens/User';
 
 const RootStack = createStackNavigator();
 
@@ -25,7 +26,6 @@ const App = () => {
     const [error, setError] = useState('');
 
     const storeToken = async (key, value) => {
-        console.log('storing...' + value);
         try {
             const jsonValue = JSON.stringify(value);
             await AsyncStorage.setItem(key, jsonValue);
@@ -144,6 +144,16 @@ const App = () => {
                     }}>
                         {(props) => (
                             <GradepostCreation {...props}/>
+                        )}
+                    </RootStack.Screen>
+                    <RootStack.Screen name="User" options={{
+                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerBackTitleStyle: {color: 'white'},
+                        headerTransparent: true,
+                        title: 'userpage'
+                    }}>
+                        {(props) => (
+                            <User {...props}/>
                         )}
                     </RootStack.Screen>
                 </>

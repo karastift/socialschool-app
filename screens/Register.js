@@ -49,13 +49,9 @@ const Login = ({ navigation }) => {
                 .then(response => response.json())
                 .then((data) => {
                     if (data.message == 'User was created.') {
-                        console.log(data.message);
-                        console.log(data);
                         navigation.navigate('Login');
                     }
                     else {
-                        console.log(data.message);
-                        console.log(data);
                         setError('Register process failed.');
                     }
                 })

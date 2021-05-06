@@ -13,6 +13,7 @@ import PostPreview from '../objects/PostPreview';
 
 const host = configData.serverData.serverUrl;
 const getPostsUrl = configData.serverData.getPostsUrl;
+const validateTokenUrl = configData.serverData.validateTokenUrl;
 
 const Welcome = ({ navigation, route }) => {
 
@@ -20,31 +21,7 @@ const Welcome = ({ navigation, route }) => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [token, setToken] = useState('');
 
-    const getStoredData = async () => {
-        console.log('called');
-        try {
-            const tmpToken = await AsyncStorage.getItem('@token')
-            const tmpGuestToken = await AsyncStorage.getItem('@guestToken')
-            if (tmpToken != null) {
-                setToken(JSON.parse(tmpToken));
-                console.log('set token: '+token);
-            }
-            else if (tmpGuestToken !== null) {
-                setToken(JSON.parse(tmpGuestToken));
-                console.log('set guest token: '+token);
-            }
-            const tmpLoggedIn = await AsyncStorage.getItem('@loggedIn')
-            if (tmpLoggedIn !== null) {
-                setLoggedIn(JSON.parse(tmpLoggedIn));
-            }
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }
-
     const storeData = async (key, value) => {
-        console.log('storing...' + value);
         try {
             const jsonValue = JSON.stringify(value);
             await AsyncStorage.setItem(key, jsonValue);
@@ -56,10 +33,9 @@ const Welcome = ({ navigation, route }) => {
 
     const setGuestToken = async () => {
         try {
-            const tmpGuestToken = await AsyncStorage.getItem('@guestToken')
+            const tmpGuestToken = await AsyncStorage.getItem('@guestToken');
             if (tmpGuestToken != null) {
                 setToken(JSON.parse(tmpGuestToken));
-                console.log('set guestt token: '+tmpGuestToken);
             }
         }
         catch (e) {
@@ -68,36 +44,77 @@ const Welcome = ({ navigation, route }) => {
     };
 
     async function logout () {
-        storeData('@token', '')
-        .then(storeData('@loggedIn', false))
-        .then(setGuestToken())
-        .then(setLoggedIn(false));
+        await storeData('@token', '')
+        await storeData('@loggedIn', false);
+        await setGuestToken();
+        setLoggedIn(false);
     }
 
-    const getData = async () => {
-        if (token.length != 0) {
-            console.log('got token: '+token)
+    
+    useEffect(()=>{
+        async function getStoredData() {
             try {
-                const response = await fetch(
-                    `${host}${getPostsUrl}?token=${token}`, {
-                    method: 'GET',
-                    headers: {
-                        Accept: 'application/json',
-                                'Content-Type': 'application/json'
-                    }
-                })
-                const data = await response.json();
-                setArray(data.postData);
+                const tmpToken = await AsyncStorage.getItem('@token')
+                const tmpGuestToken = await AsyncStorage.getItem('@guestToken')
+                if (tmpToken != null) {
+                    setToken(JSON.parse(tmpToken));
+                }
+                else if (tmpGuestToken !== null) {
+                    setToken(JSON.parse(tmpGuestToken));
+                }
+                const tmpLoggedIn = await AsyncStorage.getItem('@loggedIn')
+                if (tmpLoggedIn !== null) {
+                    setLoggedIn(JSON.parse(tmpLoggedIn));
+                }
             }
-            catch (error) {
-                console.error(error);
+            catch (e) {
+                console.error(e);
             }
         }
-        else {console.log('no token yet');}
-    }
-    
-    useEffect(()=>{ getStoredData(); }, [route.params]);
-    useEffect(()=>{  getData(); }, [token]);
+        getStoredData();
+    }, [route.params]);
+
+    useEffect(()=>{
+        async function getTokenData() {
+            const response = await fetch(`${host}${validateTokenUrl}`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                            'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    token: token
+                })
+            });
+            const responseJson = await response.json();
+            console.log(responseJson.data);
+            await storeData('@id', responseJson.data.id); // solve [Unhandled promise rejection: TypeError: undefined is not an object (evaluating 'responseJson.data.id')]
+            await storeData('@username', responseJson.data.username);
+            await storeData('@school', responseJson.data.school);
+        }
+        getTokenData();
+        async function getData() {
+            if (token.length != 0) {
+                try {
+                    const response = await fetch(
+                        `${host}${getPostsUrl}?token=${token}`, {
+                        method: 'GET',
+                        headers: {
+                            Accept: 'application/json',
+                                    'Content-Type': 'application/json'
+                        }
+                    })
+                    const data = await response.json();
+                    setArray(data.postData);
+                }
+                catch (error) {
+                    console.error(error);
+                }
+            }
+            else {}
+        }
+        getData();
+    }, [token]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -114,7 +131,7 @@ const Welcome = ({ navigation, route }) => {
                     ) : (
                         <LogoutButton style={styles.loginButton} onPress={()=>{logout();}}/>
                     )}
-                    <UserPageButton style={styles.userButton}/>
+                    <UserPageButton style={styles.userButton} onPress={()=>{UserPageButton>navigation.navigate('User');}}/>
                 </LinearGradient>
                 <CreateButton style={styles.createButton} onPress1={()=>{navigation.navigate('DiscussionpostCreation');}} onPress2={()=>{navigation.navigate('GradepostCreation');}}/>
                 
