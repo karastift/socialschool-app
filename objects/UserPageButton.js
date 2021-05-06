@@ -6,7 +6,7 @@ import { Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 const UserPageButton = (props) => {
 
     return (
-        <TouchableOpacity style={[props.style, styles.userButton]}>
+        <TouchableOpacity style={[props.style, styles.userButton]} onPress={props.onPress}>
             <Text style={styles.loginText}>user</Text>
         </TouchableOpacity>
     );

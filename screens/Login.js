@@ -17,7 +17,6 @@ const Login = ({ navigation }) => {
     const [error, setError] = useState(null);
 
     const storeToken = async (value) => {
-        console.log('storing...' + value);
         try {
             const jsonValue = JSON.stringify(value)
             await AsyncStorage.setItem('@token', jsonValue)
@@ -28,10 +27,9 @@ const Login = ({ navigation }) => {
     }
 
     const setLoggedIn = async () => {
-        console.log('setting logged in...');
         try {
             const jsonValue = JSON.stringify(true)
-            await AsyncStorage.setItem('@loggedIn', jsonValue)
+            await AsyncStorage.setItem('@loggedIn', jsonValue);
         }
         catch (e) {
             console.error(e);
@@ -53,7 +51,7 @@ const Login = ({ navigation }) => {
         }
         else {
             try {
-                let response = await fetch(`${host}${loginUrl}`, {
+                await fetch(`${host}${loginUrl}`, {
                     method: 'POST',
                     headers: {
                         Accept: 'application/json',
@@ -77,7 +75,7 @@ const Login = ({ navigation }) => {
                         setError('Login failed.');
                     }
                 })
-                return Promise.resolve();   
+                return Promise.resolve();
             }
             catch (e) {
                 console.error(e);

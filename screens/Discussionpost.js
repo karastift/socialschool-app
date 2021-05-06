@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const host = configData.serverData.serverUrl;
 const getPostUrl = configData.serverData.getPostUrl;
 const getCommentUrl = configData.serverData.getCommentUrl;
+const validateTokenUrl = configData.serverData.validateTokenUrl;
 
 const Discussionpost = ({ navigation, route }) => {
     const [title, setTitle] = useState('');
@@ -16,53 +17,37 @@ const Discussionpost = ({ navigation, route }) => {
     const [loggedIn, setLoggedIn] = useState(false);
     let commentIdArray = [];
 
-    const getStoredData = async () => {
-        console.log('called');
-        try {
-            const tmpToken = await AsyncStorage.getItem('@token')
-            const tmpGuestToken = await AsyncStorage.getItem('@guestToken')
-            if (tmpToken != null) {
-                setToken(JSON.parse(tmpToken));
-                console.log('set token: '+token);
-            }
-            else if (tmpGuestToken !== null) {
-                setToken(JSON.parse(tmpGuestToken));
-                console.log('set guest token: '+token);
-            }
-            const tmpLoggedIn = await AsyncStorage.getItem('@loggedIn')
-            if (tmpLoggedIn !== null) {
-                setLoggedIn(JSON.parse(tmpLoggedIn));
-            }
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }
-
-    const setGuestToken = async () => {
-        try {
-            const tmpGuestToken = await AsyncStorage.getItem('@guestToken')
-            if (tmpGuestToken != null) {
-                setToken(JSON.parse(tmpGuestToken));
-                console.log('set guestt token: '+tmpGuestToken);
-            }
-        }
-        catch (e) {
-            console.error(e);
-        }
-    };
-
-    const getComments = async () => {
-        setArray([]);
-        commentIdArray.map((id, index) => {
+    useEffect(()=>{
+        async function getStoredData() {
             try {
+                const tmpToken = await AsyncStorage.getItem('@token')
+                const tmpGuestToken = await AsyncStorage.getItem('@guestToken')
+                if (tmpToken != null) {
+                    setToken(JSON.parse(tmpToken));
+                }
+                else if (tmpGuestToken !== null) {
+                    setToken(JSON.parse(tmpGuestToken));
+                }
+                const tmpLoggedIn = await AsyncStorage.getItem('@loggedIn')
+                if (tmpLoggedIn !== null) {
+                    setLoggedIn(JSON.parse(tmpLoggedIn));
+                }
+            }
+            catch (e) {
+                console.error(e);
+            }
+        }
+        getStoredData();
+    }, [route.params]);
 
-                if (token == '') {
-                    console.log('no token given');
+    useEffect(()=>{
+        async function getData() {
+            try {
+                if (token == 'noToken') {
                 }
                 else {
-                    fetch(
-                        `${host}${getCommentUrl}?token=${token}&commentId=${id}`, {
+                    await fetch(
+                        `${host}${getPostUrl}?token=${token}&discussionpostId=${route.params.id}`, {
                         method: 'GET',
                         headers: {
                             Accept: 'application/json',
@@ -70,55 +55,55 @@ const Discussionpost = ({ navigation, route }) => {
                         }
                     })
                     .then(response => response.json())
-                    .then((data) => {
-                        if (data.message != 'Unable to access comment.') {
-                            setArray(commentArray => [...commentArray, data.data]);
-                        }
-                        else {
-                            setArray(commentArray => [...commentArray, {
-                                commentUsername: '',
-                                commentContent: 'You could be the very first one to comment.'
-                            }]);
-                        }
-                    });
+                    .then((responseJson) => {  
+                        setTitle(responseJson.data.discussionpostTitle);
+                        setBody(responseJson.data.discussionpostBody);
+                        commentIdArray = responseJson.data.commentIds;
+                    })
+                    .then(() => {
+                        setArray([]);
+                        commentIdArray.map((id, index) => {
+                            try {
+
+                                if (token == '') {
+                                }
+                                else {
+                                    fetch(
+                                        `${host}${getCommentUrl}?token=${token}&commentId=${id}`, {
+                                        method: 'GET',
+                                        headers: {
+                                            Accept: 'application/json',
+                                                    'Content-Type': 'application/json'
+                                        }
+                                    })
+                                    .then(response => response.json())
+                                    .then((data) => {
+                                        if (data.message != 'Unable to access comment.') {
+                                            setArray(commentArray => [...commentArray, data.data]);
+                                        }
+                                        else {
+                                            setArray(commentArray => [...commentArray, {
+                                                commentUsername: '',
+                                                commentContent: 'You could be the very first one to comment.'
+                                            }]);
+                                        }
+                                    })
+                                }
+                            }
+                            catch (error) {
+                                console.error(error);
+                            }
+                        });
+                    })
+                    .catch((e)=>{})
                 }
             }
             catch (error) {
                 console.error(error);
             }
-        });
-    }
-
-    const getData = async () => {
-        try {
-            if (token == 'noToken') {
-                console.log('no token given');
-            }
-            else {
-                await fetch(
-                    `${host}${getPostUrl}?token=${token}&discussionpostId=${route.params.id}`, {
-                    method: 'GET',
-                    headers: {
-                        Accept: 'application/json',
-                                'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then((responseJson) => {  
-                    setTitle(responseJson.data.discussionpostTitle);
-                    setBody(responseJson.data.discussionpostBody);
-                    commentIdArray = responseJson.data.commentIds;
-                })
-                .then(() => { getComments();})
-            }
         }
-        catch (error) {
-            console.error(error);
-        }
-    };
-    
-    useEffect(()=>{ getStoredData() }, [route.params]);
-    useEffect(()=>{ getData(); }, [token]);
+        getData();
+    }, [token]);
 
     const Post = () => {
         return (
