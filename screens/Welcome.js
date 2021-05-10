@@ -11,94 +11,11 @@ import UserPageButton from '../objects/UserPageButton';
 import CreateButton from '../objects/CreateButton';
 import PostPreview from '../objects/PostPreview';
 
-const host = configData.serverData.serverUrl;
-const getPostsUrl = configData.serverData.getPostsUrl;
-
 const Welcome = ({ navigation, route }) => {
 
-    const [discussionPostArray, setArray] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
-    const [token, setToken] = useState('');
-
-    const getStoredData = async () => {
-        console.log('called');
-        try {
-            const tmpToken = await AsyncStorage.getItem('@token')
-            const tmpGuestToken = await AsyncStorage.getItem('@guestToken')
-            if (tmpToken != null) {
-                setToken(JSON.parse(tmpToken));
-                console.log('set token: '+token);
-            }
-            else if (tmpGuestToken !== null) {
-                setToken(JSON.parse(tmpGuestToken));
-                console.log('set guest token: '+token);
-            }
-            const tmpLoggedIn = await AsyncStorage.getItem('@loggedIn')
-            if (tmpLoggedIn !== null) {
-                setLoggedIn(JSON.parse(tmpLoggedIn));
-            }
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }
-
-    const storeData = async (key, value) => {
-        console.log('storing...' + value);
-        try {
-            const jsonValue = JSON.stringify(value);
-            await AsyncStorage.setItem(key, jsonValue);
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }
-
-    const setGuestToken = async () => {
-        try {
-            const tmpGuestToken = await AsyncStorage.getItem('@guestToken')
-            if (tmpGuestToken != null) {
-                setToken(JSON.parse(tmpGuestToken));
-                console.log('set guestt token: '+tmpGuestToken);
-            }
-        }
-        catch (e) {
-            console.error(e);
-        }
-    };
-
-    async function logout () {
-        storeData('@token', '')
-        .then(storeData('@loggedIn', false))
-        .then(setGuestToken())
-        .then(setLoggedIn(false));
-    }
-
-    const getData = async () => {
-        if (token.length != 0) {
-            console.log('got token: '+token)
-            try {
-                const response = await fetch(
-                    `${host}${getPostsUrl}?token=${token}`, {
-                    method: 'GET',
-                    headers: {
-                        Accept: 'application/json',
-                                'Content-Type': 'application/json'
-                    }
-                })
-                const data = await response.json();
-                setArray(data.postData);
-            }
-            catch (error) {
-                console.error(error);
-            }
-        }
-        else {console.log('no token yet');}
-    }
-    
-    useEffect(()=>{ getStoredData(); }, [route.params]);
-    useEffect(()=>{  getData(); }, [token]);
-
+    const [discussionPostArray, setArray] = useState([]);
+ 
     return (
         <SafeAreaView style={styles.container}>
             <View>
@@ -112,7 +29,7 @@ const Welcome = ({ navigation, route }) => {
                     {loggedIn != true ? (
                         <LoginButton style={styles.loginButton} onPress={()=>{navigation.navigate('Login');}}/>
                     ) : (
-                        <LogoutButton style={styles.loginButton} onPress={()=>{logout();}}/>
+                        <LogoutButton style={styles.loginButton}/>
                     )}
                     <UserPageButton style={styles.userButton}/>
                 </LinearGradient>

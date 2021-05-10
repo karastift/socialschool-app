@@ -16,28 +16,6 @@ const Login = ({ navigation }) => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
 
-    const storeToken = async (value) => {
-        console.log('storing...' + value);
-        try {
-            const jsonValue = JSON.stringify(value)
-            await AsyncStorage.setItem('@token', jsonValue)
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }
-
-    const setLoggedIn = async () => {
-        console.log('setting logged in...');
-        try {
-            const jsonValue = JSON.stringify(true)
-            await AsyncStorage.setItem('@loggedIn', jsonValue)
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }
-
     async function login() {
         if (username.length == 0) {
             setError('Enter your username.');
@@ -52,37 +30,7 @@ const Login = ({ navigation }) => {
             setError('Entered password is too short.');
         }
         else {
-            try {
-                let response = await fetch(`${host}${loginUrl}`, {
-                    method: 'POST',
-                    headers: {
-                        Accept: 'application/json',
-                                'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        username: username,
-                        school: school,
-                        password: password
-                    })
-                })
-                .then(response => response.json())
-                .then((data) => {
-                    if (data.message == 'Successful login.') {
-
-                        storeToken(data.token);
-                        setLoggedIn();
-                        navigation.navigate('Welcome', { justForRefresh: null })
-                    }
-                    else {
-                        setError('Login failed.');
-                    }
-                })
-                return Promise.resolve();   
-            }
-            catch (e) {
-                console.error(e);
-                return Promise.reject();
-            }
+            console.log('pressed login');
         }
     }
 
