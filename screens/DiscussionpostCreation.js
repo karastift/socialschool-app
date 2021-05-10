@@ -13,84 +13,8 @@ function DiscussionpostCreation ({ navigation, route }) {
     const [status, setStatus] = useState('public');
     const [school, setSchool] = useState('');
     const [isPublic, setPublic] = useState(true);
-    const [token, setToken] = useState('');
     const [loggedIn, setLoggedIn] = useState(false);
 
-    const getStoredData = async () => {
-        console.log('called');
-        try {
-            const tmpToken = await AsyncStorage.getItem('@token')
-            const tmpGuestToken = await AsyncStorage.getItem('@guestToken')
-            if (tmpToken != null) {
-                setToken(JSON.parse(tmpToken));
-                console.log('set token: '+token);
-            }
-            else if (tmpGuestToken !== null) {
-                setToken(JSON.parse(tmpGuestToken));
-                console.log('set guest token: '+token);
-            }
-            const tmpLoggedIn = await AsyncStorage.getItem('@loggedIn')
-            if (tmpLoggedIn !== null) {
-                setLoggedIn(JSON.parse(tmpLoggedIn));
-            }
-        }
-        catch (e) {
-            console.error(e);
-        }
-    };
-
-    const storeToken = async (key, value) => {
-        console.log('storing...' + value);
-        try {
-            const jsonValue = JSON.stringify(value);
-            await AsyncStorage.setItem(key, jsonValue);
-        }
-        catch (e) {
-            console.error(e);
-        }
-    };
-
-    async function getUserData() {
-        try {
-            let response = await fetch(`${host}${validateTokenUrl}`, {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                            'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    token: token
-                })
-            });
-            let responseJson = await response.json();
-
-            await storeToken('@id', responseJson.data.id);
-            await storeToken('@username', responseJson.data.username);
-            await storeToken('@school', responseJson.data.school);
-            setSchool(responseJson.data.school);
-            return Promise.resolve();
-        }
-
-        catch (e) {
-            console.error(e);
-            return Promise.reject();
-        }
-    }
-
-    const toggleStatus = () => {
-        
-        if (status == 'public') {
-            setStatus(school);
-            setPublic(false);
-        }
-        else {
-            setStatus('public');
-            setPublic(true);
-        }
-    };
-
-    useEffect(()=>{ getStoredData() }, [route.params]);
-    useEffect(()=>{ getUserData(); }, [token]);
 
     return (
         <View style={styles.container}>
