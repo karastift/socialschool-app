@@ -4,11 +4,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 import configData from "../config.json";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const host = configData.serverData.serverUrl;
-const getPostUrl = configData.serverData.getPostUrl;
-const getCommentUrl = configData.serverData.getCommentUrl;
-const validateTokenUrl = configData.serverData.validateTokenUrl;
-
 const Discussionpost = ({ navigation, route }) => {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
@@ -16,95 +11,7 @@ const Discussionpost = ({ navigation, route }) => {
     const [token, setToken] = useState('');
     const [loggedIn, setLoggedIn] = useState(false);
     let commentIdArray = [];
-
-    useEffect(()=>{
-        async function getStoredData() {
-            try {
-                const tmpToken = await AsyncStorage.getItem('@token')
-                const tmpGuestToken = await AsyncStorage.getItem('@guestToken')
-                if (tmpToken != null) {
-                    setToken(JSON.parse(tmpToken));
-                }
-                else if (tmpGuestToken !== null) {
-                    setToken(JSON.parse(tmpGuestToken));
-                }
-                const tmpLoggedIn = await AsyncStorage.getItem('@loggedIn')
-                if (tmpLoggedIn !== null) {
-                    setLoggedIn(JSON.parse(tmpLoggedIn));
-                }
-            }
-            catch (e) {
-                console.error(e);
-            }
-        }
-        getStoredData();
-    }, [route.params]);
-
-    useEffect(()=>{
-        async function getData() {
-            try {
-                if (token == 'noToken') {
-                }
-                else {
-                    await fetch(
-                        `${host}${getPostUrl}?token=${token}&discussionpostId=${route.params.id}`, {
-                        method: 'GET',
-                        headers: {
-                            Accept: 'application/json',
-                                    'Content-Type': 'application/json'
-                        }
-                    })
-                    .then(response => response.json())
-                    .then((responseJson) => {  
-                        setTitle(responseJson.data.discussionpostTitle);
-                        setBody(responseJson.data.discussionpostBody);
-                        commentIdArray = responseJson.data.commentIds;
-                    })
-                    .then(() => {
-                        setArray([]);
-                        commentIdArray.map((id, index) => {
-                            try {
-
-                                if (token == '') {
-                                }
-                                else {
-                                    fetch(
-                                        `${host}${getCommentUrl}?token=${token}&commentId=${id}`, {
-                                        method: 'GET',
-                                        headers: {
-                                            Accept: 'application/json',
-                                                    'Content-Type': 'application/json'
-                                        }
-                                    })
-                                    .then(response => response.json())
-                                    .then((data) => {
-                                        if (data.message != 'Unable to access comment.') {
-                                            setArray(commentArray => [...commentArray, data.data]);
-                                        }
-                                        else {
-                                            setArray(commentArray => [...commentArray, {
-                                                commentUsername: '',
-                                                commentContent: 'You could be the very first one to comment.'
-                                            }]);
-                                        }
-                                    })
-                                }
-                            }
-                            catch (error) {
-                                console.error(error);
-                            }
-                        });
-                    })
-                    .catch((e)=>{})
-                }
-            }
-            catch (error) {
-                console.error(error);
-            }
-        }
-        getData();
-    }, [token]);
-
+    
     const Post = () => {
         return (
             <View style={styles.discussionpostWrapper}>
