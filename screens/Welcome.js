@@ -14,7 +14,15 @@ import PostPreview from '../objects/PostPreview';
 const Welcome = ({ navigation, route }) => {
 
     const [loggedIn, setLoggedIn] = useState(false);
-    const [discussionPostArray, setArray] = useState([]);
+    const [discussionPostArray, setArray] = useState([{
+        data : {
+            discussionpostId: 1,
+            discussionpostTitle: 'This is only a test post',
+            discussionpostBody: 'This is the test body',
+            discussionpostUsername: 'user123',
+            discussionpostStatus: 'public',
+        }
+    }]);
  
     return (
         <SafeAreaView style={styles.container}>
