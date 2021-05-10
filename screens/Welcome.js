@@ -11,111 +11,11 @@ import UserPageButton from '../objects/UserPageButton';
 import CreateButton from '../objects/CreateButton';
 import PostPreview from '../objects/PostPreview';
 
-const host = configData.serverData.serverUrl;
-const getPostsUrl = configData.serverData.getPostsUrl;
-const validateTokenUrl = configData.serverData.validateTokenUrl;
-
 const Welcome = ({ navigation, route }) => {
 
-    const [discussionPostArray, setArray] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
-    const [token, setToken] = useState('');
-
-    const storeData = async (key, value) => {
-        try {
-            const jsonValue = JSON.stringify(value);
-            await AsyncStorage.setItem(key, jsonValue);
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }
-
-    const setGuestToken = async () => {
-        try {
-            const tmpGuestToken = await AsyncStorage.getItem('@guestToken');
-            if (tmpGuestToken != null) {
-                setToken(JSON.parse(tmpGuestToken));
-            }
-        }
-        catch (e) {
-            console.error(e);
-        }
-    };
-
-    async function logout () {
-        await storeData('@token', '')
-        await storeData('@loggedIn', false);
-        await setGuestToken();
-        setLoggedIn(false);
-    }
-
-    
-    useEffect(()=>{
-        async function getStoredData() {
-            try {
-                const tmpToken = await AsyncStorage.getItem('@token')
-                const tmpGuestToken = await AsyncStorage.getItem('@guestToken')
-                if (tmpToken != null) {
-                    setToken(JSON.parse(tmpToken));
-                }
-                else if (tmpGuestToken !== null) {
-                    setToken(JSON.parse(tmpGuestToken));
-                }
-                const tmpLoggedIn = await AsyncStorage.getItem('@loggedIn')
-                if (tmpLoggedIn !== null) {
-                    setLoggedIn(JSON.parse(tmpLoggedIn));
-                }
-            }
-            catch (e) {
-                console.error(e);
-            }
-        }
-        getStoredData();
-    }, [route.params]);
-
-    useEffect(()=>{
-        async function getTokenData() {
-            const response = await fetch(`${host}${validateTokenUrl}`, {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                            'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    token: token
-                })
-            });
-            const responseJson = await response.json();
-            console.log(responseJson.data);
-            await storeData('@id', responseJson.data.id); // solve [Unhandled promise rejection: TypeError: undefined is not an object (evaluating 'responseJson.data.id')]
-            await storeData('@username', responseJson.data.username);
-            await storeData('@school', responseJson.data.school);
-        }
-        getTokenData();
-        async function getData() {
-            if (token.length != 0) {
-                try {
-                    const response = await fetch(
-                        `${host}${getPostsUrl}?token=${token}`, {
-                        method: 'GET',
-                        headers: {
-                            Accept: 'application/json',
-                                    'Content-Type': 'application/json'
-                        }
-                    })
-                    const data = await response.json();
-                    setArray(data.postData);
-                }
-                catch (error) {
-                    console.error(error);
-                }
-            }
-            else {}
-        }
-        getData();
-    }, [token]);
-
+    const [discussionPostArray, setArray] = useState([]);
+ 
     return (
         <SafeAreaView style={styles.container}>
             <View>
@@ -129,7 +29,7 @@ const Welcome = ({ navigation, route }) => {
                     {loggedIn != true ? (
                         <LoginButton style={styles.loginButton} onPress={()=>{navigation.navigate('Login');}}/>
                     ) : (
-                        <LogoutButton style={styles.loginButton} onPress={()=>{logout();}}/>
+                        <LogoutButton style={styles.loginButton}/>
                     )}
                     <UserPageButton style={styles.userButton} onPress={()=>{UserPageButton>navigation.navigate('User');}}/>
                 </LinearGradient>

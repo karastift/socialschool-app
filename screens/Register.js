@@ -3,11 +3,26 @@ import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 
 import {Picker} from '@react-native-picker/picker';
 import configData from '../config.json';
 import schoolData from '../schools.json'
+import { useMutation } from 'urql';
 
-const host = configData.serverData.serverUrl;
-const registerUrl = configData.serverData.registerUrl;
+const Register = ({ navigation }) => {
 
-const Login = ({ navigation }) => {
+    const [,registerRequest] = useMutation(`
+        mutation Register($username: String!, $password: String!){
+            register(options: { username: $username, password: $password }) {
+                user {
+                    id
+                    createdAt
+                    updatedAt
+                    username
+                }
+                errors {
+                    field
+                    message
+                }
+            }
+        }  
+    `);
 
     const [username, setUsername] = useState('');
     const [school, setSchool] = useState('');
@@ -32,36 +47,7 @@ const Login = ({ navigation }) => {
             setError('Your passwords do not match.');
         }
         else {
-            try {
-                let response = await fetch(`${host}${registerUrl}`, {
-                    method: 'POST',
-                    headers: {
-                        Accept: 'application/json',
-                                'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        username: username,
-                        school: school,
-                        password: password,
-                        confirm_password: confirmPassword
-                    })
-                })
-                .then(response => response.json())
-                .then((data) => {
-                    if (data.message == 'User was created.') {
-                        navigation.navigate('Login');
-                    }
-                    else {
-                        setError('Register process failed.');
-                    }
-                })
-                
-                return Promise.resolve();   
-            }
-            catch (e) {
-                console.error(e);
-                return Promise.reject();
-            }
+            await registerRequest({username: username, password: password});
         }
     }
 
@@ -131,7 +117,7 @@ const Login = ({ navigation }) => {
     );
 };
 
-export default Login;
+export default Register;
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
