@@ -7,7 +7,7 @@ import { useMutation } from 'urql';
 
 const Register = ({ navigation }) => {
 
-    const [,registerRequest] = useMutation(`
+    const registerQuery = `
         mutation Register($username: String!, $password: String!){
             register(options: { username: $username, password: $password }) {
                 user {
@@ -22,7 +22,9 @@ const Register = ({ navigation }) => {
                 }
             }
         }  
-    `);
+    `;
+
+    const [registerResult, register] = useMutation(registerQuery);
 
     const [username, setUsername] = useState('');
     const [school, setSchool] = useState('');
@@ -30,26 +32,34 @@ const Register = ({ navigation }) => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState(null);
 
-    async function register() {
-        if (username.length == 0) {
+    const submit = (name, pass, confPass) => {
+        if (name.length == 0) {
             setError('Enter your username.');
         }
-        else if (username.length < 4) {
+        else if (name.length < 4) {
             setError('Entered username is too short.');
         }
-        else if (password.length == 0) {
+        else if (pass.length == 0) {
             setError('Enter your password.');
         }
-        else if (password.length < 4) {
+        else if (pass.length < 4) {
             setError('Entered password is too short.');
         }
-        else if (confirmPassword != password) {
+        else if (confPass != pass) {
             setError('Your passwords do not match.');
         }
         else {
-            await registerRequest({username: username, password: password});
+            const variables = { username: name, password: pass };
+            register(variables).then(result => {
+                if (typeof result.error !== 'undefined') {
+                    setError(result.error.message);
+                }
+                else {
+                    setError(result.data.register.user.username);
+                }
+            });
         }
-    }
+    };
 
     return (
         <View style={styles.container}>
@@ -92,7 +102,7 @@ const Register = ({ navigation }) => {
                         style={styles.field}
                     />
                 </View>
-                <Picker
+                {/* <Picker
                     style={{height: 170, width: '100%', color: 'white'}}
                     itemStyle={{color: 'white'}}
                     selectedValue={school}
@@ -104,9 +114,15 @@ const Register = ({ navigation }) => {
                             <Picker.Item key={index} color="white" label={school2} value={school2}/>
                         );
                     })}
-                </Picker>
+                </Picker> */}
 
-                <TouchableOpacity style={{padding: 25}} onPress={()=>{register();}}>
+                <TouchableOpacity style={{padding: 25}} onPress={()=>{
+                    submit(
+                        username,
+                        password,
+                        confirmPassword
+                    );
+                }}>
                     <Text style={styles.submit}>Register</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{padding: 5}} onPress={()=>{navigation.navigate('Login');}}>

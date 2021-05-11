@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions, ScrollView, SafeAreaView, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, ScrollView, SafeAreaView, TouchableOpacity, RefreshControl } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-// import { Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-menu';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useMutation, useQuery } from "urql";
 import configData from "../config.json";
 
 import LoginButton from '../objects/LoginButton';
@@ -10,19 +9,39 @@ import LogoutButton from '../objects/LogoutButton';
 import UserPageButton from '../objects/UserPageButton';
 import CreateButton from '../objects/CreateButton';
 import PostPreview from '../objects/PostPreview';
+import { ActivityIndicator } from 'react-native';
 
 const Welcome = ({ navigation, route }) => {
 
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [discussionPostArray, setArray] = useState([{
-        data : {
-            discussionpostId: 1,
-            discussionpostTitle: 'This is only a test post',
-            discussionpostBody: 'This is the test body',
-            discussionpostUsername: 'user123',
-            discussionpostStatus: 'public',
+    const query = `
+        {
+            posts {
+            id
+            createdAt
+            updatedAt
+            title
+            }
+            me {
+                id
+                createdAt
+                updatedAt
+                username
+            }
         }
-    }]);
+    `;
+
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [isRefreshing, setRefreshing] = useState(false);
+    const [queryResult, reload] = useQuery({
+        query: query,
+    });
+    const { data, fetching, error } = queryResult;
+
+    const refresh = () => {
+        setRefreshing(true);
+        reload({ requestPolicy: 'network-only' });
+        setRefreshing(false);
+    };
  
     return (
         <SafeAreaView style={styles.container}>
@@ -34,32 +53,72 @@ const Welcome = ({ navigation, route }) => {
                     colors={['transparent', 'transparent']}
                     locations={[0, 1]}
                 >
-                    {loggedIn != true ? (
+                    {!loggedIn ? (
                         <LoginButton style={styles.loginButton} onPress={()=>{navigation.navigate('Login');}}/>
                     ) : (
                         <LogoutButton style={styles.loginButton}/>
                     )}
-                    <UserPageButton style={styles.userButton} onPress={()=>{UserPageButton>navigation.navigate('User');}}/>
+                    {typeof data !== 'undefined' && typeof data.me !== 'undefined'  ? (
+                        <UserPageButton style={styles.userButton} username={data.me !== null ? data.me.username : "user"} onPress={()=>{UserPageButton>navigation.navigate('User');}}/>
+                    ) : (
+                        <UserPageButton style={styles.userButton} username="user" onPress={()=>{UserPageButton>navigation.navigate('User');}}/>
+                    )}
                 </LinearGradient>
                 <CreateButton style={styles.createButton} onPress1={()=>{navigation.navigate('DiscussionpostCreation');}} onPress2={()=>{navigation.navigate('GradepostCreation');}}/>
                 
-                <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-                    {discussionPostArray.map((post, index) => {
-                        return (
-                            <TouchableOpacity key={'forpress'+index.toString()} onPress={() => navigation.navigate('Discussionpost', { id: post.data.discussionpostId})}>
-                                <PostPreview key={index} 
-                                            body={post.data.discussionpostBody} 
-                                            title={post.data.discussionpostTitle} 
-                                            id={post.data.discussionpostId} 
-                                            username={post.data.discussionpostUsername} 
-                                            upvotes={post.data.discussionpostUpvotes}
-                                            status={post.data.discussionpostStatus}
-                                            style={styles.discussionpostWrapper}
-                                />
-                            </TouchableOpacity>
-                        );
-                    })}
-                </ScrollView>
+                {!fetching && !error ? (
+                    <ScrollView
+                        style={styles.scrollView}
+                        showsVerticalScrollIndicator={false}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={isRefreshing}
+                                onRefresh={refresh}
+                            />
+                        }
+                    >
+                        {data.posts.map((post, index) => {
+                            return (
+                                <TouchableOpacity key={'forpress'+index.toString()} onPress={() => navigation.navigate('Discussionpost', { id: post.data.discussionpostId})}>
+                                    {/* <PostPreview key={index} 
+                                                body={post.data.discussionpostBody} 
+                                                title={post.data.discussionpostTitle} 
+                                                id={post.data.discussionpostId} 
+                                                username={post.data.discussionpostUsername} 
+                                                upvotes={post.data.discussionpostUpvotes}
+                                                status={post.data.discussionpostStatus}
+                                                style={styles.discussionpostWrapper}
+                                    /> */}
+                                    <PostPreview key={index} 
+                                                body={post.title.repeat(5)} 
+                                                title={post.title} 
+                                                id={post.id} 
+                                                username={"username"} 
+                                                upvotes={0}
+                                                status={"public"}
+                                                style={styles.discussionpostWrapper}
+                                    />
+                                </TouchableOpacity>
+                            );
+                        })}
+                    </ScrollView>
+                ) : error ? (
+                    <Text>{error.message}</Text>
+                ) : (
+                    <ScrollView
+                        style={styles.scrollView}
+                        showsVerticalScrollIndicator={false}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={isRefreshing}
+                                onRefresh={refresh}
+                            />
+                        }
+                    >
+                        <ActivityIndicator color="red" size="large" style={styles.loading}/>
+                    </ScrollView>
+                )
+                }
             </View>
         </SafeAreaView>
     );
@@ -156,8 +215,9 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center'
     },
-    load: {
+    loading: {
         marginTop: '60%',
-        marginBottom: '40%'
+        width: windowWidth-30,
+        
     }
 });

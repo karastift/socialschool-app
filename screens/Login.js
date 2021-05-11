@@ -4,6 +4,7 @@ import {Picker} from '@react-native-picker/picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import configData from '../config.json';
 import schoolData from '../schools.json'
+import { useMutation } from 'urql';
 
 const host = configData.serverData.serverUrl;
 const loginUrl = configData.serverData.loginUrl;
@@ -11,28 +12,55 @@ const validateTokenUrl = configData.serverData.validateTokenUrl;
 
 const Login = ({ navigation }) => {
 
+    const loginMutation = `
+        mutation Login($username: String!, $password: String!) {
+            login(options: { username: $username, password: $password }) {
+                user {
+                    id
+                    createdAt
+                    updatedAt
+                    username
+                }
+                errors {
+                    field
+                    message
+                }
+            }
+        }
+    `;
+
+    const [, login] = useMutation(loginMutation);
+
     const [username, setUsername] = useState('');
     const [school, setSchool] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
 
-    async function login() {
-        if (username.length == 0) {
+    const submit = (name, pass) => {
+        if (name.length == 0) {
             setError('Enter your username.');
         }
-        else if (username.length < 4) {
+        else if (name.length < 4) {
             setError('Entered username is too short.');
         }
-        else if (password.length == 0) {
+        else if (pass.length == 0) {
             setError('Enter your password.');
         }
-        else if (password.length < 4) {
+        else if (pass.length < 4) {
             setError('Entered password is too short.');
         }
         else {
-            console.log('pressed login');
+            const variables = { username: name, password: pass };
+            login(variables).then(result => {
+                if (typeof result.error !== 'undefined') {
+                    setError(result.error.message);
+                }
+                else {
+                    navigation.navigate('Welcome');
+                }
+            });
         }
-    }
+    };
 
     return (
         <View style={styles.container}>
@@ -61,7 +89,7 @@ const Login = ({ navigation }) => {
                         style={styles.field}
                     />
                 </View>
-                <Picker
+                {/* <Picker
                     style={{height: 170, width: '100%', color: 'white'}}
                     itemStyle={{color: 'black'}}
                     selectedValue={school}
@@ -73,9 +101,14 @@ const Login = ({ navigation }) => {
                             <Picker.Item key={index} color="white" label={school2} value={school2}/>
                         );
                     })}
-                </Picker>
+                </Picker> */}
 
-                <TouchableOpacity style={{padding: 25}} onPress={()=>{login();}}>
+                <TouchableOpacity style={{padding: 25}} onPress={()=>{
+                    submit(
+                        username,
+                        password
+                    );
+                }}>
                     <Text style={styles.submit}>Login</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{padding: 5}} onPress={()=>{navigation.navigate('Register');}}>

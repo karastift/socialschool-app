@@ -20,7 +20,7 @@ import User from './screens/User';
 const RootStack = createStackNavigator();
 
 const client = createClient({
-    url: 'http://localhost:4000/graphql',
+    url: 'http://192.168.178.113:4000/graphql',
     fetchOptions: {
         credentials: 'include',
     }
