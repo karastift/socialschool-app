@@ -5,9 +5,11 @@ import { Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 
 const UserPageButton = (props) => {
 
+    const username = props.username;
+
     return (
         <TouchableOpacity style={[props.style, styles.userButton]} onPress={props.onPress}>
-            <Text style={styles.loginText}>user</Text>
+            <Text style={styles.loginText}>{username}</Text>
         </TouchableOpacity>
     );
 };
