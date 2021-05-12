@@ -6,30 +6,11 @@ import configData from '../config.json';
 import schoolData from '../schools.json'
 import { useMutation } from 'urql';
 
-const host = configData.serverData.serverUrl;
-const loginUrl = configData.serverData.loginUrl;
-const validateTokenUrl = configData.serverData.validateTokenUrl;
+import LOGIN_MUTATION from "../graphql/mutations/LoginMutation";
 
 const Login = ({ navigation }) => {
 
-    const loginMutation = `
-        mutation Login($username: String!, $password: String!) {
-            login(options: { username: $username, password: $password }) {
-                user {
-                    id
-                    createdAt
-                    updatedAt
-                    username
-                }
-                errors {
-                    field
-                    message
-                }
-            }
-        }
-    `;
-
-    const [, login] = useMutation(loginMutation);
+    const [, login] = useMutation(LOGIN_MUTATION);
 
     const [username, setUsername] = useState('');
     const [school, setSchool] = useState('');
@@ -56,7 +37,7 @@ const Login = ({ navigation }) => {
                     setError(result.error.message);
                 }
                 else {
-                    navigation.navigate('Welcome');
+                    navigation.navigate('Welcome', { refresh: null });
                 }
             });
         }

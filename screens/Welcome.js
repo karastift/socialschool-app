@@ -10,38 +10,33 @@ import UserPageButton from '../objects/UserPageButton';
 import CreateButton from '../objects/CreateButton';
 import PostPreview from '../objects/PostPreview';
 import { ActivityIndicator } from 'react-native';
+import LOGOUT_MUTATION from '../graphql/mutations/LogoutMutation';
+import ME_QUERY from '../graphql/queries/MeQuery';
+import POSTS_QUERY from '../graphql/queries/PostsQuery';
 
 const Welcome = ({ navigation, route }) => {
 
-    const query = `
-        {
-            posts {
-            id
-            createdAt
-            updatedAt
-            title
-            }
-            me {
-                id
-                createdAt
-                updatedAt
-                username
-            }
-        }
-    `;
-
-    const [loggedIn, setLoggedIn] = useState(false);
     const [isRefreshing, setRefreshing] = useState(false);
-    const [queryResult, reload] = useQuery({
-        query: query,
+
+    const [{ data: postData, fetching: postFetching, error: postError }, reloadPosts] = useQuery({
+        query: POSTS_QUERY,
     });
-    const { data, fetching, error } = queryResult;
+
+    const [{ data: meData, fetching: meFetching, error: meError }, reloadMe] = useQuery({
+        query: ME_QUERY,
+    });
+
+    const [{fetching: logoutFetching}, logout] = useMutation(LOGOUT_MUTATION);
 
     const refresh = () => {
         setRefreshing(true);
-        reload({ requestPolicy: 'network-only' });
+        reloadPosts({ requestPolicy: 'network-only' });
         setRefreshing(false);
     };
+
+    useEffect(() => {
+        reloadMe({ requestPolicy: 'network-only' });
+    }, [route.params]);
  
     return (
         <SafeAreaView style={styles.container}>
@@ -53,20 +48,20 @@ const Welcome = ({ navigation, route }) => {
                     colors={['transparent', 'transparent']}
                     locations={[0, 1]}
                 >
-                    {!loggedIn ? (
-                        <LoginButton style={styles.loginButton} onPress={()=>{navigation.navigate('Login');}}/>
+                    {typeof meData !== 'undefined' && typeof meData.me !== 'undefined' && meData.me !== null ? (
+                        <LogoutButton style={styles.loginButton} onPress={() => { logout(); reloadMe({ requestPolicy: 'network-only' }); }}/>
                     ) : (
-                        <LogoutButton style={styles.loginButton}/>
+                        <LoginButton style={styles.loginButton} onPress={()=>{ navigation.navigate('Login');}}/>
                     )}
-                    {typeof data !== 'undefined' && typeof data.me !== 'undefined'  ? (
-                        <UserPageButton style={styles.userButton} username={data.me !== null ? data.me.username : "user"} onPress={()=>{UserPageButton>navigation.navigate('User');}}/>
+                    {typeof meData !== 'undefined' && typeof meData.me !== 'undefined' ? (
+                        <UserPageButton style={styles.userButton} username={meData.me !== null ? meData.me.username : "user"} onPress={()=>{UserPageButton>navigation.navigate('User');}}/>
                     ) : (
                         <UserPageButton style={styles.userButton} username="user" onPress={()=>{UserPageButton>navigation.navigate('User');}}/>
                     )}
                 </LinearGradient>
                 <CreateButton style={styles.createButton} onPress1={()=>{navigation.navigate('DiscussionpostCreation');}} onPress2={()=>{navigation.navigate('GradepostCreation');}}/>
                 
-                {!fetching && !error ? (
+                {!postFetching && !postError ? (
                     <ScrollView
                         style={styles.scrollView}
                         showsVerticalScrollIndicator={false}
@@ -77,7 +72,7 @@ const Welcome = ({ navigation, route }) => {
                             />
                         }
                     >
-                        {data.posts.map((post, index) => {
+                        {postData.posts.map((post, index) => {
                             return (
                                 <TouchableOpacity key={'forpress'+index.toString()} onPress={() => navigation.navigate('Discussionpost', { id: post.data.discussionpostId})}>
                                     {/* <PostPreview key={index} 
@@ -102,8 +97,8 @@ const Welcome = ({ navigation, route }) => {
                             );
                         })}
                     </ScrollView>
-                ) : error ? (
-                    <Text>{error.message}</Text>
+                ) : postError ? (
+                    <Text>{postError.message}</Text>
                 ) : (
                     <ScrollView
                         style={styles.scrollView}
