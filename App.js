@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-// import { MenuProvider } from 'react-native-popup-menu';
-import AppLoading from 'expo-app-loading';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Provider, createClient } from "urql"
+import { Provider, createClient, dedupExchange, fetchExchange } from "urql"
+import { cacheExchange } from '@urql/exchange-graphcache';
 
-import configData from "./config.json";
+import ME_QUERY from "./graphql/queries/MeQuery";
+
 
 import Welcome from './screens/Welcome';
 import Discussionpost from './screens/Discussionpost';
@@ -16,13 +15,71 @@ import Error from './screens/Error';
 import DiscussionpostCreation from './screens/DiscussionpostCreation';
 import GradepostCreation from './screens/GradepostCreation';
 import User from './screens/User';
+import LogoutButton from './objects/LogoutButton';
 
 const RootStack = createStackNavigator();
+
+function betterUpdateQuery(
+    cache,
+    qi,
+    result,
+    fn,
+) {
+    return cache.updateQuery(qi, data => fn(result, data));
+}
 
 const client = createClient({
     url: 'http://192.168.178.113:4000/graphql',
     fetchOptions: {
         credentials: 'include',
+        exchanges: [dedupExchange, cacheExchange({
+            updates: {
+                Mutation: {
+                    logout: (_result, args, cache, info) => {
+                        betterUpdateQuery(
+                            cache,
+                            {query: ME_QUERY},
+                            _result,
+                            () => ({me: null})
+                        );
+                    },
+                    login: (_result, args, cache, info) => {
+                        betterUpdateQuery(
+                            cache,
+                            { query: ME_QUERY },
+                            _result,
+                            (result, query) => {
+                                if (result.login.errors) {
+                                    return query;
+                                }
+                                else {
+                                    return {
+                                        me: result.login.user,
+                                    };
+                                }
+                            }
+                        );
+                    },
+                    register: (_result, args, cache, info) => {
+                        betterUpdateQuery(
+                            cache,
+                            { query: ME_QUERY },
+                            _result,
+                            (result, query) => {
+                                if (result.register.errors) {
+                                    return query;
+                                }
+                                else {
+                                    return {
+                                        me: result.register.user,
+                                    };
+                                }
+                            }
+                        );
+                    },
+                },
+            },
+        }), fetchExchange],
     }
 });
 
@@ -113,6 +170,7 @@ const App = () => {
                             <User {...props}/>
                         )}
                     </RootStack.Screen>
+                    <RootStack.Screen name="Logout" component={LogoutButton}/>
                 </>
             )}
                 </RootStack.Navigator>

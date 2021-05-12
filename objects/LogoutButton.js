@@ -1,13 +1,11 @@
 import React from 'react';
 import { Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 
-
-
 const LogoutButton = (props) => {
 
     return (
         <TouchableOpacity style={[props.style, styles.loginButton]} onPress={props.onPress}>
-            <Text style={styles.loginText}>Logout</Text>
+            <Text style={styles.loginText}>logout</Text>
         </TouchableOpacity>
     );
 };
