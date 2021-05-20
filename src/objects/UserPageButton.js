@@ -9,7 +9,7 @@ const UserPageButton = (props) => {
 
     return (
         <TouchableOpacity style={[props.style, styles.userButton]} onPress={props.onPress}>
-            <Text style={styles.loginText}>{username}</Text>
+            <Text style={styles.loginText}>{username.substring(0, 20)}</Text>
         </TouchableOpacity>
     );
 };
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     loginText: {
         color: 'grey',
         fontWeight: 'bold',
-        zIndex: 3
+        zIndex: 3,
+        textAlign: 'center',
     },
 });

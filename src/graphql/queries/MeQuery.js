@@ -5,6 +5,9 @@ const ME_QUERY = `
         createdAt
         updatedAt
         username
+        school {
+            schoolName
+        }
     }
 }
 `;

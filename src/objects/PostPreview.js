@@ -9,16 +9,15 @@ const PostPreview = (props) => {
     let created = props.created;
     let upvotes = props.upvotes;
     let title = props.title;
-    let body = props.body.substring(0, 1300);
-    let id = parseInt(props.id);
-    let key = parseInt(props.index);
+    let body = props.body;
+    let key = parseInt(props.id);
     return (
         <View key={key} style={props.style}>
-            <View key={'post'+key.toString()} style={styles.discussionpost}>
-                <Text key={'title'+key.toString()} style={styles.discussionpostTitle}>{title}</Text>
-                <Text key={'break'+key.toString()}> </Text>
-                <Text key={'body'+key.toString()} style={styles.discussionpostBody}>{body}...</Text>
-                <Text key={'info'+key.toString()} style={styles.discussionpostInfo}>posted by <Text style={styles.discussionpostInfo2}>{username}</Text> | {status == 'public' ? (<Text>{status}</Text>) : (<Text style={styles.discussionpostInfo2}>{status}</Text>)} | {upvotes}</Text>
+            <View style={styles.discussionpost}>
+                <Text style={styles.discussionpostTitle}>{title}</Text>
+                <Text> </Text>
+                <Text style={styles.discussionpostBody}>{body}{body.length === 500 ? '...' : ''}</Text>
+                {username !== 'error' ? <Text style={styles.discussionpostInfo}>posted by <Text style={styles.discussionpostInfo2}>{username}</Text> | {status == 'public' ? (<Text>{status}</Text>) : (<Text style={styles.discussionpostInfo2}>{status}</Text>)} | {upvotes}</Text> : <Text> </Text>}
             </View>
         </View>
     );

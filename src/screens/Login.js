@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import configData from '../config.json';
 import schoolData from '../schools.json'
 import { useMutation } from 'urql';
+import styles from "../styles/LoginStyles";
 
 import LOGIN_MUTATION from "../graphql/mutations/LoginMutation";
 
@@ -14,8 +12,20 @@ const Login = ({ navigation }) => {
 
     const [username, setUsername] = useState('');
     const [school, setSchool] = useState('');
+    const [showValue, setShowValue] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+
+    const schools = schoolData.schools;
+    useEffect(() => {
+        if (school.length != 0) {
+            for (let i = 0; i < schools.length; i++) {
+                if (schools[i].toLowerCase().includes(school.toLowerCase())) {
+                    setShowValue(schools[i]);
+                }
+            }
+        }
+    }, [school]);
 
     const submit = (name, pass) => {
         if (name.length == 0) {
@@ -31,7 +41,7 @@ const Login = ({ navigation }) => {
             setError('Entered password is too short.');
         }
         else {
-            const variables = { username: name, password: pass };
+            const variables = { usernameOrEmail: name, password: pass, school: school };
             login(variables).then(result => {
                 if (typeof result.error !== 'undefined') {
                     setError(result.error.message);
@@ -49,11 +59,13 @@ const Login = ({ navigation }) => {
                 <Text style={styles.error}>{error}</Text>
                 <View style={styles.fieldWrapper}>
                     <TextInput  
-                        placeholder="username" 
-                        placeholderTextColor="#fff"
+                        placeholder="username or email" 
+                        placeholderTextColor="rgba(255, 255, 255, 0.8)"
                         onChangeText={text => setUsername(text)}
                         textAlign={'center'}
                         spellCheck={false}
+                        autoCorrect={false}
+                        autoCapitalize={'none'}
                         returnKeyType="done"
                         style={styles.field}
                     />
@@ -61,33 +73,36 @@ const Login = ({ navigation }) => {
                 <View style={styles.fieldWrapper}>
                     <TextInput  
                         placeholder="password" 
-                        placeholderTextColor="#fff"
+                        placeholderTextColor="rgba(255, 255, 255, 0.8)"
                         secureTextEntry={true}
                         onChangeText={text => setPassword(text)}
                         textAlign={'center'}
                         spellCheck={false}
+                        autoCorrect={false}
+                        autoCapitalize={'none'}
                         returnKeyType="done"
                         style={styles.field}
                     />
                 </View>
-                {/* <Picker
-                    style={{height: 170, width: '100%', color: 'white'}}
-                    itemStyle={{color: 'black'}}
-                    selectedValue={school}
-                    onValueChange={(itemValue, itemIndex) =>
-                        setSchool(itemValue)
-                    }>
-                    {schoolData.schools.sort().map((school2, index) => {
-                        return (
-                            <Picker.Item key={index} color="white" label={school2} value={school2}/>
-                        );
-                    })}
-                </Picker> */}
-
+                <View style={styles.fieldWrapper}>
+                    <Text style={styles.shower} onPress={() => {
+                        setSchool(showValue);
+                    }}>{showValue}</Text>
+                    <TextInput  
+                        placeholder="school"
+                        placeholderTextColor="rgba(255, 255, 255, 0.8)"
+                        value={school}
+                        onChangeText={text => setSchool(text)}
+                        textAlign={'center'}
+                        returnKeyType="done"
+                        style={styles.field}
+                    />
+                </View>
                 <TouchableOpacity style={{padding: 25}} onPress={()=>{
                     submit(
                         username,
-                        password
+                        password,
+                        school,
                     );
                 }}>
                     <Text style={styles.submit}>Login</Text>
@@ -101,65 +116,3 @@ const Login = ({ navigation }) => {
 };
 
 export default Login;
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-const styles = StyleSheet.create({
-    container: {
-        zIndex: 0,
-        flex: 1,
-        backgroundColor: 'rgb(26, 26, 26)',
-        alignItems: 'center',
-        width: windowWidth,
-        height: windowHeight,
-        color: 'white'
-    },
-    headerText: {
-        color: 'red',
-        fontSize: 30,
-        marginLeft: 20
-        
-    },
-    loginButton: {
-        marginVertical: 20,
-        width: 50,
-        alignItems:'center',
-        justifyContent:'center',
-    },
-    headerBackground: {
-        width: windowWidth,        
-        position: 'absolute',
-        paddingTop: 50,
-        paddingBottom: 5,
-        marginTop: 10,
-        marginBottom: 5,
-        alignItems: 'center',
-        flexDirection:'row',
-        flexWrap:'wrap'
-    },
-    inputView: {
-        height: windowHeight,
-        width: windowWidth,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    fieldWrapper: {
-        width: '70%',
-        marginVertical: 15,
-        borderBottomColor: 'white',
-        borderBottomWidth: 1,
-    },
-    field: {
-        textAlign: 'center',
-        color: 'white',
-        paddingVertical: 10,
-    },
-    submit: {
-        color: 'red',
-        marginTop: 20
-    },
-    error: {
-        color: 'lightblue',
-        marginBottom: 20
-    }
-});
