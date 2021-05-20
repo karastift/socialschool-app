@@ -1,16 +1,4 @@
-import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
-
-
-const GradepostCreation = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
-        <Text style={{color: 'white'}}>new grade</Text>
-    </View>
-  );
-};
-
-export default GradepostCreation;
+import { StyleSheet, Dimensions } from "react-native";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -25,4 +13,17 @@ const styles = StyleSheet.create({
         color: 'white',
         justifyContent: 'center'
     },
+    message: {
+        color: 'white',
+        textAlign: 'center'
+    },
+    error: {
+        color: 'red',
+        textAlign: 'center'
+    },
+    email: {
+        color: 'gray'
+    }
 });
+
+export default styles;
