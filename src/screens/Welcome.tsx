@@ -49,7 +49,7 @@ const Welcome = ({ navigation, route }) => {
                     colors={['transparent', 'transparent']}
                     locations={[0, 1]}
                 >
-                    {typeof meData !== 'undefined' && typeof meData.me !== 'undefined' && meData.me !== null ? (
+                    {typeof meData !== 'undefined' && meData?.me !== null ? (
                         <LogoutButton style={styles.loginButton} onPress={() => { logout(); reloadMe({ requestPolicy: 'network-only' }); }}/>
                     ) : (
                         <LoginButton style={styles.loginButton} onPress={()=>{ navigation.navigate('Login');}}/>

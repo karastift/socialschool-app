@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     createOption: {
-        marginTop: 60,
         width: 200,
         marginTop: 10,
         marginLeft: 70,

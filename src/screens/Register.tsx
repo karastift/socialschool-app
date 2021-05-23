@@ -51,8 +51,6 @@ const Register = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.headerground}>
-            </View>
             <View style={styles.inputView}>
                 <Text style={styles.error}>{error}</Text>
                 <View style={styles.fieldWrapper}>

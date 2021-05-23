@@ -38,7 +38,7 @@ const SubjectBoard = ({ navigation }) => {
             ) :
             (
                 <View>
-                    <Text style={{color: 'white'}}>{!meError ? `Log in to see your profile.` : error}</Text>
+                    <Text style={{color: 'white'}}>{!meError ? `Log in to see your profile.` : meError.message}</Text>
                 </View>
             )
             }
