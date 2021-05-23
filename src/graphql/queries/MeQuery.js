@@ -2,9 +2,8 @@ const ME_QUERY = `
 {
     me {
         id
-        createdAt
-        updatedAt
         username
+        email
         school {
             schoolName
         }

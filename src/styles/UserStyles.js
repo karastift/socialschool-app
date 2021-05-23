@@ -7,8 +7,6 @@ const styles = StyleSheet.create({
         zIndex: 0,
         flex: 1,
         backgroundColor: 'rgb(26, 26, 26)',
-        alignItems: 'center',
-        justifyContent: 'center',
         width: windowWidth,
         height: windowHeight,
         color: 'white'
@@ -28,7 +26,16 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         alignItems: 'center',
         flexDirection:'row',
-        flexWrap:'wrap'
+        flexWrap:'wrap',
+    },
+    chartWrapper: {
+        alignItems: 'center',
+        height: '100%',
+        width: '100%',
+        marginTop: 100,
+        flexDirection:'row',
+        flexWrap:'wrap',
+        justifyContent: 'center',
     },
 });
 

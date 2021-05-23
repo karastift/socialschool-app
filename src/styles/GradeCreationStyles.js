@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     },
     shower: {
         marginVertical: 5,
-        color: "rgba(255, 255, 0, 0.5)",
+        color: "rgba(255, 255, 255, 0.5)",
         textAlign: "center"
     },
 });
