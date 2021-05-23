@@ -5,6 +5,7 @@ import { Provider } from 'urql';
 import { client } from './utils/createClient';
 
 import Welcome from "./screens/Welcome";
+import SubjectBoard from "./screens/SubjectBoard";
 import User from "./screens/User";
 import Register from "./screens/Register";
 import Login from "./screens/Login";
@@ -12,6 +13,7 @@ import GradepostCreation from "./screens/GradepostCreation";
 import Error from "./screens/Error";
 import DiscussionpostCreation from "./screens/DiscussionpostCreation";
 import Discussionpost from "./screens/Discussionpost";
+import Settings from "./screens/Settings";
 
 const RootStack = createStackNavigator();
 
@@ -69,12 +71,25 @@ const App = () => {
                         title: 'new grade',
                         headerBackTitle: "",
                     }}/>
+                    <RootStack.Screen name="SubjectBoard" component={SubjectBoard} options={{
+                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerBackTitleStyle: {color: 'white'},
+                        headerTransparent: true,
+                        title: 'subject-board',
+                        headerBackTitle: "",
+                    }}/>
                     <RootStack.Screen name="User" component={User} options={{
                         headerTitleStyle: {color: 'red', fontWeight: '700'},
                         headerBackTitleStyle: {color: 'white'},
                         headerTransparent: true,
-                        title: 'userpage',
+                        title: 'user',
                         headerBackTitle: "",
+                    }}/>
+                    <RootStack.Screen name= "Settings" component={Settings} options={{
+                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerBackTitleStyle: {color: 'white'},
+                        headerTransparent: true,
+                        headerBackTitle: ""
                     }}/>
                 </>
             )}

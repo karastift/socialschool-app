@@ -27,7 +27,7 @@ const Welcome = ({ navigation, route }) => {
         query: ME_QUERY,
     });
 
-    const [{fetching: logoutFetching}, logout] = useMutation(LOGOUT_MUTATION);
+    const [, logout] = useMutation(LOGOUT_MUTATION);
 
     const refresh = () => {
         setRefreshing(true);
@@ -55,9 +55,9 @@ const Welcome = ({ navigation, route }) => {
                         <LoginButton style={styles.loginButton} onPress={()=>{ navigation.navigate('Login');}}/>
                     )}
                     {typeof meData !== 'undefined' && typeof meData.me !== 'undefined' ? (
-                        <UserPageButton style={styles.userButton} username={meData.me !== null ? meData.me.username : "user"} onPress={()=>{UserPageButton>navigation.navigate('User');}}/>
+                        <UserPageButton style={styles.userButton} username={meData.me !== null ? meData.me.username : "user"} onPress={()=>{navigation.navigate('User');}}/>
                     ) : (
-                        <UserPageButton style={styles.userButton} username="user" onPress={()=>{UserPageButton>navigation.navigate('User');}}/>
+                        <UserPageButton style={styles.userButton} username="user" onPress={()=>{navigation.navigate('User');}}/>
                     )}
                 </LinearGradient>
                 <CreateButton style={styles.createButton} onPress1={()=>{navigation.navigate('DiscussionpostCreation');}} onPress2={()=>{navigation.navigate('GradepostCreation');}}/>
