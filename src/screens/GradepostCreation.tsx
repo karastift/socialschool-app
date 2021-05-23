@@ -34,7 +34,7 @@ const GradepostCreation = ({ navigation }) => {
 
     const submit = () => {
         if (subject.length < 2) {
-            setPostOrError('Subject must have 2 characters.');
+            setInjectOrError('Subject must have 2 characters.');
         }
         else {
             injectGrade( { input: {

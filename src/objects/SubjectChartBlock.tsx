@@ -8,7 +8,7 @@ import * as shape from 'd3-shape';
 const SubjectChartBlock = (props) => {
 
     const Decorator = ({ x, y, data }) => {
-        return data.map((value, index) => (
+        return data.map((value, index: number) => (
             <Circle
                 key={ index }
                 cx={ x(index) }
@@ -72,8 +72,8 @@ const SubjectChartBlock = (props) => {
                     svg={{ fill: 'rgba(255, 0, 0, 0.1)' }}
                 >
                     <Grid/>
-                    <Line/>
-                    <Decorator/>
+                    <Line {...props}/>
+                    <Decorator {...props}/>
                 </AreaChart>
                
                 <Text style={styles.averageText}>Ø {average()}</Text>

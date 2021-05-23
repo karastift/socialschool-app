@@ -27,21 +27,25 @@ const Login = ({ navigation }) => {
         }
     }, [school]);
 
-    const submit = (name, pass) => {
-        if (name.length == 0) {
+    const submit = () => {
+        if (username.length == 0) {
             setError('Enter your username.');
         }
-        else if (name.length < 4) {
+        else if (username.length < 4) {
             setError('Entered username is too short.');
         }
-        else if (pass.length == 0) {
+        else if (password.length == 0) {
             setError('Enter your password.');
         }
-        else if (pass.length < 4) {
+        else if (password.length < 4) {
             setError('Entered password is too short.');
         }
         else {
-            const variables = { usernameOrEmail: name, password: pass, school: school };
+            const variables = {
+                usernameOrEmail: username,
+                password: password,
+                school: school
+            };
             login(variables).then(result => {
                 if (typeof result.error !== 'undefined') {
                     setError(result.error.message);
@@ -99,11 +103,7 @@ const Login = ({ navigation }) => {
                     />
                 </View>
                 <TouchableOpacity style={{padding: 25}} onPress={()=>{
-                    submit(
-                        username,
-                        password,
-                        school,
-                    );
+                    submit();
                 }}>
                     <Text style={styles.submit}>Login</Text>
                 </TouchableOpacity>

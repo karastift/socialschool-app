@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     fieldWrapper: {
         width: '70%',
         marginVertical: 15,
-        borderBottomColor: 'white',
         borderBottomWidth: 1,
         borderBottomColor: 'rgba(255, 255, 255, 0.8)',
     },
