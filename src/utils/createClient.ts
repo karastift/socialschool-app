@@ -19,7 +19,7 @@ export const cursorPagination = () => {
       "posts"
     );
     info.partial = !isItInTheCache;
-    const results = [];
+    const results: any = [];
     fieldInfos.forEach((fi: { fieldKey: any; }) => {
         const data = cache.resolve(entityKey, fi.fieldKey);
         results.push(...data);
