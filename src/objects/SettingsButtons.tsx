@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { CostumTextProps } from '../types/CostumTextProps';
 import { SettingsButtonProps } from '../types/SettingsButtonProps';
 
-const NormalButton = (props: SettingsButtonProps) => {
+const SettingsButton = (props: SettingsButtonProps) => {
   const [open, setOpen] = useState(false);
   const variant = props.variant;
 
@@ -95,7 +95,7 @@ const NormalButton = (props: SettingsButtonProps) => {
 
 };
 
-export default NormalButton;
+export default SettingsButton;
 
 const styles = StyleSheet.create({
   container: {
