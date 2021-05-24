@@ -75,7 +75,7 @@ const App = () => {
                         headerTitleStyle: {color: 'red', fontWeight: '700'},
                         headerBackTitleStyle: {color: 'white'},
                         headerTransparent: true,
-                        title: 'subject-board',
+                        title: 'dashboard',
                         headerBackTitle: "",
                     }}/>
                     <RootStack.Screen name="User" component={User} options={{
