@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { Platform, StyleSheet, Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -18,20 +18,20 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: 60,
         height: 50,
-        top: 5,
+        top: Platform.OS === 'ios' ? 5 : 45,
         left: 5
     },
     loginButton: {
         position: 'absolute',
         width: 60,
         height: 50,
-        top: 5,
+        top: Platform.OS === 'ios' ? 5 : 45,
         right: 40,
     },
     createButton: {
         width: 200,
-        marginTop: 50,
-        marginLeft: 70,
+        marginTop: Platform.OS === 'ios' ? 50 : 60,
+        marginLeft: Platform.OS === 'ios' ? 70 : 80,
         height: 30,
     },
     loginText: {

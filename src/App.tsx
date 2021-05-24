@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from 'urql';
@@ -27,66 +28,153 @@ const App = () => {
                 <RootStack.Navigator>
                 {error.length != 0 ? (
                     <RootStack.Screen name="Error" component={Error} options={{
-                        headerTitleStyle: {color: 'red', fontWeight: '700'},
-                        headerTransparent: true,
-                        headerBackTitleStyle: {color: 'white'},
-                        headerBackTitle: ""
+                        headerTitleStyle: {
+                        ...Platform.select({
+                            android: {
+                                marginLeft: '32%',
+                                marginBottom: 100,
+                            },
+                        }),
+                        color: 'red',
+                        fontWeight: '700'
+                    },
+                    headerBackTitleStyle: {color: 'white'},
+                    headerTransparent: true,
+                    headerBackTitle: ""
                     }}/>
                 ) : (
                     <>
                     <RootStack.Screen name="Welcome" component={Welcome} options={{
-                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerTitleStyle: {
+                            ...Platform.select({
+                                android: {
+                                    marginLeft: '32%',
+                                    marginBottom: 100,
+                                },
+                            }),
+                            color: 'red',
+                            fontWeight: '700',
+                        },
                         headerTransparent: true,
                         headerBackTitleStyle: {color: 'white'},
                         title: 'Social School'
                     }}/>
                     <RootStack.Screen name= "Discussionpost" component={Discussionpost} options={{
-                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerTitleStyle: {
+                            ...Platform.select({
+                                android: {
+                                    marginLeft: '32%',
+                                    marginBottom: 100,
+                                },
+                            }),
+                            color: 'red',
+                            fontWeight: '700'
+                        },
                         headerBackTitleStyle: {color: 'white'},
                         headerTransparent: true,
                         headerBackTitle: ""
                     }}/>
                     <RootStack.Screen name="Login" component={Login} options={{
-                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerTitleStyle: {
+                             ...Platform.select({
+                                android: {
+                                    marginLeft: '32%',
+                                    marginBottom: 100,
+                                },
+                            }),
+                            color: 'red', 
+                            fontWeight: '700'
+                        },
                         headerBackTitleStyle: {color: 'white'},
                         headerTransparent: true,
                         headerBackTitle: ""
                     }}/>
                     <RootStack.Screen name="Register" component={Register} options={{
-                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerTitleStyle: {
+                            ...Platform.select({
+                                android: {
+                                    marginLeft: '32%',
+                                    marginBottom: 100,
+                                },
+                            }),
+                            color: 'red',
+                            fontWeight: '700'
+                        },
                         headerBackTitleStyle: {color: 'white'},
                         headerTransparent: true,
                     }}/>
                     <RootStack.Screen name="DiscussionpostCreation" component={DiscussionpostCreation} options={{
-                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerTitleStyle: {
+                            ...Platform.select({
+                                android: {
+                                    marginLeft: '32%',
+                                    marginBottom: 100,
+                                },
+                            }),
+                            color: 'red',
+                            fontWeight: '700'
+                        },
                         headerBackTitleStyle: {color: 'white'},
                         headerTransparent: true,
                         title: 'new discussion',
                         headerBackTitle: "",
                     }}/>
                     <RootStack.Screen name="GradepostCreation" component={GradepostCreation} options={{
-                        headerTitleStyle: {color: 'red', fontWeight: '700'},
-                        headerBackTitleStyle: {color: 'white'},
-                        headerTransparent: true,
-                        title: 'new grade',
-                        headerBackTitle: "",
+                        headerTitleStyle: {
+                            ...Platform.select({
+                                android: {
+                                    marginLeft: '32%',
+                                    marginBottom: 100,
+                                },
+                            }),
+                            color: 'red',
+                            fontWeight: '700'
+                            },
+                            headerBackTitleStyle: {color: 'white'},
+                            headerTransparent: true,
+                            headerBackTitle: ""
                     }}/>
                     <RootStack.Screen name="SubjectBoard" component={SubjectBoard} options={{
-                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerTitleStyle: {
+                            ...Platform.select({
+                                android: {
+                                    marginLeft: '32%',
+                                    marginBottom: 100,
+                                },
+                            }),
+                            color: 'red',
+                            fontWeight: '700'
+                        },
                         headerBackTitleStyle: {color: 'white'},
                         headerTransparent: true,
-                        title: 'dashboard',
                         headerBackTitle: "",
                     }}/>
                     <RootStack.Screen name="User" component={User} options={{
-                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerTitleStyle: {
+                            ...Platform.select({
+                                android: {
+                                    marginLeft: '32%',
+                                    marginBottom: 100,
+                                },
+                            }),
+                            color: 'red',
+                            fontWeight: '700'
+                        },
                         headerBackTitleStyle: {color: 'white'},
                         headerTransparent: true,
-                        title: 'user',
-                        headerBackTitle: "",
+                        headerBackTitle: ""
                     }}/>
                     <RootStack.Screen name= "Settings" component={Settings} options={{
-                        headerTitleStyle: {color: 'red', fontWeight: '700'},
+                        headerTitleStyle: {
+                            ...Platform.select({
+                                android: {
+                                    marginLeft: '32%',
+                                    marginBottom: 100,
+                                },
+                            }),
+                            color: 'red',
+                            fontWeight: '700'
+                        },
                         headerBackTitleStyle: {color: 'white'},
                         headerTransparent: true,
                         headerBackTitle: ""

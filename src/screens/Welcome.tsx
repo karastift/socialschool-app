@@ -13,7 +13,7 @@ import UserPageButton from '../objects/UserPageButton';
 import styles from "../styles/WelcomeStyles";
 
 
-const Welcome = ({ navigation, route }) => {
+const Welcome = ({ navigation, route }: any) => {
 
     const [isRefreshing, setRefreshing] = useState(false);
     const [variables, setVariables] = useState({ limit: 20, cursor: null });
@@ -73,7 +73,7 @@ const Welcome = ({ navigation, route }) => {
                             />
                         }
                     >
-                        {postData.posts.posts.map((post) => {
+                        {postData.posts.posts.map((post: any) => {
                             return (
                                 <TouchableOpacity
                                     key={post.id}
@@ -118,7 +118,7 @@ const Welcome = ({ navigation, route }) => {
                         refreshControl={
                             <RefreshControl
                                 refreshing={false}
-                                onRefresh={null}
+                                onRefresh={() => null}
                             />
                         }
                     >
