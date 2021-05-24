@@ -5,7 +5,7 @@ import styles from "../styles/UserStyles";
 import ME_QUERY from '../graphql/queries/MeQuery';
 import AllChartBlock from '../objects/AllChartBlock';
 import StatsBlock from '../objects/StatsBlock';
-import UserPageSettingsButton from '../objects/UserSettingsButton';
+import SettingsButton from '../objects/SettingsButtons';
 
 
 const User = ({ navigation }) => {
@@ -21,7 +21,7 @@ const User = ({ navigation }) => {
                 <View style={styles.chartWrapper}>
                     <AllChartBlock onPress={() => navigation.navigate('SubjectBoard')}/>
                     <StatsBlock/>
-                    <UserPageSettingsButton/>
+                    <SettingsButton onPress={() => navigation.navigate('Settings')} variant="settingsButton"/>
                 </View>
             ) :
             (

@@ -37,7 +37,6 @@ const AllChartBlock = (props) => {
     });
 
     if (gradesFetching || gradesError) {
-        console.log(gradesError);
         return (
             <Text>loading</Text>
         );
@@ -68,8 +67,8 @@ const AllChartBlock = (props) => {
                     svg={{ fill: 'rgba(255, 0, 0, 0.1)' }}
                 >
                     <Grid/>
-                    <Line/>
-                    <Decorator/>
+                    <Line {...props}/>
+                    <Decorator {...props}/>
                 </AreaChart>
                
                 <Text style={styles.averageText}>Ø {average()}</Text>
