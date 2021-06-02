@@ -13,6 +13,7 @@ const Register = ({ navigation }: RegisterProps) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [school, setSchool] = useState('');
+    const [showValue, setShowValue] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
@@ -37,7 +38,7 @@ const Register = ({ navigation }: RegisterProps) => {
             setError('Your passwords do not match.');
         }
         else {
-            const variables = { email: mail, username: name, password: pass };
+            const variables = { email: mail, username: name, school, password: pass };
             register({ options: variables }).then(result => {
                 if (typeof result.error !== 'undefined') {
                     setError(result.error.message);
@@ -77,6 +78,20 @@ const Register = ({ navigation }: RegisterProps) => {
                     />
                 </View>
                 <View style={styles.fieldWrapper}>
+                    <Text style={null} onPress={() => {
+                        setSchool(showValue);
+                    }}>{showValue}</Text>
+                    <TextInput  
+                        placeholder="school"
+                        placeholderTextColor="rgba(255, 255, 255, 0.8)"
+                        value={school}
+                        onChangeText={text => setSchool(text)}
+                        textAlign={'center'}
+                        returnKeyType="done"
+                        style={styles.field}
+                    />
+                </View>
+                <View style={styles.fieldWrapper}>
                     <TextInput  
                         placeholder="password" 
                         placeholderTextColor="rgba(255, 255, 255, 0.7)"
@@ -104,8 +119,8 @@ const Register = ({ navigation }: RegisterProps) => {
                     submit(
                         username,
                         email,
+                        school,
                         password,
-                        confirmPassword
                     );
                 }}>
                     <Text style={styles.submit}>Register</Text>

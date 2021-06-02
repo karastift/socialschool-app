@@ -48,6 +48,7 @@ const Login = ({ navigation }: LoginProps) => {
                 school: school
             };
             login(variables).then(result => {
+                console.log(result.data);
                 if (typeof result.error !== 'undefined') {
                     setError(result.error.message);
                 }

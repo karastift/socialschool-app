@@ -3,18 +3,30 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Circle, Path } from 'react-native-svg';
 import { AreaChart, Grid } from 'react-native-svg-charts';
 import ALL_GRADES_QUERY from '../graphql/queries/AllGradesQuery';
+<<<<<<< HEAD
 import { useQuery, UseQueryResponse } from "urql";
+=======
+import { useQuery } from 'urql';
+>>>>>>> 93728da4e551d28f96d838b64b082df10c40fa50
 import * as shape from 'd3-shape';
 import { AllChartBlockProps } from '../types/objectProps/AllChartBlockProps';
 import { GradeTypes } from '../types/GradeTypes';
 import { GradesDataTypes } from '../types/GradesDataTypes';
 
+<<<<<<< HEAD
 const AllChartBlock = (props: AllChartBlockProps) => {
+=======
+const AllChartBlock = (props: any) => {
+>>>>>>> 93728da4e551d28f96d838b64b082df10c40fa50
 
     const onPress = props.onPress;
 
     const Decorator = ({ x, y, data }: any) => {
+<<<<<<< HEAD
         return data.map((value: any, index: number) => (
+=======
+        return data.map((value, index: number) => (
+>>>>>>> 93728da4e551d28f96d838b64b082df10c40fa50
             <Circle
                 key={ index }
                 cx={ x(index) }
