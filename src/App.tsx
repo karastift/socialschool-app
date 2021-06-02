@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { registerRootComponent } from 'expo';
 import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from 'urql';
 import { client } from './utils/createClient';
+import { ApolloProvider } from '@apollo/client';
 
 import Welcome from "./screens/Welcome";
 import SubjectBoard from "./screens/SubjectBoard";
@@ -23,7 +25,7 @@ const App = () => {
     const [error, setError] = useState('');
 
     return (
-        <Provider value={client}>
+        <ApolloProvider client value={client}>
             <NavigationContainer>
                 <RootStack.Navigator>
                 {error.length != 0 ? (
@@ -183,8 +185,8 @@ const App = () => {
             )}
                 </RootStack.Navigator>
             </NavigationContainer>
-        </Provider>
+        </ApolloProvider>
     );
     
 }
-export default App;
+export default registerRootComponent(App);
