@@ -6,9 +6,10 @@ import ME_QUERY from '../graphql/queries/MeQuery';
 import AllChartBlock from '../objects/AllChartBlock';
 import StatsBlock from '../objects/StatsBlock';
 import SettingsButton from '../objects/SettingsButtons';
+import { UserProps } from '../types/screenProps/UserTypes';
 
 
-const User = ({ navigation }) => {
+const User = ({ navigation }: UserProps) => {
 
     const [{ data: meData, fetching: meFetching, error: meError }, reloadMe] = useQuery({
         query: ME_QUERY,

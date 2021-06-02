@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { CreateButtonProps } from '../types/objectProps/CreateButtonProps';
 
-const CreateButton = (props) => {
+const CreateButton = (props: CreateButtonProps) => {
     const [isOpen, setOpen] = useState(false);
 
     if (!isOpen) {

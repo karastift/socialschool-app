@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, ScrollView, RefreshControl, SafeAreaView, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, View } from 'react-native';
 import { useQuery } from "urql";
-import styles from "../styles/PostStyles";
-import Comment from "../objects/Comment";
-import POST_QUERY from "../graphql/queries/PostQuery";
 import POST_COMMENT_QUERY from "../graphql/queries/PostCommentsQuery";
+import POST_QUERY from "../graphql/queries/PostQuery";
+import Comment from "../objects/Comment";
+import { Post } from '../objects/Post';
+import styles from "../styles/PostStyles";
+import { CommentTypes } from '../types/objectProps/CommentTypes';
+import { DiscussionpostProps } from '../types/screenProps/DiscussionpostTypes';
 
-const Discussionpost = ({ navigation, route }) => {
+const Discussionpost = ({ navigation, route }: DiscussionpostProps) => {
 
     const [{ data: postData, fetching: postFetching, error: postError }, reloadPost] = useQuery({
         query: POST_QUERY,
@@ -26,25 +29,6 @@ const Discussionpost = ({ navigation, route }) => {
     useEffect(() => {
         refresh();
     }, [route.params])
-
-    const Post = (props) => {
-        const title = props.title;
-        const body = props.body;
-        const status = props.status;
-        const upvotes = props.upvotes;
-        const username = props.username;
-
-        return (
-            <View style={styles.discussionpostWrapper}>
-                <View style={styles.discussionpost}>
-                    <Text style={styles.discussionpostTitle}>{title}</Text>
-                    <Text> </Text>
-                    <Text style={styles.discussionpostBody}>{body}</Text>
-                    <Text style={styles.postInfo}>posted by <Text style={styles.postInfo2}>{username}</Text> | {status == 'public' ? (<Text>{status}</Text>) : (<Text style={styles.postInfo2}>{status}</Text>)} | {upvotes}</Text>
-                </View>
-            </View>
-        );
-    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -67,7 +51,7 @@ const Discussionpost = ({ navigation, route }) => {
                                 />
                             }
                         >
-                            {commentsData.postComments.postComments.map((comment, index) => {
+                            {commentsData.postComments.postComments.map((comment: CommentTypes, index: number) => {
                                 return (
                                     <Comment
                                         key={index}

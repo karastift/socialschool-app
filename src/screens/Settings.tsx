@@ -3,9 +3,10 @@ import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import SettingsButton from '../objects/SettingsButtons';
 import styles from "../styles/SettingsStyles";
+import { SettingsProps } from '../types/screenProps/SettingsTypes';
 
 
-const Settings = ({ navigation }) => {
+const Settings = ({ navigation }: SettingsProps) => {
 
   return (
     <View style={styles.container}>

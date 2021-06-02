@@ -3,8 +3,9 @@ import { useQuery } from "urql";
 import { View, Text, ActivityIndicator } from 'react-native';
 import styles from "../styles/SubjectBoardStyles";
 import SubjectChartBlock from '../objects/SubjectChartBlock';
+import { SubjectBoardProps } from '../types/screenProps/SubjectBoardTypes';
 
-const SubjectBoard = ({ navigation }) => {
+const SubjectBoard = ({ navigation }: SubjectBoardProps) => {
 
     const [{ data: subjectsData, fetching: subjectsFetching, error: subjectsError }] = useQuery({
         query: `{allSubjects}`,
@@ -15,7 +16,7 @@ const SubjectBoard = ({ navigation }) => {
             { !subjectsFetching ?
             (
                 <View style={styles.chartWrapper}>
-                {subjectsData.allSubjects.map((subject, index) => (
+                {subjectsData.allSubjects.map((subject: string, index: number) => (
                     <SubjectChartBlock
                         key={index}
                         subject={subject}

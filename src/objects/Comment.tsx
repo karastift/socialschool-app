@@ -1,9 +1,10 @@
 import React from "react";
 import { View, Text } from "react-native";
 import styles from "../styles/PostStyles";
+import { CommentProps } from "../types/objectProps/CommentProps";
 
 const randomWords = ['says:', 'claims:', 'thinks:', 'believes:', 'is of the view:', 'is of the opinion:'];
-const Comment = (props) => {
+const Comment = (props: CommentProps) => {
     const username = props.username;
     const body = props.body;
     const index = props.id;

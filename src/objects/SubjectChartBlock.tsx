@@ -4,11 +4,14 @@ import { Circle, Path } from 'react-native-svg';
 import { AreaChart, Grid } from 'react-native-svg-charts';
 import { useQuery } from "urql";
 import * as shape from 'd3-shape';
+import { GradeTypes } from '../types/GradeTypes';
+import { SubjectChartBlockProps } from '../types/objectProps/SubjectChartBlockProps';
+import { GradesDataTypes } from '../types/GradesDataTypes';
 
-const SubjectChartBlock = (props) => {
+const SubjectChartBlock = (props: SubjectChartBlockProps) => {
 
-    const Decorator = ({ x, y, data }) => {
-        return data.map((value, index: number) => (
+    const Decorator = ({ x, y, data }: any) => {
+        return data.map((value: GradeTypes, index: number) => (
             <Circle
                 key={ index }
                 cx={ x(index) }
@@ -20,7 +23,7 @@ const SubjectChartBlock = (props) => {
         ))
     }
 
-    const Line = ({ line }) => (
+    const Line = ({ line }: any) => (
         <Path
             key={'line'}
             d={line}
@@ -30,7 +33,7 @@ const SubjectChartBlock = (props) => {
     );
 
     const subject = props.subject;
-    const [{data: grades, fetching: gradesFetching, error}] = useQuery({
+    const [{data: grades, fetching: gradesFetching, error}]: GradesDataTypes = useQuery({
         query: `
         query SubjectGrades($subject: String!){
             subjectGrades(subject: $subject) {
@@ -49,17 +52,17 @@ const SubjectChartBlock = (props) => {
     else {
         const average = () => {
             let sum = 0;
-            grades.subjectGrades.map(grade => {
+            grades!.grades.map((grade: GradeTypes) => {
                 sum += grade.grade;
             });
-            return (sum / grades.subjectGrades.length).toFixed(2);
+            return (sum / grades!.grades.length).toFixed(2);
         };
         return (
             <TouchableOpacity style={styles.chartContainer}>
                 <Text style={styles.subjectText}>{subject}</Text>
                 <AreaChart
                     style={styles.chart}
-                    data={grades.subjectGrades}
+                    data={grades!.grades}
                     yAccessor={({ item }) => item.grade}
                     yMin={6}
                     yMax={1}

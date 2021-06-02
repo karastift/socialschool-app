@@ -1,9 +1,10 @@
 import React from 'react';
 import { Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { UserPageButtonProps } from '../types/objectProps/UserPageButtonProps';
 
 
 
-const UserPageButton = (props) => {
+const UserPageButton = (props: UserPageButtonProps) => {
 
     const username = props.username;
 

@@ -4,7 +4,7 @@ import { useQuery } from "urql";
 import { View } from 'react-native';
 import ME_QUERY from '../graphql/queries/MeQuery';
 
-const StatsBlock = _ => {
+const StatsBlock = () => {
 
     const [{data, fetching}] = useQuery({
         query: ME_QUERY,

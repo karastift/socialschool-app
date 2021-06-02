@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from 'urql';
 import { client } from './utils/createClient';
+import { RootStackParamList } from './types/RootStackParamList';
 
 import Welcome from "./screens/Welcome";
 import SubjectBoard from "./screens/SubjectBoard";
@@ -17,7 +18,7 @@ import DiscussionpostCreation from "./screens/DiscussionpostCreation";
 import Discussionpost from "./screens/Discussionpost";
 import Settings from "./screens/Settings";
 
-const RootStack = createStackNavigator();
+const RootStack = createStackNavigator<RootStackParamList>();
 
 const App = () => {
 

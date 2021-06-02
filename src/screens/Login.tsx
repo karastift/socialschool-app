@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native';
-import schoolData from '../schools.json'
+import React, { useEffect, useState } from 'react';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useMutation } from 'urql';
-import styles from "../styles/LoginStyles";
-
 import LOGIN_MUTATION from "../graphql/mutations/LoginMutation";
+import schoolData from '../schools.json';
+import styles from "../styles/LoginStyles";
+import { LoginProps } from '../types/screenProps/LoginTypes';
 
-const Login = ({ navigation }) => {
+
+const Login = ({ navigation }: LoginProps) => {
 
     const [, login] = useMutation(LOGIN_MUTATION);
 
@@ -14,7 +15,7 @@ const Login = ({ navigation }) => {
     const [school, setSchool] = useState('');
     const [showValue, setShowValue] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
+    const [error, setError] = useState('');
 
     const schools = schoolData.schools;
     useEffect(() => {

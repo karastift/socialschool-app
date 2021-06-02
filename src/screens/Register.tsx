@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native';
-import schoolData from '../schools.json'
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useMutation } from 'urql';
-import styles from "../styles/RegisterStyles";
-
 import REGISTER_MUTATION from "../graphql/mutations/RegisterMutation";
+import styles from "../styles/RegisterStyles";
+import { RegisterProps } from '../types/screenProps/RegisterTypes';
 
-const Register = ({ navigation }) => {
+
+const Register = ({ navigation }: RegisterProps) => {
 
     const [registerResult, register] = useMutation(REGISTER_MUTATION);
 
@@ -15,9 +15,9 @@ const Register = ({ navigation }) => {
     const [school, setSchool] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState(null);
+    const [error, setError] = useState('');
 
-    const submit = (name, mail, pass, confPass) => {
+    const submit = (name: string, mail: string, pass: string, confPass: string) => {
         if (name.length == 0) {
             setError('Enter your username.');
         }

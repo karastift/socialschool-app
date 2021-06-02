@@ -1,16 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { PostProps } from '../types/objectProps/PostProps';
 
-
-
-const PostPreview = (props) => {
+const PostPreview = (props: PostProps) => {
     let username = props.username;
     let status = props.status;
-    let created = props.created;
+    // let createdAt = props.createdAt;
     let upvotes = props.upvotes;
     let title = props.title;
     let body = props.body;
-    let key = parseInt(props.id);
+    let key = props.id;
     return (
         <View key={key} style={props.style}>
             <View style={styles.discussionpost}>

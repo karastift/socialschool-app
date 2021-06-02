@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, TextInput, TouchableOpacity, Text } from "react-native";
 import Icon from 'react-native-vector-icons/AntDesign';
 import { CostumTextProps } from '../types/CostumTextProps';
-import { SettingsButtonProps } from '../types/SettingsButtonProps';
+import { SettingsButtonProps } from '../types/objectProps/SettingsButtonProps';
 
 const SettingsButton = (props: SettingsButtonProps) => {
   const [open, setOpen] = useState(false);
@@ -91,6 +91,9 @@ const SettingsButton = (props: SettingsButtonProps) => {
         </TouchableOpacity>
     );
     }
+  }
+  else {
+    throw new Error('no variant for given (SettingsButton.tsx)');
   }
 
 };
