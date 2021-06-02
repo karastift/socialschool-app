@@ -6,7 +6,7 @@ import styles from "../styles/LoginStyles";
 
 import LOGIN_MUTATION from "../graphql/mutations/LoginMutation";
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation }: any ) => {
 
     const [, login] = useMutation(LOGIN_MUTATION);
 
@@ -14,7 +14,7 @@ const Login = ({ navigation }) => {
     const [school, setSchool] = useState('');
     const [showValue, setShowValue] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
+    const [error, setError] = useState('');
 
     const schools = schoolData.schools;
     useEffect(() => {
@@ -47,6 +47,7 @@ const Login = ({ navigation }) => {
                 school: school
             };
             login(variables).then(result => {
+                console.log(result.data);
                 if (typeof result.error !== 'undefined') {
                     setError(result.error.message);
                 }
