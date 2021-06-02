@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { LoginButtonProps } from '../types/objectProps/LoginButtonProps';
 
-const LogoutButton = (props) => {
-
+const LogoutButton = (props: LoginButtonProps) => {
     return (
         <TouchableOpacity style={[props.style, styles.loginButton]} onPress={props.onPress}>
             <Text style={styles.loginText}>logout</Text>

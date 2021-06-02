@@ -11,9 +11,10 @@ import LogoutButton from '../objects/LogoutButton';
 import PostPreview from '../objects/PostPreview';
 import UserPageButton from '../objects/UserPageButton';
 import styles from "../styles/WelcomeStyles";
+import { WelcomeProps } from '../types/screenProps/WelcomeTypes';
 
 
-const Welcome = ({ navigation, route }: any) => {
+const Welcome = ({ navigation, route }: WelcomeProps) => {
 
     const [isRefreshing, setRefreshing] = useState(false);
     const [variables, setVariables] = useState({ limit: 20, cursor: null });
@@ -79,7 +80,7 @@ const Welcome = ({ navigation, route }: any) => {
                                     key={post.id}
                                     onPress={() => navigation.navigate(
                                         'Discussionpost',
-                                        { id: post.id, justForRefresh: null }
+                                        { id: post.id, refresh: null }
                                     )}
                                 >
                                     <PostPreview
@@ -107,7 +108,7 @@ const Welcome = ({ navigation, route }: any) => {
                             title={"Sorry for the inconvenience."} 
                             body={postError.message}
                             username={"error"} 
-                            upvotes={"error"}
+                            upvotes={0}
                             status={"error"}
                             style={styles.discussionpostWrapper}
                         />

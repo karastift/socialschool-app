@@ -1,7 +1,7 @@
-import { cacheExchange } from '@urql/exchange-graphcache';
 import { createClient, dedupExchange, fetchExchange, stringifyVariables } from "urql";
-import { betterUpdateQuery } from './betterUpdateQuery';
-import ME_QUERY from "../graphql/queries/MeQuery";
+// import { cacheExchange } from '@urql/exchange-graphcache';
+// import { betterUpdateQuery } from './betterUpdateQuery';
+// import ME_QUERY from "../graphql/queries/MeQuery";
 
 export const cursorPagination = () => {
 
