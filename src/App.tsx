@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { registerRootComponent } from 'expo';
 import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -187,4 +188,4 @@ const App = () => {
     );
     
 }
-export default App;
+export default registerRootComponent(App);

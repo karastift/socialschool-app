@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add @babel/core
+  /usr/local/bin/node /usr/local/bin/yarn add -D @types/react-native-svg-charts
 
 PATH: 
   /opt/homebrew/opt/m4/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/opt/homebrew/opt/m4/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Library/Frameworks/Python.framework/Versions/3.9/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/Users/kara/Coding/socialschool/discussmyschoolapp/node_modules/@babel/plugin-proposal-class-properties/node_modules/@babel/parser/README.md'
+  Error: EACCES: permission denied, unlink '/Users/kara/Coding/socialschool/discussmyschoolapp/node_modules/@babel/plugin-proposal-class-properties/node_modules/@babel/parser/CHANGELOG.md'
 
 npm manifest: 
   {
