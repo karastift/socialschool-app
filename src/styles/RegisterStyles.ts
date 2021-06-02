@@ -59,7 +59,11 @@ const styles = StyleSheet.create({
     error: {
         color: 'lightblue',
         transform: [{translateY: 230}],
-    }
+    },
+    shower: {
+        color: "grey",
+        textAlign: "center",
+    },
 });
 
 export default styles;
