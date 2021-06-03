@@ -1,76 +1,42 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { Circle, Path } from 'react-native-svg';
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { AreaChart, Grid } from 'react-native-svg-charts';
+import { Line } from './Line';
+import { Decorator } from './Decorator';
 import ALL_GRADES_QUERY from '../graphql/queries/AllGradesQuery';
-<<<<<<< HEAD
-import { useQuery, UseQueryResponse } from "urql";
-=======
-import { useQuery } from 'urql';
->>>>>>> 93728da4e551d28f96d838b64b082df10c40fa50
+import { useQuery } from "urql";
 import * as shape from 'd3-shape';
 import { AllChartBlockProps } from '../types/objectProps/AllChartBlockProps';
-import { GradeTypes } from '../types/GradeTypes';
-import { GradesDataTypes } from '../types/GradesDataTypes';
+import { GradesDataTypes, GradeTypes } from '../types/GradeTypes';
 
-<<<<<<< HEAD
+const average = (array: [GradeTypes]) => {
+    let sum = 0;
+    array.map((grade) => {
+        sum += grade.grade;
+    });
+    return (sum / array.length).toFixed(2);
+};
+
 const AllChartBlock = (props: AllChartBlockProps) => {
-=======
-const AllChartBlock = (props: any) => {
->>>>>>> 93728da4e551d28f96d838b64b082df10c40fa50
 
     const onPress = props.onPress;
-
-    const Decorator = ({ x, y, data }: any) => {
-<<<<<<< HEAD
-        return data.map((value: any, index: number) => (
-=======
-        return data.map((value, index: number) => (
->>>>>>> 93728da4e551d28f96d838b64b082df10c40fa50
-            <Circle
-                key={ index }
-                cx={ x(index) }
-                cy={ y(value.grade) }
-                r={ 4 }
-                stroke={'white'}
-                fill={'darkred'}
-            />
-        ))
-    }
-
-    const Line = ({ line }: any) => (
-        <Path
-            key={'line'}
-            d={line}
-            stroke={'red'}
-            fill={'none'}
-        />
-    );
 
     const [{ data: gradesData, fetching: gradesFetching, error: gradesError }]: GradesDataTypes = useQuery({
         query: ALL_GRADES_QUERY,
     });
-
-    if (gradesFetching || gradesError) {
+    if (gradesFetching === true || typeof gradesError !== 'undefined') {
         return (
-            <Text>loading</Text>
+            <Text>{"loading"}</Text>
         );
     }
     else {
-        const average = () => {
-            let sum = 0;
-            gradesData!.grades.map((grade: GradeTypes) => {
-                sum += grade.grade;
-            });
-            return (sum / gradesData!.grades.length).toFixed(2);
-        };
-        if (gradesData!.grades.length !== 0) {
+        if (gradesData!.allGrades?.length !== 0) {
             return (
                 <TouchableOpacity style={styles.chartContainer} onPress={() => onPress()}>
-                    <Text style={styles.subjectText}>all time grades</Text>
+                    <Text style={styles.subjectText}>{"all time grades"}</Text>
                     <AreaChart
                         style={styles.chart}
-                        data={gradesData!.grades}
+                        data={gradesData!.allGrades}
                         yAccessor={({ item }) => item.grade}
                         yMin={6}
                         yMax={1}
@@ -85,16 +51,16 @@ const AllChartBlock = (props: any) => {
                         <Grid/>
                         <Line {...props}/>
                         <Decorator {...props}/>
-                    </AreaChart>)
+                    </AreaChart>
                 
-                    <Text style={styles.averageText}>Ø {average()}</Text>
+                    <Text style={styles.averageText}>Ø {average(gradesData!.allGrades)}</Text>
                 </TouchableOpacity>
             );
         }
         else {
             return (
                 <TouchableOpacity style={[styles.chartContainer, {height: 50}]}>
-                    <Text style={[styles.subjectText, {marginTop: 5}]}>You have not injected any grades.</Text>
+                    <Text style={[styles.subjectText, {marginTop: 5}]}>{"You have not injected any grades."}</Text>
                 </TouchableOpacity>
             );
         }

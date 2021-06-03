@@ -1,4 +1,5 @@
 import { UserTypes } from "./UserTypes";
+import { UseQueryResponse } from "urql";
 
 export type GradeTypes = {
     id: number;
@@ -10,3 +11,15 @@ export type GradeTypes = {
     creatorId: number,
     creator: UserTypes;
 };
+
+export type GradesDataTypes = UseQueryResponse<
+    {
+        allGrades: [GradeTypes] | [];
+    }
+>;
+
+export type SubjectGradesDataType = UseQueryResponse<
+    {
+        subjectGrades: [GradeTypes] | [];
+    }
+>;

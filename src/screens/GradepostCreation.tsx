@@ -5,7 +5,7 @@ import Slider from "@react-native-community/slider";
 import CREATE_GRADE_MUTATION from "../graphql/mutations/CreateGradeMutation";
 import ME_QUERY from '../graphql/queries/MeQuery';
 import styles from "../styles/GradeCreationStyles";
-import subjectData from "../subjects.json";
+import subjectData from "../data/subjects.json";
 import { GradepostProps } from '../types/screenProps/GradepostCreationTypes';
 
 const GradepostCreation = ({ navigation }: GradepostProps) => {
