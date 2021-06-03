@@ -5,7 +5,6 @@ import SettingsButton from '../objects/SettingsButtons';
 import styles from "../styles/SettingsStyles";
 import { SettingsProps } from '../types/screenProps/SettingsTypes';
 
-
 const Settings = ({ navigation }: SettingsProps) => {
 
   return (

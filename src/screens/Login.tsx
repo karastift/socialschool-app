@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useMutation } from 'urql';
 import LOGIN_MUTATION from "../graphql/mutations/LoginMutation";
-import schoolData from '../schools.json';
+import schoolData from '../data/schools.json';
 import styles from "../styles/LoginStyles";
 import { LoginProps } from '../types/screenProps/LoginTypes';
 
