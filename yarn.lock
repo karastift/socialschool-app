@@ -1618,7 +1618,7 @@
     lodash "~4.17.0"
     tslib "~2.2.0"
 
-"@graphql-codegen/typescript-urql@^2.0.7":
+"@graphql-codegen/typescript-urql@^2.0.6":
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-urql/-/typescript-urql-2.0.7.tgz#1faa45f580132f59606d990c4bd81c1325504d86"
   integrity sha512-pm715JddFVSTV/uo+rlJ/nUF4buxZDzFOpWgiyExPMCXSZTUq8Gdb5HoA1Am3Z/d3mq4+Ep0cbDq8mKms6Vw2g==
@@ -1627,16 +1627,6 @@
     "@graphql-codegen/visitor-plugin-common" "1.21.0"
     auto-bind "~4.0.0"
     change-case-all "1.0.14"
-    tslib "~2.2.0"
-
-"@graphql-codegen/typescript@^1.22.1":
-  version "1.22.1"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript/-/typescript-1.22.1.tgz#9a2e215d4cf095d942c1671db4bad78b619b11ce"
-  integrity sha512-3f/siciXrhhMdcs9qcxnwWXETsAhZNNiUOlr6IUEm82kVx5xvFuxc0KZZE88w3iEVJXE7xYo1oWmrttvkQP4Aw==
-  dependencies:
-    "@graphql-codegen/plugin-helpers" "^1.18.7"
-    "@graphql-codegen/visitor-plugin-common" "1.21.0"
-    auto-bind "~4.0.0"
     tslib "~2.2.0"
 
 "@graphql-codegen/visitor-plugin-common@1.21.0":
@@ -2623,14 +2613,6 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@^26.0.23":
-  version "26.0.23"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.23.tgz#a1b7eab3c503b80451d019efb588ec63522ee4e7"
-  integrity sha512-ZHLmWMJ9jJ9PTiT58juykZpL7KjwJywFN3Rr2pTSkyQfydf/rk22yS7W8p5DaVUMQ2BQC7oYiU3FjbTM/mYrOA==
-  dependencies:
-    jest-diff "^26.0.0"
-    pretty-format "^26.0.0"
-
 "@types/js-yaml@^4.0.0":
   version "4.0.1"
   resolved "https://registry.npmjs.org/@types/js-yaml/-/js-yaml-4.0.1.tgz"
@@ -2694,33 +2676,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-native@^0.64.8":
-  version "0.64.8"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.64.8.tgz#6679198048581b1c33ac6050c1d46dced5e229b8"
-  integrity sha512-Jg1x3TTDTkVKu5gX1pPLKdkWqDQgDPOMP0wMG8d9br9tDITisA79zJ07o8dcPJWKETsBglHYPUQRVG2fxC2V8g==
-  dependencies:
-    "@types/react" "*"
-
-"@types/react-test-renderer@^17.0.1":
-  version "17.0.1"
-  resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-17.0.1.tgz#3120f7d1c157fba9df0118dae20cb0297ee0e06b"
-  integrity sha512-3Fi2O6Zzq/f3QR9dRnlnHso9bMl7weKCviFmfF6B4LS1Uat6Hkm15k0ZAQuDz+UBq6B3+g+NM6IT2nr5QgPzCw==
-  dependencies:
-    "@types/react" "*"
-
 "@types/react@*":
   version "17.0.4"
   resolved "https://registry.npmjs.org/@types/react/-/react-17.0.4.tgz"
   integrity sha512-onz2BqScSFMoTRdJUZUDD/7xrusM8hBA2Fktk2qgaTYPCgPvWnDEgkrOs8hhPUf2jfcIXkJ5yK6VfYormJS3Jw==
-  dependencies:
-    "@types/prop-types" "*"
-    "@types/scheduler" "*"
-    csstype "^3.0.2"
-
-"@types/react@^17.0.9":
-  version "17.0.9"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.9.tgz#1147fb520024a62c9b3841f5cb4db89b73ddb87f"
-  integrity sha512-2Cw7FvevpJxQrCb+k5t6GH1KIvmadj5uBbjPaLlJB/nZWUj56e1ZqcD6zsoMFB47MsJUTFl9RJ132A7hb3QFJA==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -5960,11 +5919,6 @@ diagnostics@^1.1.1:
     enabled "1.0.x"
     kuler "1.0.x"
 
-diff-sequences@^26.6.2:
-  version "26.6.2"
-  resolved "https://registry.yarnpkg.com/diff-sequences/-/diff-sequences-26.6.2.tgz#48ba99157de1923412eed41db6b6d4aa9ca7c0b1"
-  integrity sha512-Mv/TDa3nZ9sbc5soK+OoA74BsS3mL37yixCvUAQkiuA4Wz6YtwP/K47n2rv2ovzHZvoiQeA5FTQOschKkEwB0Q==
-
 diff@^2.0.2, diff@^2.1.2:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/diff/-/diff-2.2.3.tgz#60eafd0d28ee906e4e8ff0a52c1229521033bf99"
@@ -8903,25 +8857,10 @@ iterall@^1.1.3, iterall@^1.2.1:
   resolved "https://registry.npmjs.org/iterall/-/iterall-1.3.0.tgz"
   integrity sha512-QZ9qOMdF+QLHxy1QIpUHUU1D5pS2CG2P69LF6L6CPjPYA/XMOmKV3PZpawHoAjHNyB0swdVTRxdYT4tbBbxqwg==
 
-jest-diff@^26.0.0:
-  version "26.6.2"
-  resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-26.6.2.tgz#1aa7468b52c3a68d7d5c5fdcdfcd5e49bd164394"
-  integrity sha512-6m+9Z3Gv9wN0WFVasqjCL/06+EFCMTqDEUl/b87HYK2rAPTyfz4ZIuSlPhY51PIQRWx5TaxeF1qmXKe9gfN3sA==
-  dependencies:
-    chalk "^4.0.0"
-    diff-sequences "^26.6.2"
-    jest-get-type "^26.3.0"
-    pretty-format "^26.6.2"
-
 jest-get-type@^24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/jest-get-type/-/jest-get-type-24.9.0.tgz#1684a0c8a50f2e4901b6644ae861f579eed2ef0e"
   integrity sha512-lUseMzAley4LhIcpSP9Jf+fTrQ4a1yHQwLNeeVa2cEmbCGeoZAtYPOIv8JaxLD/sUpKxetKGP+gsHl8f8TSj8Q==
-
-jest-get-type@^26.3.0:
-  version "26.3.0"
-  resolved "https://registry.yarnpkg.com/jest-get-type/-/jest-get-type-26.3.0.tgz#e97dc3c3f53c2b406ca7afaed4493b1d099199e0"
-  integrity sha512-TpfaviN1R2pQWkIihlfEanwOXK0zcxrKEE4MlU6Tn7keoXdN6/3gK/xl0yEh8DOunn5pOVGKf8hB4R9gVh04ig==
 
 jest-haste-map@^24.9.0:
   version "24.9.0"
@@ -9689,11 +9628,7 @@ lodash@4.17.11:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
 
-<<<<<<< HEAD
 lodash@4.17.21, lodash@^4.11.1, lodash@^4.16.6, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.2, lodash@^4.17.20, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1, lodash@~4.17.0:
-=======
-lodash@4.17.21, lodash@^4.11.1, lodash@^4.16.6, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.2, lodash@^4.17.20, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1, lodash@~4.17.0, lodash@~4.17.20:
->>>>>>> 93728da4e551d28f96d838b64b082df10c40fa50
   version "4.17.21"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -11412,7 +11347,7 @@ pretty-format@^25.1.0, pretty-format@^25.2.0:
     ansi-styles "^4.0.0"
     react-is "^16.12.0"
 
-pretty-format@^26.0.0, pretty-format@^26.4.0, pretty-format@^26.6.2:
+pretty-format@^26.4.0:
   version "26.6.2"
   resolved "https://registry.npmjs.org/pretty-format/-/pretty-format-26.6.2.tgz"
   integrity sha512-7AeGuCYNGmycyQbCqd/3PWH4eOoX/OiCa0uphp57NVTeAGdJGaAliecxwBDHYQCIvrW7aDBZCYeNTP/WX69mkg==
