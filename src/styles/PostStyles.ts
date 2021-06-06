@@ -5,40 +5,27 @@ const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     container: {
         zIndex: 0,
-        flex: 1,
         backgroundColor: 'rgb(26, 26, 26)',
         alignItems: 'center',
         width: windowWidth,
         height: windowHeight,
         color: 'white',
-        textAlign: 'left'
-    },
-    header: {
-        zIndex: 2,
-        width: windowWidth,
-        color: 'red',
-        paddingTop: 30,
-        paddingBottom: 15,
-        marginBottom: 15,
-        marginLeft: 20,
-        fontSize: 30,
-        position: 'absolute',
-        backgroundColor: 'rgb(26, 26, 26)',
     },
     discussionpostWrapper: {
         marginBottom: 10,
         marginTop: 80,
+        marginLeft: 'auto',
+        marginRight: 'auto',
     },
     discussionpost: {
         color: 'white',
         backgroundColor: 'rgb(40, 40, 40)',
         alignItems: 'center',
-        width: windowWidth-40,
+        width: windowWidth-30,
         borderRadius: 24,
         textAlign: 'center',
         paddingRight: 6,
         paddingLeft: 6
-        
     },
     discussionpostTitle: {
         color: 'white',
@@ -79,7 +66,6 @@ const styles = StyleSheet.create({
     loading: {
         marginTop: '60%',
         width: windowWidth-30,
-        
     },
     postInfo: {
         color: 'grey',
@@ -90,6 +76,10 @@ const styles = StyleSheet.create({
     postInfo2: {
         color: 'rgba(255, 255, 255, 0.8)',
     },
+    commentsArea: {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    }, 
 });
 
 export default styles;
