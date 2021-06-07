@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { useQuery } from "urql";
+import { useMutation, useQuery } from "urql";
 import POST_COMMENT_QUERY from "../graphql/queries/PostCommentsQuery";
 import POST_QUERY from "../graphql/queries/PostQuery";
 import Comment from "../objects/Comment";
@@ -21,6 +21,30 @@ const Discussionpost = ({ navigation, route }: DiscussionpostProps) => {
     query: POST_COMMENT_QUERY,
     variables
   });
+
+  const [, createComment] = useMutation(`
+  mutation CreatePostComment($postId: Int!, $text: String!){
+    createPostComment(postId: $postId, text: $text) {
+        postComment {
+            id
+            postId
+            text
+        }
+        errors {
+            message
+            field
+        }
+    }
+  }
+  `);
+
+  const submitComment = async (enteredText: string) => {
+    if (enteredText) {
+      createComment({ postId: route.params.id, text: enteredText });
+      return true;
+    }
+    return false;
+  };
 
   const refresh = () => {
     reloadPost({ requestPolicy: 'network-only' });
@@ -43,7 +67,7 @@ const Discussionpost = ({ navigation, route }: DiscussionpostProps) => {
               status={postData.post.status}
               upvotes={postData.post.points}
             />
-            <CommentArea postId={route.params.id}/>
+            <CommentArea onChangeText={submitComment}/>
             <ScrollView
               style={styles.commentsArea}
               showsVerticalScrollIndicator={false}
