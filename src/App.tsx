@@ -132,6 +132,7 @@ const App = () => {
                             color: 'red',
                             fontWeight: '700'
                             },
+                            title: 'new grade',
                             headerBackTitleStyle: {color: 'white'},
                             headerTransparent: true,
                             headerBackTitle: ""
@@ -147,6 +148,7 @@ const App = () => {
                             color: 'red',
                             fontWeight: '700'
                         },
+                        title: 'subject board',
                         headerBackTitleStyle: {color: 'white'},
                         headerTransparent: true,
                         headerBackTitle: "",

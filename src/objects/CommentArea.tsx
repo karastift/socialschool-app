@@ -6,21 +6,6 @@ import { CommentAreaProps } from '../types/objectProps/CommentAreaProps';
 export const CommentArea = (props: CommentAreaProps) => {
 
   const [text, setText] = useState('');
-  const [result, createComment] = useMutation(`
-  mutation CreatePostComment($postId: Int!, $text: String!){
-    createPostComment(postId: $postId, text: $text) {
-        postComment {
-            id
-            postId
-            text
-        }
-        errors {
-            message
-            field
-        }
-    }
-  }
-  `);
 
   return (
     <View>
@@ -34,8 +19,7 @@ export const CommentArea = (props: CommentAreaProps) => {
       />
 
       <TouchableOpacity style={styles.container} onPress={() => {
-        createComment({postId: props.postId, text});
-        setText('');
+        if (props.onChangeText(text)) setText('');
         }}>
         <Text style={styles.costumText}>comment</Text>
       </TouchableOpacity>
