@@ -7,15 +7,14 @@ import { useQuery } from "urql";
 import * as shape from 'd3-shape';
 import { GradeTypes, SubjectGradesDataType } from '../types/GradeTypes';
 import { SubjectChartBlockProps } from '../types/objectProps/SubjectChartBlockProps';
-import SUBJECT_GRADES_QUERY from '../graphql/queries/SubjectGradesQuery';
+import { useSubjectGrades } from '../graphql/queries/useSubjectGrades';
 
 const SubjectChartBlock = (props: SubjectChartBlockProps) => {
 
     const subject = props.subject;
-    const [{data: grades, fetching: gradesFetching, error}]: SubjectGradesDataType = useQuery({
-        query: SUBJECT_GRADES_QUERY,
-        variables: {subject},
-    });
+    
+    const [{data: grades, fetching: gradesFetching, error}]: SubjectGradesDataType = useSubjectGrades({ subject });
+
     if (gradesFetching || error) {
         return (
           <View style={styles.chartContainer}>

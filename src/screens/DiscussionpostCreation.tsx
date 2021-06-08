@@ -5,12 +5,13 @@ import { useMutation, useQuery } from "urql";
 import styles from "../styles/PostCreationStyles";
 import { DiscussionpostCreationProps } from '../types/screenProps/DiscussionpostCreationTypes';
 import { useMe } from '../graphql/queries/useMe';
+import CREATE_GRADE_MUTATION from '../graphql/mutations/CreateGradeMutation';
 
 function DiscussionpostCreation ({ navigation }: DiscussionpostCreationProps) {
 
     const [{ data: meData, fetching: meFetching, error: meError }, reloadMe] = useMe();
 
-    const [, createPost] = useMutation(CREATE_POST_MUTATION);
+    const [, createPost] = useMutation(CREATE_GRADE_MUTATION);
 
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');

@@ -3,27 +3,17 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { AreaChart, Grid } from 'react-native-svg-charts';
 import { Line } from './Line';
 import { Decorator } from './Decorator';
-import ALL_GRADES_QUERY from '../graphql/queries/AllGradesQuery';
-import { useQuery } from "urql";
 import * as shape from 'd3-shape';
 import { AllChartBlockProps } from '../types/objectProps/AllChartBlockProps';
 import { GradesDataTypes, GradeTypes } from '../types/GradeTypes';
-
-const average = (array: [GradeTypes]) => {
-    let sum = 0;
-    array.map((grade) => {
-        sum += grade.grade;
-    });
-    return (sum / array.length).toFixed(2);
-};
+import { useAllGrades } from '../graphql/queries/useAllGrades';
+import { getAverage } from '../utils/getAverage';
 
 const AllChartBlock = (props: AllChartBlockProps) => {
 
     const onPress = props.onPress;
 
-    const [{ data: gradesData, fetching: gradesFetching, error: gradesError }]: GradesDataTypes = useQuery({
-        query: ALL_GRADES_QUERY,
-    });
+    const [{ data: gradesData, fetching: gradesFetching, error: gradesError }]: GradesDataTypes = useAllGrades();
     if (gradesFetching === true || typeof gradesError !== 'undefined') {
         return (
             <Text>{"loading"}</Text>
@@ -53,7 +43,7 @@ const AllChartBlock = (props: AllChartBlockProps) => {
                         <Decorator {...props}/>
                     </AreaChart>
                 
-                    <Text style={styles.averageText}>Ø {average(gradesData!.allGrades)}</Text>
+                    <Text style={styles.averageText}>Ø {getAverage(gradesData!.allGrades)}</Text>
                 </TouchableOpacity>
             );
         }
