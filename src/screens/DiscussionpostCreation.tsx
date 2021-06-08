@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Switch, ScrollView } from 'react-native';
-import ME_QUERY from '../graphql/queries/MeQuery';
 import CREATE_POST_MUTATION from "../graphql/mutations/CreatePostMutation";
 import { useMutation, useQuery } from "urql";
 import styles from "../styles/PostCreationStyles";
 import { DiscussionpostCreationProps } from '../types/screenProps/DiscussionpostCreationTypes';
+import { useMe } from '../graphql/queries/useMe';
 
 function DiscussionpostCreation ({ navigation }: DiscussionpostCreationProps) {
 
-    const [{ data: meData, fetching: meFetching, error: meError }, reloadMe] = useQuery({
-        query: ME_QUERY,
-    });
+    const [{ data: meData, fetching: meFetching, error: meError }, reloadMe] = useMe();
 
     const [, createPost] = useMutation(CREATE_POST_MUTATION);
 

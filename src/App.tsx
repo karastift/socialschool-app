@@ -20,6 +20,9 @@ import Settings from "./screens/Settings";
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
+// bundesländer sortieren
+// bilder für noten
+
 const App = () => {
 
     const [error, setError] = useState('');

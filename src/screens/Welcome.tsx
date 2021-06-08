@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useMutation, useQuery } from "urql";
 import LOGOUT_MUTATION from '../graphql/mutations/LogoutMutation';
-import ME_QUERY from '../graphql/queries/MeQuery';
-import POSTS_QUERY from '../graphql/queries/PostsQuery';
 import CreateButton from '../objects/CreateButton';
 import LoginButton from '../objects/LoginButton';
 import LogoutButton from '../objects/LogoutButton';
@@ -12,6 +10,8 @@ import PostPreview from '../objects/PostPreview';
 import UserPageButton from '../objects/UserPageButton';
 import styles from "../styles/WelcomeStyles";
 import { WelcomeProps } from '../types/screenProps/WelcomeTypes';
+import { useMe } from '../graphql/queries/useMe';
+import { usePosts } from '../graphql/queries/usePosts';
 
 
 const Welcome = ({ navigation, route }: WelcomeProps) => {
@@ -19,14 +19,12 @@ const Welcome = ({ navigation, route }: WelcomeProps) => {
     const [isRefreshing, setRefreshing] = useState(false);
     const [variables, setVariables] = useState({ limit: 20, cursor: null });
 
-    const [{ data: postData, fetching: postFetching, error: postError }, reloadPosts] = useQuery({
-        query: POSTS_QUERY,
-        variables,
-    });
+    const [{ data: postData, fetching: postFetching, error: postError }, reloadPosts] = usePosts(variables);
 
-    const [{ data: meData, fetching: meFetching, error: meError }, reloadMe] = useQuery({
-        query: ME_QUERY,
-    });
+    // const [{ data: meData, fetching: meFetching, error: meError }, reloadMe] = useQuery({
+    //     query: ME_QUERY,
+    // });
+    const [{ data: meData, fetching: meFetching, error: meError }, reloadMe] = useMe();
 
     const [, logout] = useMutation(LOGOUT_MUTATION);
 
