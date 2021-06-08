@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Line } from './Line';
 import { Decorator } from './Decorator';
 import { AreaChart, Grid } from 'react-native-svg-charts';
@@ -18,7 +18,9 @@ const SubjectChartBlock = (props: SubjectChartBlockProps) => {
     });
     if (gradesFetching || error) {
         return (
-            <Text>loading</Text>
+          <View style={styles.chartContainer}>
+            <ActivityIndicator color="red"/>
+          </View>
         );
     }
     else {

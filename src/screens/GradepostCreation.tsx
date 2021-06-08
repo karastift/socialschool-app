@@ -3,16 +3,14 @@ import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useMutation, useQuery } from "urql";
 import Slider from "@react-native-community/slider";
 import CREATE_GRADE_MUTATION from "../graphql/mutations/CreateGradeMutation";
-import ME_QUERY from '../graphql/queries/MeQuery';
 import styles from "../styles/GradeCreationStyles";
 import subjectData from "../data/subjects.json";
 import { GradepostProps } from '../types/screenProps/GradepostCreationTypes';
+import { useMe } from '../graphql/queries/useMe';
 
 const GradepostCreation = ({ navigation }: GradepostProps) => {
 
-    const [{ data: meData, fetching: meFetching, error: meError }, reloadMe] = useQuery({
-        query: ME_QUERY,
-    });
+    const [{ data: meData, fetching: meFetching, error: meError }, reloadMe] = useMe()
 
     const [, injectGrade] = useMutation(CREATE_GRADE_MUTATION);
 

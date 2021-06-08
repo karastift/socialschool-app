@@ -2,13 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, ActivityIndicator } from "react-native";
 import { useQuery } from "urql";
 import { View } from 'react-native';
-import ME_QUERY from '../graphql/queries/MeQuery';
+import { useMe } from '../graphql/queries/useMe';
 
 const StatsBlock = () => {
 
-    const [{data, fetching}] = useQuery({
-        query: ME_QUERY,
-    });
+    const [{data, fetching}] = useMe();
 
     if (!fetching) {
         return (

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery } from "urql";
 import { View, ScrollView, Text } from 'react-native';
 import styles from "../styles/UserStyles";
-import ME_QUERY from '../graphql/queries/MeQuery';
+import { useMe } from '../graphql/queries/useMe';
 import AllChartBlock from '../objects/AllChartBlock';
 import StatsBlock from '../objects/StatsBlock';
 import SettingsButton from '../objects/SettingsButtons';
@@ -11,9 +11,7 @@ import { UserProps } from '../types/screenProps/UserTypes';
 
 const User = ({ navigation }: UserProps) => {
 
-    const [{ data: meData, fetching: meFetching, error: meError }, reloadMe] = useQuery({
-        query: ME_QUERY,
-    });
+    const [{ data: meData, fetching: meFetching, error: meError }, reloadMe] = useMe();
 
     return (
         <ScrollView style={styles.container}>
