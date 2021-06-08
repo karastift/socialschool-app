@@ -1,5 +1,5 @@
-const CREATE_GRADE_MUTATION = `
-mutation CreateGrade($input: GradeInput!){
+export default `
+  mutation CreateGrade($input: GradeInput!) {
     createGrade(input: $input) {
       grade {
         id
@@ -18,6 +18,4 @@ mutation CreateGrade($input: GradeInput!){
         message
       }
     }
-  }
-`
-export default CREATE_GRADE_MUTATION;
+  }`;

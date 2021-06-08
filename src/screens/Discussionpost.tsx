@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, View } from 'react-native';
 import { useMutation, useQuery } from "urql";
-import POST_COMMENT_QUERY from "../graphql/queries/PostCommentsQuery";
-import POST_QUERY from "../graphql/queries/PostQuery";
+import { usePost } from '../graphql/queries/usePost';
+import { usePostComments } from '../graphql/queries/usePostComments';
 import Comment from "../objects/Comment";
 import { CommentArea } from '../objects/CommentArea';
 import { Post } from '../objects/Post';
@@ -12,15 +12,10 @@ import { DiscussionpostProps } from '../types/screenProps/DiscussionpostTypes';
 
 const Discussionpost = ({ navigation, route }: DiscussionpostProps) => {
 
-  const [{ data: postData, fetching: postFetching }, reloadPost] = useQuery({
-    query: POST_QUERY,
-    variables: {id: route.params.id},
-  });
+  const [{ data: postData, fetching: postFetching }, reloadPost] = usePost({ id: route.params.id });
+
   const [variables] = useState({ limit: 15, postId: route.params.id, cursor: null });
-  const [{ data: commentsData, fetching: commentsFetching }, reloadPostComments] = useQuery({
-    query: POST_COMMENT_QUERY,
-    variables
-  });
+  const [{ data: commentsData, fetching: commentsFetching }, reloadPostComments] = usePostComments(variables);
 
   const [, createComment] = useMutation(`
   mutation CreatePostComment($postId: Int!, $text: String!){

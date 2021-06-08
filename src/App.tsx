@@ -3,9 +3,9 @@ import { registerRootComponent } from 'expo';
 import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Provider } from 'urql';
 import { client } from './utils/createClient';
 import { RootStackParamList } from './types/RootStackParamList';
+import { Provider } from 'urql';
 
 import Welcome from "./screens/Welcome";
 import SubjectBoard from "./screens/SubjectBoard";
