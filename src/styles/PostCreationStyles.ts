@@ -53,8 +53,8 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
     },
     submit: {
-        color: 'red',
-        marginTop: 20,
+        height: 40,
+        width: 130,
     },
     switchLabel: {
         marginTop: 10,

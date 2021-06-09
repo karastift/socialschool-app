@@ -6,6 +6,7 @@ import styles from "../styles/PostCreationStyles";
 import { DiscussionpostCreationProps } from '../types/screenProps/DiscussionpostCreationTypes';
 import { useMe } from '../graphql/queries/useMe';
 import CREATE_GRADE_MUTATION from '../graphql/mutations/CreateGradeMutation';
+import { SubmitButton } from '../objects/SubmitButton';
 
 function DiscussionpostCreation ({ navigation }: DiscussionpostCreationProps) {
 
@@ -96,9 +97,7 @@ function DiscussionpostCreation ({ navigation }: DiscussionpostCreationProps) {
                     />
                     <Text style={styles.switchLabel}>{status}</Text>
 
-                    <TouchableOpacity style={{padding: 25}} onPress={()=>{submitPost();}}>
-                        <Text style={styles.submit}>{postOrError}</Text>
-                    </TouchableOpacity>
+                    <SubmitButton text="post" onSubmit={() => submitPost()} style={styles.submit}/>
                 </View>
             </ScrollView>
             )
