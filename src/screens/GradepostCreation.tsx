@@ -7,6 +7,7 @@ import styles from "../styles/GradeCreationStyles";
 import subjectData from "../data/subjects.json";
 import { GradepostProps } from '../types/screenProps/GradepostCreationTypes';
 import { useMe } from '../graphql/queries/useMe';
+import { SubmitButton } from '../objects/SubmitButton';
 
 const GradepostCreation = ({ navigation }: GradepostProps) => {
 
@@ -100,9 +101,7 @@ const GradepostCreation = ({ navigation }: GradepostProps) => {
                             style={styles.field}
                         />
                     </View>
-                    <TouchableOpacity style={{padding: 25}} onPress={()=>{submit();}}>
-                        <Text style={styles.submit}>{injectOrError}</Text>
-                    </TouchableOpacity>
+                    <SubmitButton onSubmit={() => submit()} text="inject" style={styles.submit}/>
                 </View>
             )
             : (
