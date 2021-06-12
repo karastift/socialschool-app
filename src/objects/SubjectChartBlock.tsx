@@ -31,7 +31,7 @@ const SubjectChartBlock = (props: SubjectChartBlockProps) => {
             return (sum / grades!.subjectGrades.length).toFixed(2);
         };
         return (
-            <TouchableOpacity style={styles.chartContainer}>
+            <TouchableOpacity style={styles.chartContainer} onPress={props.onPress}>
                 <Text style={styles.subjectText}>{subject}</Text>
                 <AreaChart
                     style={styles.chart}
