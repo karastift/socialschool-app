@@ -13,7 +13,6 @@ import { WelcomeProps } from '../types/screenProps/WelcomeTypes';
 import { useMe } from '../graphql/queries/useMe';
 import { usePosts } from '../graphql/queries/usePosts';
 
-
 const Welcome = ({ navigation, route }: WelcomeProps) => {
 
     const [isRefreshing, setRefreshing] = useState(false);
@@ -21,9 +20,6 @@ const Welcome = ({ navigation, route }: WelcomeProps) => {
 
     const [{ data: postData, fetching: postFetching, error: postError }, reloadPosts] = usePosts(variables);
 
-    // const [{ data: meData, fetching: meFetching, error: meError }, reloadMe] = useQuery({
-    //     query: ME_QUERY,
-    // });
     const [{ data: meData, fetching: meFetching, error: meError }, reloadMe] = useMe();
 
     const [, logout] = useMutation(LOGOUT_MUTATION);

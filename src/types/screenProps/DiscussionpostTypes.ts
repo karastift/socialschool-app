@@ -2,7 +2,7 @@ import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../RootStackParamList";
 
-type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'Discussionpost'>;
+type PostRouteProp = RouteProp<RootStackParamList, 'Discussionpost'>;
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -10,6 +10,6 @@ type ProfileScreenNavigationProp = StackNavigationProp<
 >;
 
 export type DiscussionpostProps = {
-  route: ProfileScreenRouteProp;
+  route: PostRouteProp;
   navigation: ProfileScreenNavigationProp;
 };

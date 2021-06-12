@@ -4,9 +4,9 @@ export const HeaderOptions: StackNavigationOptions = {
   headerTitleStyle: {
     color: 'red',
     fontWeight: '700',
-    marginBottom: 50,
+    // marginBottom: 50, // only on android
   },
-  headerTitleAlign: 'center',
+  // headerTitleAlign: 'center', // only on android
   headerTransparent: true,
   headerBackTitleStyle: { color: 'white' },
   headerBackTitle: '',
