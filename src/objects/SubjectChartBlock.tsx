@@ -3,7 +3,6 @@ import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "rea
 import { Line } from './Line';
 import { Decorator } from './Decorator';
 import { AreaChart, Grid } from 'react-native-svg-charts';
-import { useQuery } from "urql";
 import * as shape from 'd3-shape';
 import { GradeTypes, SubjectGradesDataType } from '../types/GradeTypes';
 import { SubjectChartBlockProps } from '../types/objectProps/SubjectChartBlockProps';
@@ -12,9 +11,11 @@ import { useSubjectGrades } from '../graphql/queries/useSubjectGrades';
 const SubjectChartBlock = (props: SubjectChartBlockProps) => {
 
     const subject = props.subject;
-    
-    const [{data: grades, fetching: gradesFetching, error}]: SubjectGradesDataType = useSubjectGrades({ subject });
+    const chartContainerStyle = props.chartContainerStyle;
+    const chartStyle = props.chartStyle; 
 
+    const [{data: grades, fetching: gradesFetching, error}]: SubjectGradesDataType = useSubjectGrades({ subject });
+    
     if (gradesFetching || error) {
         return (
           <View style={styles.chartContainer}>
@@ -31,10 +32,10 @@ const SubjectChartBlock = (props: SubjectChartBlockProps) => {
             return (sum / grades!.subjectGrades.length).toFixed(2);
         };
         return (
-            <TouchableOpacity style={styles.chartContainer} onPress={props.onPress}>
+            <TouchableOpacity style={[styles.chartContainer, chartContainerStyle]} onPress={props.onPress}>
                 <Text style={styles.subjectText}>{subject}</Text>
                 <AreaChart
-                    style={styles.chart}
+                    style={[styles.chart, chartStyle]}
                     data={grades!.subjectGrades}
                     yAccessor={({ item }) => item.grade}
                     yMin={6}
