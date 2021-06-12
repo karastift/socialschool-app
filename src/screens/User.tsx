@@ -11,13 +11,11 @@ import { UserProps } from '../types/screenProps/UserTypes';
 
 const User = ({ navigation }: UserProps) => {
 
-    const [{ data: meData, fetching: meFetching, error: meError }, reloadMe] = useMe();
+    const [{ data: meData, fetching: meFetching, error: meError }] = useMe();
 
-    useEffect(() => {
-      navigation.setOptions({
-        title: meData.me.username,
-      });
-    }, [meFetching === false]);
+  useEffect(() => navigation.setOptions({
+    title: meData.me.username,
+  }), [meFetching === false]);
 
     return (
         <ScrollView style={styles.container}>
