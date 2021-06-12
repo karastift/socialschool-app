@@ -2,7 +2,7 @@ import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../RootStackParamList";
 
-type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'Error'>;
+type ErrorRouteProp = RouteProp<RootStackParamList, 'Error'>;
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -10,6 +10,6 @@ type ProfileScreenNavigationProp = StackNavigationProp<
 >;
 
 export type ErrorProps = {
-  route: ProfileScreenRouteProp;
+  route: ErrorRouteProp;
   navigation: ProfileScreenNavigationProp;
 };

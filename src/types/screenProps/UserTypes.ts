@@ -1,11 +1,11 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../RootStackParamList";
 
-type ProfileScreenNavigationProp = StackNavigationProp<
+type UserNavigationProp = StackNavigationProp<
   RootStackParamList,
   'User'
 >;
 
 export type UserProps = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: UserNavigationProp;
 };

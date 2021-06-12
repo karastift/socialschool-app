@@ -1,11 +1,11 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../RootStackParamList";
 
-type ProfileScreenNavigationProp = StackNavigationProp<
+type SubjectBoardNavigationProp = StackNavigationProp<
   RootStackParamList,
   'SubjectBoard'
 >;
 
 export type SubjectBoardProps = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: SubjectBoardNavigationProp;
 };
