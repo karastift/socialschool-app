@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from "urql";
 import { View, ScrollView, Text } from 'react-native';
 import styles from "../styles/UserStyles";
@@ -12,6 +12,12 @@ import { UserProps } from '../types/screenProps/UserTypes';
 const User = ({ navigation }: UserProps) => {
 
     const [{ data: meData, fetching: meFetching, error: meError }, reloadMe] = useMe();
+
+    useEffect(() => {
+      navigation.setOptions({
+        title: meData.me.username,
+      });
+    }, [meFetching === false]);
 
     return (
         <ScrollView style={styles.container}>
