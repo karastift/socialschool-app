@@ -1,13 +1,10 @@
 import { StackNavigationOptions } from "@react-navigation/stack";
+import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 
-export const HeaderOptions: StackNavigationOptions = {
-  headerTitleStyle: {
-    color: 'red',
-    fontWeight: '700',
-    // marginBottom: 50, // only on android
+export const HeaderOptions: BottomTabNavigationOptions = {
+  tabBarBadgeStyle: {
+    backgroundColor: 'black',
+    color: 'red'
   },
-  // headerTitleAlign: 'center', // only on android
-  headerTransparent: true,
-  headerBackTitleStyle: { color: 'white' },
-  headerBackTitle: '',
+  tabBarLabel: 'red',
 }

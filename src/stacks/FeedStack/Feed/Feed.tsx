@@ -2,18 +2,18 @@ import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useMutation, useQuery } from "urql";
-import LOGOUT_MUTATION from '../graphql/mutations/LogoutMutation';
-import CreateButton from '../objects/CreateButton';
-import LoginButton from '../objects/LoginButton';
-import LogoutButton from '../objects/LogoutButton';
-import PostPreview from '../objects/PostPreview';
-import UserPageButton from '../objects/UserPageButton';
-import styles from "../styles/WelcomeStyles";
-import { WelcomeProps } from '../types/screenProps/WelcomeTypes';
-import { useMe } from '../graphql/queries/useMe';
-import { usePosts } from '../graphql/queries/usePosts';
+import LOGOUT_MUTATION from '../../../graphql/mutations/LogoutMutation';
+import CreateButton from '../../../objects/CreateButton';
+import LoginButton from '../../../objects/LoginButton';
+import LogoutButton from '../../../objects/LogoutButton';
+import PostPreview from '../../../objects/PostPreview';
+import UserPageButton from '../../../objects/UserPageButton';
+import styles from "../../../styles/WelcomeStyles";
+import { WelcomeProps } from '../../../types/screenProps/WelcomeTypes';
+import { useMe } from '../../../graphql/queries/useMe';
+import { usePosts } from '../../../graphql/queries/usePosts';
 
-const Welcome = ({ navigation, route }: WelcomeProps) => {
+export const Feed = ({ navigation, route }: WelcomeProps) => {
 
     const [isRefreshing, setRefreshing] = useState(false);
     const [variables, setVariables] = useState({ limit: 20, cursor: null });
@@ -125,5 +125,3 @@ const Welcome = ({ navigation, route }: WelcomeProps) => {
         </SafeAreaView>
     );
 };
-
-export default Welcome;
