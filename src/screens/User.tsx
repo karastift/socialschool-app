@@ -13,9 +13,9 @@ const User = ({ navigation }: UserProps) => {
 
     const [{ data: meData, fetching: meFetching, error: meError }] = useMe();
 
-  useEffect(() => navigation.setOptions({
-    title: meData.me.username,
-  }), [meFetching === false]);
+    useEffect(() => navigation.setOptions({
+        title: meData.me ? meData.me.username: "user",
+    }), [!meFetching]);
 
     return (
         <ScrollView style={styles.container}>
@@ -29,7 +29,7 @@ const User = ({ navigation }: UserProps) => {
             ) :
             (
                 <View>
-                    <Text style={{color: 'white'}}>{!meError ? `Log in to see your profile.` : meError.message}</Text>
+                    <Text style={styles.errorMsg}>{!meError ? `Log in to see your profile.` : meError.message}</Text>
                 </View>
             )
             }
