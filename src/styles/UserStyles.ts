@@ -37,6 +37,11 @@ const styles = StyleSheet.create({
         flexWrap:'wrap',
         justifyContent: 'center',
     },
+    errorMsg: {
+        color: 'white',
+        textAlign: 'center',
+        marginTop: 300,
+    },
 });
 
 export default styles;
