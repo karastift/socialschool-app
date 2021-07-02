@@ -1,7 +1,8 @@
 import React from "react";
 import { Text, View, TextInput, StyleSheet } from "react-native";
 
-export const TextField = (props: {placeholder: string; onChangeText: (arg0: string) => void}) => {
+export const TextField = (props: {placeholder: string; onChangeText: (arg0: string) => void, password?: boolean}) => {
+
   return (
     <>
       <Text style={styles.error}>{}</Text>
@@ -16,6 +17,7 @@ export const TextField = (props: {placeholder: string; onChangeText: (arg0: stri
           autoCapitalize='none'
           returnKeyType='next'
           style={styles.field}
+          secureTextEntry={props.password}
         />
       </View>
     </>
