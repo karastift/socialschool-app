@@ -1,14 +1,16 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { SubmitButtonProps } from '../types/objectProps/SubmitButtonProps';
+import { StyleSheet, TouchableHighlight, Text } from 'react-native';
+import { SubmitButtonProps } from '../../types/objectProps/SubmitButtonProps';
+import Icon from 'react-native-vector-icons/Feather'
 
 export const SubmitButton = (props: SubmitButtonProps) => {
+
   return (
-    <TouchableOpacity style={[styles.container, props.style]}>
+    <TouchableHighlight style={[styles.container, props.style]} onPress={props.onSubmit}>
 
-      <Text style={styles.text}>{props.text}</Text>
+      <Icon name='arrow-right' color='white' size={25}/>
 
-    </TouchableOpacity>
+    </TouchableHighlight>
   );
 };
 
