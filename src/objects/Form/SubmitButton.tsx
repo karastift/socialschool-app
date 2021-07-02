@@ -8,7 +8,7 @@ export const SubmitButton = (props: SubmitButtonProps) => {
   return (
     <TouchableHighlight style={[styles.container, props.style]} onPress={props.onSubmit}>
 
-      <Icon name='arrow-right' color='white' size={25}/>
+      <Icon name={props.icon ? props.icon : 'arrow-right'} color='white' size={25}/>
 
     </TouchableHighlight>
   );

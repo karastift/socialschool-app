@@ -4,4 +4,5 @@ export type SubmitButtonProps = {
   onSubmit: any;
   text?: string;
   style?: ViewStyle;
+  icon?: string;
 };
