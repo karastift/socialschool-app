@@ -83,26 +83,26 @@ const Content = () => {
 
   return (
     <Auth.Provider value={{ setAuthenticated }}>
-    <NavigationContainer>
-      <Tab.Navigator>
-          { authenticated
-          ? (
-            <>
-              <Tab.Screen name="Feed" component={FeedStack}/>
-              <Tab.Screen name="Grade" component={GradePageStack}/>
-              <Tab.Screen name="User" component={UserStack}/>
-            </>
-            )
-          : (
-            <>
-              <Tab.Screen name="Account" options={{ tabBarVisible: false }}>
-                { props => <AccountStack {...props} queryMe={queryMe}/>}
-              </Tab.Screen>
-            </>
-            )
-          }
-      </Tab.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        <Tab.Navigator>
+            { authenticated
+            ? (
+              <>
+                <Tab.Screen name="Feed" component={FeedStack}/>
+                <Tab.Screen name="Grade" component={GradePageStack}/>
+                <Tab.Screen name="User" component={UserStack}/>
+              </>
+              )
+            : (
+              <>
+                <Tab.Screen name="Account" options={{ tabBarVisible: false }}>
+                  { props => <AccountStack {...props} queryMe={queryMe}/>}
+                </Tab.Screen>
+              </>
+              )
+            }
+        </Tab.Navigator>
+      </NavigationContainer>
     </Auth.Provider>
   );
 };
