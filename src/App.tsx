@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { registerRootComponent } from 'expo';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -11,6 +11,7 @@ import { FeedStack } from './stacks/FeedStack/FeedStack';
 import { AccountStack } from './stacks/AccountStack/AccountStack';
 import { UserStack } from './stacks/UserStack/UserStack';
 import { GradePageStack } from './stacks/GradePageStack/GradePageStack';
+import { Auth } from './contexts/Auth';
 
 // const Tab = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootStackParamList>()
@@ -70,34 +71,49 @@ on accountstack:
     -> enter school
 */
 
-const App = () => {
+const Content = () => {
+  const [authenticated, setAuthenticated] = useState(false);
+  const [{data, fetching, error}, queryMe] = useMe();
 
-  const [{data}] = useMe()
+  useEffect(() => {
+    if (data?.me !== null && typeof data?.me !== 'undefined') {
+      setAuthenticated(true);
+    };
+  }, [fetching]);
 
-    return (
-      <Provider value={client}>
-      <NavigationContainer>
-        <Tab.Navigator>
-          { typeof data.me.username !== 'undefined'
-            ? (
+  return (
+    <Auth.Provider value={{ setAuthenticated }}>
+    <NavigationContainer>
+      <Tab.Navigator>
+          { authenticated
+          ? (
             <>
               <Tab.Screen name="Feed" component={FeedStack}/>
               <Tab.Screen name="Grade" component={GradePageStack}/>
               <Tab.Screen name="User" component={UserStack}/>
             </>
             )
-            : (
+          : (
             <>
-              <Tab.Screen name="Account" component={AccountStack}/>
+              <Tab.Screen name="Account" options={{ tabBarVisible: false }}>
+                { props => <AccountStack {...props} queryMe={queryMe}/>}
+              </Tab.Screen>
             </>
             )
           }
-        
-        </Tab.Navigator>
-      </NavigationContainer>
+      </Tab.Navigator>
+    </NavigationContainer>
+    </Auth.Provider>
+  );
+};
+
+const App = () => {
+
+  return (
+    <Provider value={client}>
+      <Content/>
     </Provider>
-    );
-    
+  );
 };
 
 export default registerRootComponent(App);
