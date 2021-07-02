@@ -8,7 +8,7 @@ export const PasswordForm = ({ navigation, route, setPassword }: any) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputView}>
-        <TextField placeholder='password' onChangeText={password => setPassword(password)}/>
+        <TextField placeholder='password' onChangeText={password => setPassword(password)} password/>
         <SubmitButton onSubmit={() => navigation.navigate('School', route.params)} style={styles.submit}/>
       </View>
     </View>
