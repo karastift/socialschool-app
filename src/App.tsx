@@ -104,7 +104,7 @@ on accountstack:
 
 const Content = () => {
   const [authenticated, setAuthenticated] = useState(false);
-  const [{data, fetching, error}, queryMe] = useMe();
+  const [{data, fetching, error}] = useMe();
 
   useEffect(() => {
     if (data?.me !== null && typeof data?.me !== 'undefined') {
@@ -126,9 +126,7 @@ const Content = () => {
               )
             : (
               <>
-                <Tab.Screen name="Account" options={{ tabBarVisible: false }}>
-                  { props => <AccountStack {...props} queryMe={queryMe}/>}
-                </Tab.Screen>
+                <Tab.Screen name="Account" component={AccountStack} options={{ tabBarVisible: false }}/>
               </>
               )
             }
