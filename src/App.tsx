@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { registerRootComponent } from 'expo';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { BottomTabBarOptions, BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { client } from './utils/createClient';
 import { RootStackParamList } from './types/RootStackParamList';
 import { Provider } from 'urql';
+import Icon from 'react-native-vector-icons/Feather'
 
 import { useMe } from './graphql/queries/useMe';
 import { FeedStack } from './stacks/FeedStack/FeedStack';
@@ -14,7 +15,37 @@ import { GradePageStack } from './stacks/GradePageStack/GradePageStack';
 import { Auth } from './contexts/Auth';
 
 // const Tab = createStackNavigator<RootStackParamList>();
-const Tab = createBottomTabNavigator<RootStackParamList>()
+const Tab = createBottomTabNavigator<RootStackParamList>();
+const FeedTabOptions: BottomTabNavigationOptions = {
+  tabBarIcon: ({ color }) => (
+    <Icon name='message-circle' color={color} size={30}/>
+  ),
+  title: '',
+};
+const GradeTabOptions: BottomTabNavigationOptions = {
+  tabBarIcon: ({ color }) => (
+    <Icon name='pen-tool' color={color} size={26}/>
+  ),
+  title: '',
+};
+const UserTabOptions: BottomTabNavigationOptions = {
+  tabBarIcon: ({ color }) => (
+    <Icon name='user' color={color} size={30}/>
+  ),
+  title: '',
+};
+
+const TabBarOptions: BottomTabBarOptions = {
+  activeTintColor: 'red',
+  inactiveTintColor: 'white',
+  style: {
+    backgroundColor: 'rgb(26, 26, 26)',
+  },
+  allowFontScaling: true,
+  iconStyle: {
+    marginTop: 8,
+  },
+};
 
 // bundesländer sortieren
 // bilder für noten
@@ -84,13 +115,13 @@ const Content = () => {
   return (
     <Auth.Provider value={{ setAuthenticated }}>
       <NavigationContainer>
-        <Tab.Navigator>
-            { authenticated
+        <Tab.Navigator tabBarOptions={TabBarOptions}>
+            { true // authenticated
             ? (
               <>
-                <Tab.Screen name="Feed" component={FeedStack}/>
-                <Tab.Screen name="Grade" component={GradePageStack}/>
-                <Tab.Screen name="User" component={UserStack}/>
+                <Tab.Screen name="Feed" component={FeedStack} options={FeedTabOptions}/>
+                <Tab.Screen name="Grade" component={GradePageStack} options={GradeTabOptions}/>
+                <Tab.Screen name="User" component={UserStack} options={UserTabOptions}/>
               </>
               )
             : (
