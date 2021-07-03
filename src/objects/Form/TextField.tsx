@@ -18,7 +18,7 @@ export const TextField = (props: {placeholder: string; onChangeText: (arg0: stri
 
   useEffect(() => {
     fadeIn();
-  }, [])
+  }, [props.error]);
 
   return (
     <>
