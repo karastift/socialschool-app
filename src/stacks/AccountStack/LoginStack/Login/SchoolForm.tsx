@@ -9,7 +9,7 @@ export const SchoolForm = ({ navigation, route, setSchool, onSubmit }: any) => {
     <View style={styles.container}>
       <View style={styles.inputView}>
         <SubmitButton onSubmit={() => navigation.navigate('Password')} icon='arrow-left' style={styles.back}/>
-        <TextField placeholder='school' onChangeText={school => setSchool(school)}/>
+        <TextField placeholder='school' onChangeText={school => setSchool(school)} error={route.params?.message}/>
         <SubmitButton onSubmit={() => onSubmit()} style={styles.submit}/>
       </View>
     </View>
