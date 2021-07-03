@@ -15,7 +15,7 @@ const LoginScreenOptions = ({ navigation, route }: any): StackNavigationOptions 
     fontSize: 17,
   },
   headerLeft: () => (
-    <SubmitButton onSubmit={() => navigation.navigate('Register')} icon='arrow-left' style={{
+    <SubmitButton onSubmit={() => navigation.navigate('Register')} text='register' style={{
       height: 40,
       width: 60,
       marginBottom: 25,
@@ -32,7 +32,7 @@ const RegisterScreenOptions = ({ navigation, route }: any): StackNavigationOptio
     fontSize: 17,
   },
   headerLeft: () => (
-    <SubmitButton onSubmit={() => navigation.navigate('Login')} icon='arrow-left' style={{
+    <SubmitButton onSubmit={() => navigation.navigate('Login')} text='login' style={{
       height: 40,
       width: 60,
       marginBottom: 25,
