@@ -13,7 +13,7 @@ const StackScreenOptions: StackNavigationOptions = {
   headerShown: false,
 };
 
-export const LoginStack = () => {
+export const LoginStack = ({ navigation }: any) => {
 
   const { setAuthenticated }: any = useContext(Auth);
 
@@ -32,11 +32,24 @@ export const LoginStack = () => {
     if (error) {
       console.log(error);
     }
-    else if (data.errors) {
-      console.log(data.login.errors);
+    else if (data.login.errors) {
+      const { field, message } = data.login.errors[0];
+      switch (field) {
+        case 'username':
+          navigation.navigate('Username', { message });
+          break;
+        case 'password':
+          navigation.navigate('Password', { message });
+          break;
+        case 'school':
+          navigation.navigate('School', { message });
+          break;
+      }      
+
     }
     else {
-      console.log(data.login.user)
+      console.log(data.login.user);
+      setAuthenticated(true);
     }
   });
 

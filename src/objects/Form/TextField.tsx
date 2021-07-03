@@ -1,11 +1,28 @@
-import React from "react";
-import { Text, View, TextInput, StyleSheet } from "react-native";
+import { useRoute } from "@react-navigation/native";
+import React, { useEffect, useRef } from "react";
+import { Text, View, TextInput, StyleSheet, Animated } from "react-native";
 
-export const TextField = (props: {placeholder: string; onChangeText: (arg0: string) => void, password?: boolean}) => {
+export const TextField = (props: {placeholder: string; onChangeText: (arg0: string) => void, password?: boolean, error: string}) => {
+
+
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 3000,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  useEffect(() => {
+    fadeIn();
+  }, [])
 
   return (
     <>
-      <Text style={styles.error}>{}</Text>
+      <Animated.Text style={{ ...styles.error, opacity: fadeAnim }}>{props.error}</Animated.Text>
       <View style={styles.fieldWrapper}>
         <TextInput  
           placeholder={props.placeholder}
@@ -33,7 +50,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   error: {
-    
+    color: 'darkred',
+    fontWeight: '800',
+    fontSize: 17,
+    marginBottom: 20,
   },
   field: {
     textAlign: 'center',

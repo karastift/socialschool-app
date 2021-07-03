@@ -9,8 +9,8 @@ export const PasswordForm = ({ navigation, route, setPassword }: any) => {
     <View style={styles.container}>
       <View style={styles.inputView}>
         <SubmitButton onSubmit={() => navigation.navigate('Username')} icon='arrow-left' style={styles.back}/>
-        <TextField placeholder='password' onChangeText={password => setPassword(password)} password/>
-        <SubmitButton onSubmit={() => navigation.navigate('School', route.params)} style={styles.submit}/>
+        <TextField placeholder='password' onChangeText={password => setPassword(password)} password error={route.params?.message}/>
+        <SubmitButton onSubmit={() => navigation.navigate('School')} style={styles.submit}/>
       </View>
     </View>
   );

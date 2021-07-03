@@ -8,8 +8,8 @@ export const UsernameForm = ({ navigation, route, setUsername }: any) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputView}>
-        <TextField placeholder='username' onChangeText={username => setUsername(username)}/>
-        <SubmitButton onSubmit={() => navigation.navigate('Password', route.params)} style={styles.submit}/>
+        <TextField placeholder='username' onChangeText={username => setUsername(username)} error={route.params?.message}/>
+        <SubmitButton onSubmit={() => navigation.navigate('Password')} style={styles.submit}/>
       </View>
     </View>
   );
