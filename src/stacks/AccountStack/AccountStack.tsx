@@ -9,6 +9,10 @@ const Stack = createStackNavigator();
 const StackScreenOptions: StackNavigationOptions = {
   headerTransparent: true,
   headerTintColor: 'red',
+  headerTitleStyle: {
+    fontWeight: '800',
+    fontSize: 17,
+  },
 };
 
 export const AccountStack = () => {
