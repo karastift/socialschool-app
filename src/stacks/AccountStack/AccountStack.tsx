@@ -11,7 +11,7 @@ const StackScreenOptions: StackNavigationOptions = {
   headerTintColor: 'red',
 };
 
-export const AccountStack = ({ navigation }: any) => {
+export const AccountStack = () => {
 
   return (
     <Stack.Navigator>
