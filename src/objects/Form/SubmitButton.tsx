@@ -8,7 +8,10 @@ export const SubmitButton = (props: SubmitButtonProps) => {
   return (
     <TouchableHighlight style={[styles.container, props.style]} onPress={props.onSubmit}>
 
-      <Icon name={props.icon ? props.icon : 'arrow-right'} color='white' size={25}/>
+      { !props.text
+        ? (<Icon name={props.icon ? props.icon : 'arrow-right'} color='white' size={25}/>)
+        : (<Text style={styles.text}>{props.text}</Text>)
+      }
 
     </TouchableHighlight>
   );
@@ -24,7 +27,8 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   text: {
-    color: 'white',
+    color: 'rgb(170, 170, 170)',
     fontWeight: '800',
+    fontSize: 13,
   },
 });
