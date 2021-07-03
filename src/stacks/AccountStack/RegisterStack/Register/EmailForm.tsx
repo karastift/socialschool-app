@@ -3,13 +3,13 @@ import { Dimensions, StyleSheet, View } from "react-native";
 import { SubmitButton } from "../../../../objects/Form/SubmitButton";
 import { TextField } from "../../../../objects/Form/TextField";
 
-export const UsernameForm = ({ navigation, route, setUsername }: any) => {
+export const EmailForm = ({ navigation, route, setEmail }: any) => {
 
   return (
     <View style={styles.container}>
       <View style={styles.inputView}>
-        <TextField placeholder='username' onChangeText={username => setUsername(username)} error={route.params?.message}/>
-        <SubmitButton onSubmit={() => navigation.navigate('Email')} style={styles.submit}/>
+        <TextField placeholder='email' onChangeText={email => setEmail(email)} error={route.params?.message}/>
+        <SubmitButton onSubmit={() => navigation.navigate('Password')} style={styles.submit}/>
       </View>
     </View>
   );

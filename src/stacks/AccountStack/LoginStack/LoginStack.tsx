@@ -9,9 +9,9 @@ import { UsernameForm } from "./Login/UsernameForm";
 
 const Stack = createStackNavigator();
 
-const StackScreenOptions: StackNavigationOptions = {
+const StackScreenOptions = ({ navigation }: any): StackNavigationOptions => ({
   headerShown: false,
-};
+});
 
 export const LoginStack = ({ navigation }: any) => {
 
