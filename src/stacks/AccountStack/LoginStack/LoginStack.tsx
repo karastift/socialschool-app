@@ -48,7 +48,6 @@ export const LoginStack = ({ navigation }: any) => {
 
     }
     else {
-      console.log(data.login.user);
       setAuthenticated(true);
     }
   });
