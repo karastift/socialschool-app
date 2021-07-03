@@ -25,18 +25,18 @@ export const RegisterStack = ({ navigation }: any) => {
 
   const [{ data, fetching, error }, register] = useMutation(REGISTER_MUTATION);
 
-  const submit = () => register({
+  const submit = () => register({ options: {
     username,
     email,
     password,
     school
-  }).then((res) => {
+  }}).then((res) => {
     const { data, error } = res;
     if (error) {
       console.log(error);
     }
-    else if (data.login.errors) {
-      const { field, message } = data.login.errors[0];
+    else if (data.register.errors) {
+      const { field, message } = data.register.errors[0];
       switch (field) {
         case 'username':
           navigation.navigate('Username', { message });
