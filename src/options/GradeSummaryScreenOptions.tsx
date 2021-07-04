@@ -15,7 +15,7 @@ export const GradeSummaryScreenOptions = ({ navigation, route }: any): StackNavi
       height: 40,
       width: 60,
       marginTop: 20,
-      marginBottom: 25,
+      marginRight: 10,
       backgroundColor: 'rgb(50, 50, 50)',
     }}/>
   ),
@@ -23,7 +23,8 @@ export const GradeSummaryScreenOptions = ({ navigation, route }: any): StackNavi
   //   <SubmitButton onSubmit={() => null} icon='heart' style={{
   //     height: 40,
   //     width: 60,
-  //     marginBottom: 25,
+  //      marginTop: 20,
+  //      marginRight: 10,
   //     backgroundColor: 'rgb(50, 50, 50)',
   //   }}/>
   // ),
