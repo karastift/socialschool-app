@@ -2,8 +2,8 @@ import React from "react";
 import { StackNavigationOptions } from "@react-navigation/stack";
 import { SubmitButton } from "../objects/Form/SubmitButton";
 
-export const FeedScreenOptions = ({ navigation, route }: any): StackNavigationOptions => ({
-  headerTitle: 'Social School',
+export const GradeSummaryScreenOptions = ({ navigation, route }: any): StackNavigationOptions => ({
+  headerTitle: 'My Grades',
   headerTransparent: true,
   headerTintColor: 'red',
   headerTitleStyle: {
@@ -18,12 +18,12 @@ export const FeedScreenOptions = ({ navigation, route }: any): StackNavigationOp
       backgroundColor: 'rgb(50, 50, 50)',
     }}/>
   ),
-  headerLeft: () => (
-    <SubmitButton onSubmit={() => null} icon='heart' style={{
-      height: 40,
-      width: 60,
-      marginBottom: 25,
-      backgroundColor: 'rgb(50, 50, 50)',
-    }}/>
-  ),
+  // headerLeft: () => (
+  //   <SubmitButton onSubmit={() => null} icon='heart' style={{
+  //     height: 40,
+  //     width: 60,
+  //     marginBottom: 25,
+  //     backgroundColor: 'rgb(50, 50, 50)',
+  //   }}/>
+  // ),
 });
