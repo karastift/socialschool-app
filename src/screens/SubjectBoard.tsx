@@ -18,7 +18,7 @@ const SubjectBoard = ({ navigation }: SubjectBoardProps) => {
                     <SubjectChartBlock
                         key={index}
                         subject={subject}
-                        onPress={() => navigation.navigate('SubjectInfo', { subject })}
+                        onPress={() => null}
                     />
                 ))}
                 </View>

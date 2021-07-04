@@ -1,7 +1,6 @@
 import React from "react";
 import { StackNavigationOptions } from "@react-navigation/stack";
 import { SubmitButton } from "../objects/Form/SubmitButton";
-import { getBack } from "../utils/getBack";
 
 export const FeedScreenOptions = ({ navigation, route }: any): StackNavigationOptions => ({
   headerTitle: 'Social School',
