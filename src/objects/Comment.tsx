@@ -1,19 +1,17 @@
 import React from "react";
-import { View, Text } from "react-native";
-import styles from "../styles/PostStyles";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { CommentProps } from "../types/objectProps/CommentProps";
 
-const randomWords = ['says:', 'claims:', 'thinks:', 'believes:', 'is of the view:', 'is of the opinion:'];
 const Comment = (props: CommentProps) => {
     const username = props.username;
     const body = props.body;
     const index = props.id;
-    const randWord = randomWords[Math.floor(Math.random() * randomWords.length)];
+    
     if (username.length != 0) {
         return (
             <View style={styles.commentWrapper} key={index}>
                 <View style={styles.comment}>
-                    <Text style={styles.commentInfo}>{username} {randWord}</Text>
+                    <Text style={styles.commentInfo}>{username}:</Text>
                     <Text style={styles.commentBody}>{body}</Text>
                 </View>
             </View>
@@ -29,3 +27,34 @@ const Comment = (props: CommentProps) => {
 };
 
 export default Comment;
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+const styles = StyleSheet.create({
+    commentWrapper: {
+        marginTop: 15,
+    },
+    comment: {
+        color: 'white',
+        backgroundColor: 'rgb(40, 40, 40)',
+        width: windowWidth-40,
+        borderRadius: 24,
+        paddingRight: 6,
+        paddingLeft: 6,
+        alignSelf: 'center',
+    },
+    commentInfo: {
+        color: 'white', // bdbdbd
+        fontWeight: '600',
+        textAlign: 'left',
+        marginTop: 10,
+        marginBottom: 5,
+        marginLeft: 15
+    },
+    commentBody: {
+        color: 'white', // #a3a3a3
+        fontWeight: '700',
+        textAlign: 'center',
+        paddingBottom: 15
+    },
+});
