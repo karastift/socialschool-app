@@ -23,6 +23,10 @@ export const LoginStack = ({ navigation }: any) => {
 
   const [{ data, fetching, error }, login] = useMutation(LOGIN_MUTATION);
 
+  function realName(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   const submit = () => login({
     usernameOrEmail: username,
     password,
@@ -34,17 +38,7 @@ export const LoginStack = ({ navigation }: any) => {
     }
     else if (data.login.errors) {
       const { field, message } = data.login.errors[0];
-      switch (field) {
-        case 'username':
-          navigation.navigate('Username', { message });
-          break;
-        case 'password':
-          navigation.navigate('Password', { message });
-          break;
-        case 'school':
-          navigation.navigate('School', { message });
-          break;
-      }      
+      navigation.navigate(realName(field));  
 
     }
     else {
