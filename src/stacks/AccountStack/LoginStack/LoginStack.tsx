@@ -38,7 +38,7 @@ export const LoginStack = ({ navigation }: any) => {
     }
     else if (data.login.errors) {
       const { field, message } = data.login.errors[0];
-      navigation.navigate(realName(field));  
+      navigation.navigate(realName(field), { message });  
 
     }
     else {

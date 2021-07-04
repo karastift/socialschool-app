@@ -41,7 +41,7 @@ export const RegisterStack = ({ navigation }: any) => {
     }
     else if (data.register.errors) {
       const { field, message } = data.register.errors[0];
-      navigation.navigate(realName(field));
+      navigation.navigate(realName(field), { message });
 
     }
     else {
