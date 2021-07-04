@@ -15,7 +15,7 @@ export const LoginStackOptions = ({ navigation, route }: any): StackNavigationOp
       height: 40,
       width: 60,
       marginTop: 20,
-      marginBottom: 25,
+      marginRight: 10,
       backgroundColor: 'rgb(50, 50, 50)',
     }}/>
   ),
@@ -24,7 +24,7 @@ export const LoginStackOptions = ({ navigation, route }: any): StackNavigationOp
       height: 40,
       width: 60,
       marginTop: 20,
-      marginBottom: 25,
+      marginLeft: 10,
       backgroundColor: 'rgb(50, 50, 50)',
     }}/>
   ),
