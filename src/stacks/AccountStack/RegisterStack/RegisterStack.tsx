@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { useMutation } from "urql";
 import { Auth } from "../../../contexts/Auth";
 import REGISTER_MUTATION from "../../../graphql/mutations/RegisterMutation";
+import { realName } from "../../../utils/realName";
 import { EmailForm } from "./Register/EmailForm";
 import { PasswordForm } from "./Register/PasswordForm";
 import { SchoolForm } from "./Register/SchoolForm";
@@ -24,11 +25,7 @@ export const RegisterStack = ({ navigation }: any) => {
   const [school, setSchool] = useState('');
 
   const [, register] = useMutation(REGISTER_MUTATION);
-
-  function realName(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
+  
   const submit = () => register({ options: {
     username,
     email,
