@@ -25,6 +25,10 @@ export const RegisterStack = ({ navigation }: any) => {
 
   const [{ data, fetching, error }, register] = useMutation(REGISTER_MUTATION);
 
+  function realName(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   const submit = () => register({ options: {
     username,
     email,
@@ -37,20 +41,7 @@ export const RegisterStack = ({ navigation }: any) => {
     }
     else if (data.register.errors) {
       const { field, message } = data.register.errors[0];
-      switch (field) {
-        case 'username':
-          navigation.navigate('Username', { message });
-          break;
-        case 'email':
-          navigation.navigate('Email', { message });
-          break;
-        case 'password':
-          navigation.navigate('Password', { message });
-          break;
-        case 'school':
-          navigation.navigate('School', { message });
-          break;
-      }      
+      navigation.navigate(realName(field));
 
     }
     else {
