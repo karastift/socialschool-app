@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   submit: {
     height: 40,
     width: 150,
+    marginTop: 20,
   },
   // back: {
   //   position: 'absolute',
