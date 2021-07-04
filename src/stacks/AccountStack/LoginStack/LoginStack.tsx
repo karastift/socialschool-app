@@ -21,7 +21,7 @@ export const LoginStack = ({ navigation }: any) => {
   const [password, setPassword] = useState('');
   const [school, setSchool] = useState('');
 
-  const [{ data, fetching, error }, login] = useMutation(LOGIN_MUTATION);
+  const [, login] = useMutation(LOGIN_MUTATION);
 
   function realName(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);

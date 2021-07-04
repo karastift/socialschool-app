@@ -23,7 +23,7 @@ export const RegisterStack = ({ navigation }: any) => {
   const [password, setPassword] = useState('');
   const [school, setSchool] = useState('');
 
-  const [{ data, fetching, error }, register] = useMutation(REGISTER_MUTATION);
+  const [, register] = useMutation(REGISTER_MUTATION);
 
   function realName(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
