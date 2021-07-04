@@ -9,6 +9,7 @@ export const FeedScreenOptions = ({ navigation, route }: any): StackNavigationOp
   headerTitleStyle: {
     fontWeight: '800',
     fontSize: 17,
+    alignSelf: 'center',
   },
   headerRight: () => (
     <SubmitButton onSubmit={() => null} icon='plus' style={{

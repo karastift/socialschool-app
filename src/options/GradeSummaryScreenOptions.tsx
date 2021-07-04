@@ -9,6 +9,7 @@ export const GradeSummaryScreenOptions = ({ navigation, route }: any): StackNavi
   headerTitleStyle: {
     fontWeight: '800',
     fontSize: 17,
+    alignSelf: 'center',
   },
   headerRight: () => (
     <SubmitButton onSubmit={() => null} icon='plus' style={{

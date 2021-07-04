@@ -30,6 +30,7 @@ export const LoginStack = ({ navigation }: any) => {
     school
   }).then((res) => {
     const { data, error } = res;
+    console.log(data)
     if (error) {
       console.log(error);
     }
