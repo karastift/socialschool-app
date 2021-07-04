@@ -64,7 +64,7 @@ const Content = () => {
     <Auth.Provider value={{ setAuthenticated }}>
       <NavigationContainer>
         <Tab.Navigator tabBarOptions={TabBarOptions}>
-            { true // authenticated
+            { authenticated
             ? (
               <>
                 <Tab.Screen name="Feed" component={FeedStack} options={FeedTabOptions}/>
