@@ -7,24 +7,23 @@ import AllChartBlock from '../../../objects/AllChartBlock';
 export const GradeSummary = ({ navigation }: any) => {
 
     const [{ data: subjectsData, fetching: subjectsFetching, error: subjectsError }] = useAllSubjects();
-
+    
     return (
         <View style={styles.container}>
-            { !subjectsFetching ?
+            { !subjectsFetching && subjectsData.allSubjects !== null ?
             (
-                <View style={styles.chartWrapper}>
-                  {subjectsData.allSubjects.map((subject: string, index: number) => (
-                      <SubjectChartBlock
-                          key={index}
-                          subject={subject}
-                          onPress={() => null}
-                      />
-                  ))}
-                </View>
-            ) :
-            (
+              <View style={styles.chartWrapper}>
+                {subjectsData?.allSubjects?.map((subject: string, index: number) => (
+                  <SubjectChartBlock
+                      key={index}
+                      subject={subject}
+                      onPress={() => null}
+                  />
+                ))}
+              </View>
+            ) : (
                 <View>
-                    <ActivityIndicator color="red"/>
+                  <ActivityIndicator color="red"/>
                 </View>
             )
             }

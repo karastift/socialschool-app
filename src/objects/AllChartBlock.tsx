@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { AreaChart, Grid } from 'react-native-svg-charts';
 import { Line } from './Line';
 import { Decorator } from './Decorator';
@@ -14,9 +14,19 @@ const AllChartBlock = (props: AllChartBlockProps) => {
     const onPress = props.onPress;
 
     const [{ data: gradesData, fetching: gradesFetching, error: gradesError }]: GradesDataTypes = useAllGrades();
-    if (gradesFetching === true || typeof gradesError !== 'undefined') {
+    if (typeof gradesError !== 'undefined') {
+        console.log(gradesError);
         return (
-            <Text>{"loading"}</Text>
+            <TouchableOpacity style={styles.chartContainer} onPress={() => null}>
+                <Text style={{ color: 'white', alignSelf: 'center' }}>Criticial Error.</Text>
+            </TouchableOpacity>
+        );
+    }
+    else if (gradesFetching === true) {
+        return (
+            <TouchableOpacity style={styles.chartContainer} onPress={() => null}>
+                <ActivityIndicator color='red'/>
+            </TouchableOpacity>
         );
     }
     else {
