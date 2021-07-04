@@ -1,0 +1,52 @@
+import React, { useState } from "react";
+import { Dimensions, StyleSheet, View } from "react-native";
+import { SubmitButton } from "../../../../objects/Form/SubmitButton";
+import { TextField } from "../../../../objects/Form/TextField";
+
+export const UsernameForm = ({ navigation, route, setUsername }: any) => {
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.inputView}>
+        {/* <SubmitButton onSubmit={() => navigation.navigate('Register')} icon='arrow-left' style={styles.back}/> */}
+        <TextField placeholder='username' onChangeText={username => setUsername(username)} error={route.params?.message}/>
+        <SubmitButton onSubmit={() => navigation.navigate('Password')} style={styles.submit}/>
+      </View>
+    </View>
+  );
+};
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
+const styles = StyleSheet.create({
+  container: {
+    zIndex: 0,
+    flex: 1,
+    backgroundColor: 'rgb(26, 26, 26)',
+    alignItems: 'center',
+    width: windowWidth,
+    height: windowHeight,
+    color: 'white',
+  },
+  inputView: {
+    height: windowHeight,
+    width: windowWidth,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  submit: {
+    height: 40,
+    width: 150,
+    marginTop: 20,
+  },
+  // back: {
+  //   position: 'absolute',
+  //   top: 0,
+  //   left: 0,
+  //   marginTop: 100,
+  //   height: 40,
+  //   width: 60,
+  //   backgroundColor: 'rgb(50, 50, 50)',
+  // },
+});
