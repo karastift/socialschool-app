@@ -23,7 +23,7 @@ const AllChartBlock = (props: AllChartBlockProps) => {
         if (gradesData!.allGrades?.length !== 0) {
             return (
                 <TouchableOpacity style={styles.chartContainer} onPress={() => onPress()}>
-                    <Text style={styles.subjectText}>{"all time grades"}</Text>
+                    <Text style={styles.subjectText}>Summary</Text>
                     <AreaChart
                         style={styles.chart}
                         data={gradesData!.allGrades}

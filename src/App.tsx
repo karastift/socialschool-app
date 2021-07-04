@@ -1,51 +1,96 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { registerRootComponent } from 'expo';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { BottomTabBarOptions, BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { client } from './utils/createClient';
 import { RootStackParamList } from './types/RootStackParamList';
 import { Provider } from 'urql';
+import Icon from 'react-native-vector-icons/Feather'
 
-import Welcome from "./screens/Welcome";
-import SubjectBoard from "./screens/SubjectBoard";
-import User from "./screens/User";
-import Register from "./screens/Register";
-import Login from "./screens/Login";
-import GradepostCreation from "./screens/GradepostCreation";
-// import Error from "./screens/Error";
-import DiscussionpostCreation from "./screens/DiscussionpostCreation";
-import Discussionpost from "./screens/Discussionpost";
-import Settings from "./screens/Settings";
-import { HeaderOptions } from './options/HeaderOptions';
-import SubjectInfo from './screens/SubjectInfo';
+import { useMe } from './graphql/queries/useMe';
+import { FeedStack } from './stacks/FeedStack/FeedStack';
+import { AccountStack } from './stacks/AccountStack/AccountStack';
+import { UserStack } from './stacks/UserStack/UserStack';
+import { GradePageStack } from './stacks/GradePageStack/GradePageStack';
+import { Auth } from './contexts/Auth';
 
-const RootStack = createStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator<RootStackParamList>();
+const FeedTabOptions: BottomTabNavigationOptions = {
+  tabBarIcon: ({ color }) => (
+    <Icon name='message-circle' color={color} size={30}/>
+  ),
+  title: '',
+};
+const GradeTabOptions: BottomTabNavigationOptions = {
+  tabBarIcon: ({ color }) => (
+    <Icon name='pen-tool' color={color} size={26}/>
+  ),
+  title: '',
+};
+const UserTabOptions: BottomTabNavigationOptions = {
+  tabBarIcon: ({ color }) => (
+    <Icon name='user' color={color} size={30}/>
+  ),
+  title: '',
+};
+
+const TabBarOptions: BottomTabBarOptions = {
+  activeTintColor: 'red',
+  inactiveTintColor: 'white',
+  style: {
+    backgroundColor: 'rgb(26, 26, 26)',
+  },
+  allowFontScaling: true,
+  iconStyle: {
+    marginTop: 8,
+    backgroundColor: 'rgb(26, 26, 26)'
+  },
+};
 
 // bundesländer sortieren
 // bilder für noten
 
+const Content = () => {
+  const [authenticated, setAuthenticated] = useState(false);
+  const [{data, fetching, error}] = useMe();
+
+  useEffect(() => {
+    if (data?.me !== null && typeof data?.me !== 'undefined') {
+      setAuthenticated(true);
+    };
+  }, [fetching]);
+
+  return (
+    <Auth.Provider value={{ setAuthenticated }}>
+      <NavigationContainer>
+        <Tab.Navigator tabBarOptions={TabBarOptions}>
+            { authenticated
+            ? (
+              <>
+                <Tab.Screen name="Feed" component={FeedStack} options={FeedTabOptions}/>
+                <Tab.Screen name="Grade" component={GradePageStack} options={GradeTabOptions}/>
+                <Tab.Screen name="User" component={UserStack} options={UserTabOptions}/>
+              </>
+              )
+            : (
+              <>
+                <Tab.Screen name="Account" component={AccountStack} options={{ tabBarVisible: false }}/>
+              </>
+              )
+            }
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Auth.Provider>
+  );
+};
+
 const App = () => {
 
-    return (
-      <Provider value={client}>
-      <NavigationContainer>
-        <RootStack.Navigator>
-          
-          <RootStack.Screen name="Welcome" component={Welcome} options={ { ...HeaderOptions, title: 'Social School' } }/>
-          <RootStack.Screen name= "Discussionpost" component={Discussionpost} options={ { ...HeaderOptions, title: 'post' } }/>
-          <RootStack.Screen name="Login" component={Login} options={ HeaderOptions }/>
-          <RootStack.Screen name="Register" component={Register} options={ HeaderOptions }/>
-          <RootStack.Screen name="DiscussionpostCreation" component={DiscussionpostCreation} options={ { ...HeaderOptions, title: 'new post' } }/>
-          <RootStack.Screen name="GradepostCreation" component={GradepostCreation} options={ { ...HeaderOptions, title: 'new grade' } }/>
-          <RootStack.Screen name="SubjectBoard" component={SubjectBoard} options={ { ...HeaderOptions, title: 'subject board' } }/>
-          <RootStack.Screen name="SubjectInfo" component={SubjectInfo} options={ { ...HeaderOptions, title: 'subject' } }/>
-          <RootStack.Screen name="User" component={User} options={ HeaderOptions }/>
-          <RootStack.Screen name= "Settings" component={Settings} options={ HeaderOptions }/>
-        
-        </RootStack.Navigator>
-      </NavigationContainer>
+  return (
+    <Provider value={client}>
+      <Content/>
     </Provider>
-    );
-    
-}
+  );
+};
+
 export default registerRootComponent(App);

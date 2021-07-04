@@ -6,6 +6,7 @@ import schoolData from '../data/schools.json';
 import styles from "../styles/LoginStyles";
 import { LoginProps } from '../types/screenProps/LoginTypes';
 
+const UsernameForm = ({nav}: any) => {};
 
 const Login = ({ navigation }: LoginProps) => {
 

@@ -2,6 +2,7 @@ import { ViewStyle } from "react-native";
 
 export type SubmitButtonProps = {
   onSubmit: any;
-  text: string;
+  text?: string;
   style?: ViewStyle;
+  icon?: string;
 };

@@ -38,31 +38,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingBottom: 10
     },
-    commentWrapper: {
-        marginTop: 15,
-    },
-    comment: {
-        color: 'white',
-        backgroundColor: 'rgb(35, 35, 35)',
-        width: windowWidth-40,
-        borderRadius: 24,
-        paddingRight: 6,
-        paddingLeft: 6
-        
-    },
-    commentInfo: {
-        color: '#bdbdbd',
-        fontWeight: 'bold',
-        textAlign: 'left',
-        marginTop: 10,
-        marginBottom: 5,
-        marginLeft: 15
-    },
-    commentBody: {
-        color: '#a3a3a3',
-        textAlign: 'center',
-        paddingBottom: 10
-    },
+ 
     loading: {
         marginTop: '60%',
         width: windowWidth-30,
