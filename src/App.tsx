@@ -14,7 +14,6 @@ import { UserStack } from './stacks/UserStack/UserStack';
 import { GradePageStack } from './stacks/GradePageStack/GradePageStack';
 import { Auth } from './contexts/Auth';
 
-// const Tab = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootStackParamList>();
 const FeedTabOptions: BottomTabNavigationOptions = {
   tabBarIcon: ({ color }) => (
@@ -44,6 +43,7 @@ const TabBarOptions: BottomTabBarOptions = {
   allowFontScaling: true,
   iconStyle: {
     marginTop: 8,
+    backgroundColor: 'rgb(26, 26, 26)'
   },
 };
 
@@ -64,7 +64,7 @@ const Content = () => {
     <Auth.Provider value={{ setAuthenticated }}>
       <NavigationContainer>
         <Tab.Navigator tabBarOptions={TabBarOptions}>
-            { authenticated
+            { true // authenticated
             ? (
               <>
                 <Tab.Screen name="Feed" component={FeedStack} options={FeedTabOptions}/>
