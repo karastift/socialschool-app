@@ -8,6 +8,7 @@ export const PostStackOptions = ({ navigation }: any): StackNavigationOptions =>
   headerTitleStyle: {
     fontWeight: '800',
     fontSize: 17,
+    alignSelf: 'center',
   },
   headerLeft: () => (
     <SubmitButton onSubmit={() => navigation.goBack()} icon='arrow-left' style={{

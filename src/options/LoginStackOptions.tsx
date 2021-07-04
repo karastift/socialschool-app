@@ -9,6 +9,7 @@ export const LoginStackOptions = ({ navigation, route }: any): StackNavigationOp
   headerTitleStyle: {
     fontWeight: '800',
     fontSize: 17,
+    alignSelf: 'center',
   },
   headerRight: () => (
     <SubmitButton onSubmit={() => navigation.navigate('Register')} text='register' style={{

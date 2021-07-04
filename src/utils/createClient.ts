@@ -82,7 +82,7 @@ export const cursorPagination = () => {
 };
 
 export const client = createClient({
-    url: 'http://192.168.178.113:4000/graphql',
+    url: 'http://192.168.178.61:4000/graphql',
     fetchOptions: {
         credentials: 'include',
         // exchanges: [dedupExchange, cacheExchange({
