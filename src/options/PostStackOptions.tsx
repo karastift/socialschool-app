@@ -1,7 +1,8 @@
+import { StackNavigationOptions } from "@react-navigation/stack";
 import React from "react";
 import { SubmitButton } from "../objects/Form/SubmitButton";
 
-export const PostStackOptions = ({ navigation }: any) => ({
+export const PostStackOptions = ({ navigation }: any): StackNavigationOptions => ({
   headerTransparent: true,
   headerTintColor: 'red',
   headerTitleStyle: {
