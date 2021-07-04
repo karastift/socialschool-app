@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useMutation } from "urql";
 import { Auth } from "../../../contexts/Auth";
 import LOGIN_MUTATION from "../../../graphql/mutations/LoginMutation";
+import { realName } from "../../../utils/realName";
 import { PasswordForm } from "./Login/PasswordForm";
 import { SchoolForm } from "./Login/SchoolForm";
 import { UsernameForm } from "./Login/UsernameForm";
@@ -22,10 +23,6 @@ export const LoginStack = ({ navigation }: any) => {
   const [school, setSchool] = useState('');
 
   const [, login] = useMutation(LOGIN_MUTATION);
-
-  function realName(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
 
   const submit = () => login({
     usernameOrEmail: username,
