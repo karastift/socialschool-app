@@ -14,6 +14,7 @@ export const LoginStackOptions = ({ navigation, route }: any): StackNavigationOp
     <SubmitButton onSubmit={() => navigation.navigate('Register')} text='register' style={{
       height: 40,
       width: 60,
+      marginTop: 20,
       marginBottom: 25,
       backgroundColor: 'rgb(50, 50, 50)',
     }}/>
@@ -22,6 +23,7 @@ export const LoginStackOptions = ({ navigation, route }: any): StackNavigationOp
     <SubmitButton onSubmit={() => getBack(route, 'Login', navigation )} icon='arrow-left' style={{
       height: 40,
       width: 60,
+      marginTop: 20,
       marginBottom: 25,
       backgroundColor: 'rgb(50, 50, 50)',
     }}/>
