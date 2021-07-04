@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         zIndex: 1,
-        marginTop: 20,
+        marginTop: 70,
     },
     discussionpostWrapper: {
         marginBottom: 10,
@@ -93,6 +93,10 @@ const styles = StyleSheet.create({
         width: windowWidth-30,
         
     },
+    loadMore: {
+        textAlign: 'center',
+        color: 'red',
+},
 });
 
 export default styles;
