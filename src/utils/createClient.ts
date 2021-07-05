@@ -1,4 +1,5 @@
 import { createClient, dedupExchange, fetchExchange, stringifyVariables } from "urql";
+import SERVER_URL from "../config/SERVER_URL";
 // import { cacheExchange } from '@urql/exchange-graphcache';
 // import { betterUpdateQuery } from './betterUpdateQuery';
 // import ME_QUERY from "../graphql/queries/MeQuery";
@@ -82,7 +83,7 @@ export const cursorPagination = () => {
 };
 
 export const client = createClient({
-    url: 'http://192.168.178.61:4000/graphql',
+    url: SERVER_URL,
     fetchOptions: {
         credentials: 'include',
         // exchanges: [dedupExchange, cacheExchange({
