@@ -1,6 +1,7 @@
 import React from "react";
 import { StackNavigationOptions } from "@react-navigation/stack";
 import { SubmitButton } from "../objects/Form/SubmitButton";
+import { Platform } from "react-native";
 
 export const GradeSummaryScreenOptions = ({ navigation, route }: any): StackNavigationOptions => ({
   headerTitle: 'My Grades',
@@ -13,9 +14,9 @@ export const GradeSummaryScreenOptions = ({ navigation, route }: any): StackNavi
   },
   headerRight: () => (
     <SubmitButton onSubmit={() => null} icon='plus' style={{
+      ...Platform.OS === 'ios' ? { marginTop: 20 } : undefined,
       height: 40,
       width: 60,
-      marginTop: 20,
       marginRight: 10,
       backgroundColor: 'rgb(50, 50, 50)',
     }}/>
