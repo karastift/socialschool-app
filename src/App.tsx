@@ -5,7 +5,6 @@ import { BottomTabBarOptions, BottomTabNavigationOptions, createBottomTabNavigat
 import { client } from './utils/createClient';
 import { RootStackParamList } from './types/RootStackParamList';
 import { Provider } from 'urql';
-import Icon from 'react-native-vector-icons/Feather'
 
 import { useMe } from './graphql/queries/useMe';
 import { FeedStack } from './stacks/FeedStack/FeedStack';
@@ -13,39 +12,12 @@ import { AccountStack } from './stacks/AccountStack/AccountStack';
 import { UserStack } from './stacks/UserStack/UserStack';
 import { GradePageStack } from './stacks/GradePageStack/GradePageStack';
 import { Auth } from './contexts/Auth';
+import { FeedTabOptions } from './options/FeedTabOptions';
+import { GradeTabOptions } from './options/GradeTabOptions';
+import { TabBarOptions } from './options/TabBarOptions';
+import { UserTabOptions } from './options/UserTabOptions';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
-const FeedTabOptions: BottomTabNavigationOptions = {
-  tabBarIcon: ({ color }) => (
-    <Icon name='message-circle' color={color} size={30}/>
-  ),
-  title: '',
-};
-const GradeTabOptions: BottomTabNavigationOptions = {
-  tabBarIcon: ({ color }) => (
-    <Icon name='pen-tool' color={color} size={26}/>
-  ),
-  title: '',
-};
-const UserTabOptions: BottomTabNavigationOptions = {
-  tabBarIcon: ({ color }) => (
-    <Icon name='user' color={color} size={30}/>
-  ),
-  title: '',
-};
-
-const TabBarOptions: BottomTabBarOptions = {
-  activeTintColor: 'red',
-  inactiveTintColor: 'white',
-  style: {
-    backgroundColor: 'rgb(26, 26, 26)',
-  },
-  allowFontScaling: true,
-  iconStyle: {
-    marginTop: 8,
-    backgroundColor: 'rgb(26, 26, 26)'
-  },
-};
 
 // bundesländer sortieren
 // bilder für noten
