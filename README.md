@@ -12,7 +12,15 @@ Clone the forked repository from GitHub:
 ```
 Install the dependencies:
 ```bash
-    yarn
+    cd app/ && yarn
+```
+Add the needed configurations:
+```bash
+    mkdir config && cd config && touch SERVER_URL.ts
+```
+SERVER_URL.ts:
+```typescript
+    export default 'http://your_endpoint:4000/graphql';
 ```
 You should be ready to run the app with expo now:
 ```bash
