@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   postWrapper: {
     marginBottom: 10,
-    marginTop: Platform.OS === 'ios' ? 100 : 140,
+    marginTop: Platform.OS === 'ios' ? 120 : 140,
     marginLeft: 'auto',
     marginRight: 'auto',
     color: 'white',
@@ -115,7 +115,6 @@ const styles = StyleSheet.create({
   infoWrapper: {
     flexWrap: 'wrap',
     flexDirection: 'row',
-    // backgroundColor: 'white',
     alignItems: 'center',
     marginVertical: 10,
     marginLeft: 25,
