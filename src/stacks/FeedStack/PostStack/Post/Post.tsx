@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Dimensions, RefreshControl, ScrollView, StyleSheet, Text, TouchableHighlight, View } from "react-native";
+import { ActivityIndicator, Dimensions, Platform, RefreshControl, ScrollView, StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import { usePost } from "../../../../graphql/queries/usePost";
 import { usePostComments } from "../../../../graphql/queries/usePostComments";
 import Comment from "../../../../objects/Comment";
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   postWrapper: {
     marginBottom: 10,
-    marginTop: 120,
+    marginTop: Platform.OS === 'ios' ? 100 : 140,
     marginLeft: 'auto',
     marginRight: 'auto',
     color: 'white',
