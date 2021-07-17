@@ -1,28 +1,28 @@
-import { useRoute } from "@react-navigation/native";
-import React, { useEffect, useRef } from "react";
-import { Text, View, TextInput, StyleSheet, Animated } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { Text, View, TextInput, StyleSheet, Animated, TouchableHighlight } from "react-native";
+import { SubmitButton } from "./SubmitButton";
 
-export const TextField = (props: {placeholder: string; onChangeText: (arg0: string) => void, password?: boolean, error: string}) => {
+export const TextField = (props: {
+  placeholder: string;
+  onChangeText: (arg0: string) => void,
+  password?: boolean,
+  error: string,
+  showValue?: string,
+}) => {
 
-
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-
-  const fadeIn = () => {
-    // Will change fadeAnim value to 1 in 5 seconds
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 3000,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  useEffect(() => {
-    fadeIn();
-  }, [props.error]);
+  const [value, setValue] = useState('');
 
   return (
     <>
-      <Animated.Text style={{ ...styles.error, opacity: fadeAnim }}>{props.error}</Animated.Text>
+      { props.showValue
+      ? (<SubmitButton
+        onSubmit={() => null}
+        style={styles.schoolHighlight}
+        text={props.showValue}
+        />)
+      : null
+      }
+      <Text style={styles.error}>{props.error}</Text>
       <View style={styles.fieldWrapper}>
         <TextInput  
           placeholder={props.placeholder}
@@ -48,6 +48,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(50, 50, 50)',
     borderRadius: 50,
     justifyContent: 'center',
+  },
+  schoolHighlight: {
+    height: 25,
+    padding: 5,
+    backgroundColor: 'grey',
+    marginBottom: 20, 
   },
   error: {
     color: 'darkred',
