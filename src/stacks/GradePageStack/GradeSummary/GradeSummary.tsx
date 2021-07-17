@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ActivityIndicator, Dimensions, StyleSheet, Text } from 'react-native';
+import { View, ActivityIndicator, Dimensions, StyleSheet, Text, Platform } from 'react-native';
 import SubjectChartBlock from '../../../objects/SubjectChartBlock';
 import { useAllSubjects } from '../../../graphql/queries/useAllSubjects';
 import AllChartBlock from '../../../objects/AllChartBlock';
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   chartWrapper: {
     alignItems: 'center',
     alignSelf: 'center',
-    marginTop: 100,
+    marginTop: Platform.OS === 'ios' ? 80 : 120,
     flexDirection:'row',
     flexWrap:'wrap',
     justifyContent: 'space-evenly'

@@ -71,7 +71,7 @@ export default AllChartBlock;
 
 const styles = StyleSheet.create({
     chartContainer: {
-        width: '95%',
+        width: '92%',
         height: 145,
         margin: 10,
         paddingTop: 10,

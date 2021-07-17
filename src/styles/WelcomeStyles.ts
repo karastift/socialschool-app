@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         zIndex: 1,
-        marginTop: 70,
+        marginTop: Platform.OS === 'ios' ? 70 : 120,
     },
     discussionpostWrapper: {
         marginBottom: 10,
