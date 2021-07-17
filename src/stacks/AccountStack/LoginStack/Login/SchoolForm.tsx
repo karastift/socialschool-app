@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
+import { useSchoolCompletion } from "../../../../hooks/useSchoolCompletion";
 import { SubmitButton } from "../../../../objects/Form/SubmitButton";
 import { TextField } from "../../../../objects/Form/TextField";
 
 export const SchoolForm = ({ navigation, route, setSchool, onSubmit }: any) => {
 
+  const [value, setValue] = useSchoolCompletion('');
+
   return (
     <View style={styles.container}>
       <View style={styles.inputView}>
-        <TextField placeholder='school' onChangeText={school => setSchool(school)} error={route.params?.message}/>
-        <SubmitButton onSubmit={() => onSubmit()} style={styles.submit}/>
+        <TextField
+          placeholder='school'
+          onChangeText={school => { setSchool(school); setValue(school); }}
+          error={route.params?.message}
+          showValue={value}
+        />
+        <SubmitButton
+          onSubmit={() => onSubmit()}
+          style={styles.submit}
+        />
       </View>
     </View>
   );

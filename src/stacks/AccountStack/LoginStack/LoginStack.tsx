@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useMutation } from "urql";
 import { Auth } from "../../../contexts/Auth";
 import LOGIN_MUTATION from "../../../graphql/mutations/LoginMutation";
+import { useSchoolCompletion } from "../../../hooks/useSchoolCompletion";
 import { realName } from "../../../utils/realName";
 import { PasswordForm } from "./Login/PasswordForm";
 import { SchoolForm } from "./Login/SchoolForm";
