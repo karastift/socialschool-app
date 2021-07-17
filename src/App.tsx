@@ -23,6 +23,7 @@ const Tab = createBottomTabNavigator<RootStackParamList>();
 // bilder für noten
 
 const Content = () => {
+  
   const [authenticated, setAuthenticated] = useState(false);
   const [{data, fetching, error}] = useMe();
 
