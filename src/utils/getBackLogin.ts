@@ -1,6 +1,6 @@
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
-export const getBack = (route: any, type: string, navigation: any) => {
+export const getBackLogin = (route: any, type: string, navigation: any) => {
   const name = getFocusedRouteNameFromRoute(route);
   
   if (typeof name === 'undefined' || name === 'Username') return;

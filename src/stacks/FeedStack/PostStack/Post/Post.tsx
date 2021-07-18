@@ -13,7 +13,7 @@ export const Post = ({ navigation, route, setComment, submitComment }: any) => {
   const [{ data: commentsData, fetching: commentsFetching, error: commentsError }, refreshComments] = usePostComments(variables);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       { !fetching && !error
         ? (
           <>
@@ -67,7 +67,7 @@ export const Post = ({ navigation, route, setComment, submitComment }: any) => {
           <ActivityIndicator color='red' style={styles.loading}/>
         )
       }
-    </View>
+    </ScrollView>
   );
 };
 
@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
   commentsArea: {
     marginLeft: 'auto',
     marginRight: 'auto',
+    marginBottom: 30,
   },
   createComment: {
     marginTop: 10
