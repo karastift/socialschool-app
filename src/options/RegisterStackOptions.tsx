@@ -1,7 +1,7 @@
 import React from "react";
 import { StackNavigationOptions } from "@react-navigation/stack";
 import { SubmitButton } from "../objects/Form/SubmitButton";
-import { getBack } from "../utils/getBack";
+import { getBackLogin } from "../utils/getBackLogin";
 import { Platform } from "react-native";
 
 export const RegisterStackOptions = ({ navigation, route }: any): StackNavigationOptions => ({
@@ -22,7 +22,7 @@ export const RegisterStackOptions = ({ navigation, route }: any): StackNavigatio
     }}/>
   ),
   headerLeft: () => (
-    <SubmitButton onSubmit={() => getBack(route, 'Register', navigation )} icon='arrow-left' style={{
+    <SubmitButton onSubmit={() => getBackLogin(route, 'Register', navigation )} icon='arrow-left' style={{
       ...Platform.OS === 'ios' ? { marginTop: 20 } : undefined,
       height: 40,
       width: 60,

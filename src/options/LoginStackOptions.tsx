@@ -2,7 +2,7 @@ import { StackNavigationOptions } from "@react-navigation/stack";
 import React from "react";
 import { Platform } from "react-native";
 import { SubmitButton } from "../objects/Form/SubmitButton";
-import { getBack } from "../utils/getBack";
+import { getBackLogin } from "../utils/getBackLogin";
 
 export const LoginStackOptions = ({ navigation, route }: any): StackNavigationOptions => ({
   headerTransparent: true,
@@ -22,7 +22,7 @@ export const LoginStackOptions = ({ navigation, route }: any): StackNavigationOp
     }}/>
   ),
   headerLeft: () => (
-    <SubmitButton onSubmit={() => getBack(route, 'Login', navigation )} icon='arrow-left' style={{
+    <SubmitButton onSubmit={() => getBackLogin(route, 'Login', navigation )} icon='arrow-left' style={{
       ...Platform.OS === 'ios' ? { marginTop: 20 } : undefined,
       height: 40,
       width: 60,

@@ -1,9 +1,10 @@
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { StackNavigationOptions } from "@react-navigation/stack";
 import React from "react";
 import { Platform } from "react-native";
 import { SubmitButton } from "../objects/Form/SubmitButton";
 
-export const PostStackOptions = ({ navigation }: any): StackNavigationOptions => ({
+export const PostStackOptions = ({ navigation, route }: any): StackNavigationOptions => ({
   headerTransparent: true,
   headerTintColor: 'red',
   headerTitleStyle: {
@@ -12,7 +13,7 @@ export const PostStackOptions = ({ navigation }: any): StackNavigationOptions =>
     alignSelf: 'center',
   },
   headerLeft: () => (
-    <SubmitButton onSubmit={() => navigation.goBack()} icon='arrow-left' style={{
+    <SubmitButton onSubmit={navigation.goBack} icon='arrow-left' style={{
       ...Platform.OS === 'ios' ? { marginTop: 20 } : undefined,
       height: 40,
       width: 60,

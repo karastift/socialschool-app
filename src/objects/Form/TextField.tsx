@@ -8,9 +8,8 @@ export const TextField = (props: {
   password?: boolean,
   error: string,
   showValue?: string,
+  multiline?: boolean,
 }) => {
-
-  const [value, setValue] = useState('');
 
   return (
     <>
@@ -23,7 +22,11 @@ export const TextField = (props: {
       : null
       }
       <Text style={styles.error}>{props.error}</Text>
-      <View style={styles.fieldWrapper}>
+      <View style={{ 
+        ...styles.fieldWrapper,
+        height: props.multiline ? 200 : 60,
+        borderRadius: props.multiline ? 40 : 50,
+        }}>
         <TextInput  
           placeholder={props.placeholder}
           placeholderTextColor='rgba(255, 255, 255, 0.5)'
@@ -35,6 +38,7 @@ export const TextField = (props: {
           returnKeyType='next'
           style={styles.field}
           secureTextEntry={props.password}
+          multiline={props.multiline}
         />
       </View>
     </>
@@ -44,10 +48,11 @@ export const TextField = (props: {
 const styles = StyleSheet.create({
   fieldWrapper: {
     height: 60,
-    width: '90%',
+    width: '95%',
     backgroundColor: 'rgb(50, 50, 50)',
     borderRadius: 50,
     justifyContent: 'center',
+    overflow: 'hidden',
   },
   schoolHighlight: {
     height: 25,

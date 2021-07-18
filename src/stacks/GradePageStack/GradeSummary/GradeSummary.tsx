@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   chartWrapper: {
     alignItems: 'center',
     alignSelf: 'center',
-    marginTop: Platform.OS === 'ios' ? 100 : 120,
+    marginTop: Platform.OS === 'ios' ? 110 : 120,
     flexDirection:'row',
     flexWrap:'wrap',
     justifyContent: 'space-evenly'

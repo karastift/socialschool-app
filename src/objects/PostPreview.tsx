@@ -49,12 +49,13 @@ const styles = StyleSheet.create({
     },
     discussionpostTitle: {
         color: 'white',
-        fontWeight: 'bold',
+        fontWeight: '900',
         marginTop: 5,
-        marginLeft: 10
+        marginLeft: 10,
     },
     discussionpostBody: {
         color: 'white',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontWeight: '700',
     },
 });

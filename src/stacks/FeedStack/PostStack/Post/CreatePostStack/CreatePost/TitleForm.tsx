@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
-import { SubmitButton } from "../../../../objects/Form/SubmitButton";
-import { TextField } from "../../../../objects/Form/TextField";
+import { SubmitButton } from '../../../../../../objects/Form/SubmitButton';
+import { TextField } from '../../../../../../objects/Form/TextField';
 
-export const UsernameForm = ({ navigation, route, setUsername }: any) => {
+export const TitleForm = ({ navigation, route, setTitle }: any) => {
 
   return (
     <View style={styles.container}>
       <View style={styles.inputView}>
-        <TextField placeholder='username' onChangeText={username => setUsername(username)} error={route.params?.message}/>
-        <SubmitButton onSubmit={() => navigation.navigate('Password')} style={styles.submit}/>
+        <TextField placeholder='title' onChangeText={text => setTitle(text)} error={route.params?.message}/>
+        <SubmitButton onSubmit={() => navigation.navigate('Text')} style={styles.submit}/>
       </View>
     </View>
   );

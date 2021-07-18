@@ -23,7 +23,7 @@ const Tab = createBottomTabNavigator<RootStackParamList>();
 // bilder für noten
 
 const Content = () => {
-  
+
   const [authenticated, setAuthenticated] = useState(false);
   const [{data, fetching, error}] = useMe();
 
@@ -32,9 +32,9 @@ const Content = () => {
       setAuthenticated(true);
     };
   }, [fetching]);
-
+  
   return (
-    <Auth.Provider value={{ setAuthenticated }}>
+    <Auth.Provider value={{ setAuthenticated, user: data?.me }}>
       <NavigationContainer>
         <Tab.Navigator tabBarOptions={TabBarOptions}>
             { authenticated
