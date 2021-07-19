@@ -10,10 +10,6 @@ export const BodyForm = ({ navigation, route, setBody }: any) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputView}>
-        <TextField placeholder='body' multiline onChangeText={text => setBody(text)} error={route.params?.message}/>
-        <SubmitButton onSubmit={() => navigation.navigate('Status')} style={styles.submit}/>
-
-
         <Form
           buttonProps={{
             onSubmit: () => navigation.navigate('Status'),
@@ -29,7 +25,6 @@ export const BodyForm = ({ navigation, route, setBody }: any) => {
             validate: validateBody,
           }}
         />
-
       </View>
     </View>
   );
