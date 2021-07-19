@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
-import { SubmitButton } from '../../../../../../objects/Form/SubmitButton';
-import { TextField } from '../../../../../../objects/Form/TextField';
+import { Form } from "../../../../../../objects/Form/Form";
+import { SubmitButton } from '../../../../../../objects/Form/FormElements/SubmitButton';
+import { TextField } from '../../../../../../objects/Form/FormElements/TextField';
+import { validateBody } from "../../../../../../utils/validateBody";
 
 export const BodyForm = ({ navigation, route, setBody }: any) => {
 
@@ -10,6 +12,24 @@ export const BodyForm = ({ navigation, route, setBody }: any) => {
       <View style={styles.inputView}>
         <TextField placeholder='body' multiline onChangeText={text => setBody(text)} error={route.params?.message}/>
         <SubmitButton onSubmit={() => navigation.navigate('Status')} style={styles.submit}/>
+
+
+        <Form
+          buttonProps={{
+            onSubmit: () => navigation.navigate('Status'),
+            style: styles.submit,
+          }}
+          textFieldProps={{
+            placeholder:'body',
+            multiline: true,
+            onChangeText: (text) => setBody(text),
+            error: route.params?.message,
+          }}
+          formProps={{
+            validate: validateBody,
+          }}
+        />
+
       </View>
     </View>
   );

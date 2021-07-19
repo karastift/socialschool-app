@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Dimensions, StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import { Auth } from "../../../../../../contexts/Auth";
-import { SubmitButton } from '../../../../../../objects/Form/SubmitButton';
+import { SubmitButton } from '../../../../../../objects/Form/FormElements/SubmitButton';
 
 const Switch = (props: { name: string, onChangeValue: (arg0: string) => void }) => {
   

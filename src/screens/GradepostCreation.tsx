@@ -7,7 +7,7 @@ import styles from "../styles/GradeCreationStyles";
 import subjectData from "../data/subjects.json";
 import { GradepostProps } from '../types/screenProps/GradepostCreationTypes';
 import { useMe } from '../graphql/queries/useMe';
-import { SubmitButton } from '../objects/Form/SubmitButton';
+import { SubmitButton } from '../objects/Form/FormElements/SubmitButton';
 
 const GradepostCreation = ({ navigation }: GradepostProps) => {
 

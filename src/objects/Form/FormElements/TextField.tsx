@@ -1,15 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Text, View, TextInput, StyleSheet, Animated, TouchableHighlight } from "react-native";
+import { PostInput } from "../../../types/PostInput";
 import { SubmitButton } from "./SubmitButton";
 
-export const TextField = (props: {
+export type TextFieldProps = {
   placeholder: string;
   onChangeText: (arg0: string) => void,
   password?: boolean,
   error: string,
   showValue?: string,
   multiline?: boolean,
-}) => {
+};
+
+export const TextField = (props: TextFieldProps) => {
 
   return (
     <>
