@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { useSchoolCompletion } from "../../../../hooks/useSchoolCompletion";
-import { SubmitButton } from "../../../../objects/Form/SubmitButton";
-import { TextField } from "../../../../objects/Form/TextField";
+import { SubmitButton } from "../../../../objects/Form/FormElements/SubmitButton";
+import { TextField } from "../../../../objects/Form/FormElements/TextField";
 
 export const SchoolForm = ({ navigation, route, setSchool, onSubmit }: any) => {
 

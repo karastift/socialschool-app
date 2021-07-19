@@ -6,11 +6,21 @@ import { useMutation } from "urql";
 import CREATE_POST_MUTATION from "../../../../../graphql/mutations/CreatePostMutation";
 import { StatusForm } from "./CreatePost/StatusForm";
 import { realName } from "../../../../../utils/realName";
+import { PostInput } from "../../../../../types/PostInput";
 
 const Stack = createStackNavigator();
 
 const CreatePostStackOptions: StackNavigationOptions = {
   headerShown: false,
+};
+
+const validatePostInput = (input: PostInput): { field: string, message: string } | undefined => {
+  const { title, text, status } = input;
+  if (!title) return { field: 'title', message: 'Please enter a title.' };
+  if (!text) return { field: 'text', message: 'Please enter your text.' };
+  if (!status) return { field: 'status' , message: 'This should not have happened. Please restart the app or contact me for help.' };
+  if (title.length < 3) return { field: 'title', message: 'Your title is too short.' };
+  if (text.length < 5) return { field: 'text', message: 'Your text is too short.' };
 };
 
 export const CreatePostStack = ({ navigation, route }: any) => {
@@ -21,25 +31,31 @@ export const CreatePostStack = ({ navigation, route }: any) => {
   const [,createPost] = useMutation(CREATE_POST_MUTATION);
 
   const submit = async () => {
-    createPost({ input: {
+
+    const input: PostInput = {
       title,
       text,
       status,
-    } }).then((res) => {
-      const { data, error } = res;
-      
-      if (error) {
-        console.log(error);
-      }
-      else if (data.createPost.errors) {
-        const { field, message } = data.createPost.errors[0];
-        navigation.navigate(realName(field), { message });  
+    };
 
-      }
-      else {
-        navigation.navigate('Feed');
-      }
-    });
+    const clientError = validatePostInput(input);
+    if (clientError) {
+      const { field, message } = clientError;
+      return navigation.navigate(realName(field), { message });
+    }
+
+    const { data, error } = await createPost({ input });
+   
+    if (error) {
+      navigation.navigate('Title', error.message);
+    }
+    else if (data.createPost.errors) {
+      const { field, message } = data.createPost.errors[0];
+      navigation.navigate(realName(field), { message });
+    }
+    else {
+      navigation.navigate('Feed');
+    }
   };
 
   return (

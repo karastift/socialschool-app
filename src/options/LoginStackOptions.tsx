@@ -1,7 +1,7 @@
 import { StackNavigationOptions } from "@react-navigation/stack";
 import React from "react";
 import { Platform } from "react-native";
-import { SubmitButton } from "../objects/Form/SubmitButton";
+import { SubmitButton } from "../objects/Form/FormElements/SubmitButton";
 import { getBackLogin } from "../utils/getBackLogin";
 
 export const LoginStackOptions = ({ navigation, route }: any): StackNavigationOptions => ({

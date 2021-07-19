@@ -2,7 +2,7 @@ import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { StackNavigationOptions } from "@react-navigation/stack";
 import React from "react";
 import { Platform } from "react-native";
-import { SubmitButton } from "../objects/Form/SubmitButton";
+import { SubmitButton } from "../objects/Form/FormElements/SubmitButton";
 
 export const PostStackOptions = ({ navigation, route }: any): StackNavigationOptions => ({
   headerTransparent: true,

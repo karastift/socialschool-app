@@ -6,7 +6,7 @@ import styles from "../styles/PostCreationStyles";
 import { DiscussionpostCreationProps } from '../types/screenProps/DiscussionpostCreationTypes';
 import { useMe } from '../graphql/queries/useMe';
 import CREATE_GRADE_MUTATION from '../graphql/mutations/CreateGradeMutation';
-import { SubmitButton } from '../objects/Form/SubmitButton';
+import { SubmitButton } from '../objects/Form/FormElements/SubmitButton';
 
 function DiscussionpostCreation ({ navigation }: DiscussionpostCreationProps) {
 

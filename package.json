@@ -22,7 +22,6 @@
     "@sideway/pinpoint": "^2.0.0",
     "@urql/exchange-graphcache": "^4.1.1",
     "d3-shape": "^2.1.0",
-    "dotenv-safe": "^8.2.0",
     "expo": "^41.0.0",
     "expo-app-loading": "^1.0.3",
     "expo-font": "~9.1.0",

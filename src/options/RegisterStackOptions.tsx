@@ -1,6 +1,6 @@
 import React from "react";
 import { StackNavigationOptions } from "@react-navigation/stack";
-import { SubmitButton } from "../objects/Form/SubmitButton";
+import { SubmitButton } from "../objects/Form/FormElements/SubmitButton";
 import { getBackLogin } from "../utils/getBackLogin";
 import { Platform } from "react-native";
 

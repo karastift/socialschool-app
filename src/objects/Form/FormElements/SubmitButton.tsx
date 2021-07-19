@@ -1,7 +1,13 @@
 import React from 'react';
-import { StyleSheet, TouchableHighlight, Text } from 'react-native';
-import { SubmitButtonProps } from '../../types/objectProps/SubmitButtonProps';
+import { StyleSheet, TouchableHighlight, Text, ViewStyle } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather'
+
+export type SubmitButtonProps = {
+  style?: ViewStyle,
+  icon?: string,
+  text?: string,
+  onSubmit: () => void,
+};
 
 export const SubmitButton = (props: SubmitButtonProps) => {
 
