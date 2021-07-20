@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { registerRootComponent } from 'expo';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -17,6 +17,7 @@ import { GradeTabOptions } from './options/GradeTabOptions';
 import { TabBarOptions } from './options/TabBarOptions';
 import { UserTabOptions } from './options/UserTabOptions';
 import { DarkTheme } from './themes/DarkTheme';
+import { ColorTheme } from './contexts/ColorTheme';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
@@ -24,6 +25,8 @@ const Tab = createBottomTabNavigator<RootStackParamList>();
 // bilder für noten
 
 const Content = () => {
+
+  const { navigationTheme }: any = useContext(ColorTheme)
 
   const [authenticated, setAuthenticated] = useState(false);
   const [{ data, fetching }] = useMe();
@@ -36,7 +39,7 @@ const Content = () => {
   
   return (
     <Auth.Provider value={{ setAuthenticated, user: data?.me }}>
-      <NavigationContainer theme={DarkTheme}>
+      <NavigationContainer theme={navigationTheme}>
         <Tab.Navigator tabBarOptions={TabBarOptions}>
             { authenticated
             ? (
@@ -62,7 +65,9 @@ const App = () => {
   
   return (
     <Provider value={client}>
-      <Content/>
+      <ColorTheme.Provider value={DarkTheme}>
+        <Content/>
+      </ColorTheme.Provider>
     </Provider>
   );
 };
