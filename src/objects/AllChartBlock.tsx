@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { AreaChart, Grid } from 'react-native-svg-charts';
 import { Line } from './Line';
@@ -8,90 +8,98 @@ import { AllChartBlockProps } from '../types/objectProps/AllChartBlockProps';
 import { GradesDataTypes, GradeTypes } from '../types/GradeTypes';
 import { useAllGrades } from '../graphql/queries/useAllGrades';
 import { getAverage } from '../utils/getAverage';
+import { ColorTheme } from '../contexts/ColorTheme';
 
 const AllChartBlock = (props: AllChartBlockProps) => {
 
-    const onPress = props.onPress;
+  const styles = useStyles();
+  const { chartTheme } = useContext(ColorTheme);
+  const onPress = props.onPress;
 
-    const [{ data: gradesData, fetching: gradesFetching, error: gradesError }]: GradesDataTypes = useAllGrades();
-    if (typeof gradesError !== 'undefined') {
-        console.log(gradesError);
-        return (
-            <TouchableOpacity style={styles.chartContainer} onPress={() => null}>
-                <Text style={{ color: 'white', alignSelf: 'center' }}>Criticial Error.</Text>
-            </TouchableOpacity>
-        );
-    }
-    else if (gradesFetching === true) {
-        return (
-            <TouchableOpacity style={styles.chartContainer} onPress={() => null}>
-                <ActivityIndicator color='red'/>
-            </TouchableOpacity>
-        );
+  const [{ data, fetching, error }]: GradesDataTypes = useAllGrades();
+  if (typeof error !== 'undefined') {
+    
+    return (
+      <TouchableOpacity style={styles.chartContainer} onPress={() => null}>
+        <Text style={{ color: 'white', alignSelf: 'center' }}>Criticial Error.</Text>
+      </TouchableOpacity>
+    );
+  }
+  else if (fetching === true) {
+    return (
+      <TouchableOpacity style={styles.chartContainer} onPress={() => null}>
+        <ActivityIndicator color='red'/>
+      </TouchableOpacity>
+    );
+  }
+  else {
+    if (data!.allGrades?.length !== 0) {
+      return (
+        <TouchableOpacity style={styles.chartContainer} onPress={() => onPress()}>
+          <Text style={styles.subjectText}>Summary</Text>
+          <AreaChart
+            style={styles.chart}
+            data={data!.allGrades}
+            yAccessor={({ item }) => item.grade}
+            yMin={6}
+            yMax={1}
+            start={6}
+            animate
+            animationDuration={700}
+            numberOfTicks={6}
+            contentInset={{ top: 20, bottom: 20 }}
+            curve={shape.curveNatural}
+            svg={{ fill: chartTheme.background }}
+          >
+            <Grid/>
+            <Line {...props}/>
+            <Decorator {...props}/>
+          </AreaChart>
+      
+          <Text style={styles.averageText}>Ø {getAverage(data!.allGrades)}</Text>
+        </TouchableOpacity>
+      );
     }
     else {
-        if (gradesData!.allGrades?.length !== 0) {
-            return (
-                <TouchableOpacity style={styles.chartContainer} onPress={() => onPress()}>
-                    <Text style={styles.subjectText}>Summary</Text>
-                    <AreaChart
-                        style={styles.chart}
-                        data={gradesData!.allGrades}
-                        yAccessor={({ item }) => item.grade}
-                        yMin={6}
-                        yMax={1}
-                        start={6}
-                        animate
-                        animationDuration={700}
-                        numberOfTicks={6}
-                        contentInset={{ top: 20, bottom: 20 }}
-                        curve={shape.curveNatural}
-                        svg={{ fill: 'rgba(255, 0, 0, 0.1)' }}
-                    >
-                        <Grid/>
-                        <Line {...props}/>
-                        <Decorator {...props}/>
-                    </AreaChart>
-                
-                    <Text style={styles.averageText}>Ø {getAverage(gradesData!.allGrades)}</Text>
-                </TouchableOpacity>
-            );
-        }
-        else {
-            return (
-                <TouchableOpacity style={[styles.chartContainer, {height: 50}]}>
-                    <Text style={[styles.subjectText, {marginTop: 5}]}>{"You have not injected any grades."}</Text>
-                </TouchableOpacity>
-            );
-        }
+      return (
+        <TouchableOpacity style={[styles.chartContainer, { height: 50 }]}>
+          <Text style={[styles.subjectText, { marginTop: 5 }]}>{"You have not injected any grades."}</Text>
+        </TouchableOpacity>
+      );
     }
+  }
 };
 
 export default AllChartBlock;
 
-const styles = StyleSheet.create({
+const useStyles = () => {
+
+  const { general, chartTheme } = useContext(ColorTheme);
+
+  return StyleSheet.create({
     chartContainer: {
-        width: '92%',
-        height: 145,
-        margin: 10,
-        paddingTop: 10,
-        backgroundColor: 'rgba(255, 255, 255, 0.07)',
-        borderRadius: 20,
+      width: '92%',
+      height: 145,
+      margin: 10,
+      paddingTop: 10,
+      backgroundColor: general.elementBackground,
+      borderRadius: 20,
     },
     chart: {
-        paddingLeft: 20,
-        height: 100,
-        width: '95%',
+      paddingLeft: 20,
+      height: 100,
+      width: '95%',
     },
     subjectText: {
-        textAlign: 'center',
-        color: 'white',
-        fontWeight: '700',
+      textAlign: 'center',
+      color: general.text,
+      fontWeight: '700',
     },
     averageText: {
-        textAlign: 'right',
-        color: 'white',
-        fontWeight: '700',
-        marginRight: 13,
+      textAlign: 'right',
+      color: general.text,
+      fontWeight: '700',
+      marginRight: 13,
     },
-});
+  });
+};
