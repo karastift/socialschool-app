@@ -6,50 +6,9 @@ const styles = StyleSheet.create({
     container: {
         zIndex: 0,
         flex: 1,
-        backgroundColor: 'rgb(26, 26, 26)',
         alignItems: 'center',
-        alignContent: 'center',
-        justifyContent: 'center',
-        width: windowWidth,
-        height: windowHeight,
-        color: 'white'
-    },
-    userButton: {
-        position: 'absolute',
-        width: 60,
-        height: 50,
-        top: Platform.OS === 'ios' ? 5 : 45,
-        left: 5
-    },
-    loginButton: {
-        position: 'absolute',
-        width: 60,
-        height: 50,
-        top: Platform.OS === 'ios' ? 5 : 45,
-        right: 40,
-    },
-    createButton: {
-        width: 200,
-        marginTop: Platform.OS === 'ios' ? 50 : 60,
-        marginLeft: Platform.OS === 'ios' ? 70 : 80,
-        height: 30,
-    },
-    loginText: {
-        color: 'grey',
-        fontWeight: 'bold',
-        zIndex: 3
-    },
-    headerBackground: {
-        width: windowWidth,        
-        position: 'absolute',
-        paddingTop: 50,
-        paddingBottom: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection:'row',
-        flexWrap:'wrap',
-        height: 10,
-        zIndex: 2
+        // alignContent: 'center',
+        // justifyContent: 'center',
     },
     scrollView: {
         zIndex: 1,
@@ -59,7 +18,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     discussionpost: {
-        color: 'white',
+        // color: 'white',
         backgroundColor: 'rgb(40, 40, 40)',
         borderRadius: 24,
         alignItems: 'center',
@@ -91,12 +50,11 @@ const styles = StyleSheet.create({
     loading: {
         marginTop: '60%',
         width: windowWidth-30,
-        
     },
     loadMore: {
         textAlign: 'center',
         color: 'red',
-},
+    },
 });
 
 export default styles;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { registerRootComponent } from 'expo';
 import { NavigationContainer } from '@react-navigation/native';
-import { BottomTabBarOptions, BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { client } from './utils/createClient';
 import { RootStackParamList } from './types/RootStackParamList';
 import { Provider } from 'urql';
@@ -16,6 +16,7 @@ import { FeedTabOptions } from './options/FeedTabOptions';
 import { GradeTabOptions } from './options/GradeTabOptions';
 import { TabBarOptions } from './options/TabBarOptions';
 import { UserTabOptions } from './options/UserTabOptions';
+import { DarkTheme } from './themes/DarkTheme';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
@@ -25,7 +26,7 @@ const Tab = createBottomTabNavigator<RootStackParamList>();
 const Content = () => {
 
   const [authenticated, setAuthenticated] = useState(false);
-  const [{data, fetching, error}] = useMe();
+  const [{ data, fetching }] = useMe();
 
   useEffect(() => {
     if (data?.me !== null && typeof data?.me !== 'undefined') {
@@ -35,7 +36,7 @@ const Content = () => {
   
   return (
     <Auth.Provider value={{ setAuthenticated, user: data?.me }}>
-      <NavigationContainer>
+      <NavigationContainer theme={DarkTheme}>
         <Tab.Navigator tabBarOptions={TabBarOptions}>
             { authenticated
             ? (

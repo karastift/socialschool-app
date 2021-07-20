@@ -5,8 +5,6 @@ import { Platform } from "react-native";
 import { SubmitButton } from "../objects/Form/FormElements/SubmitButton";
 
 export const PostStackOptions = ({ navigation, route }: any): StackNavigationOptions => ({
-  headerTransparent: true,
-  headerTintColor: 'red',
   headerTitleStyle: {
     fontWeight: '800',
     fontSize: 17,
@@ -18,7 +16,6 @@ export const PostStackOptions = ({ navigation, route }: any): StackNavigationOpt
       height: 40,
       width: 60,
       marginLeft: 10,
-      backgroundColor: 'rgb(50, 50, 50)',
     }}/>
   ),
 });
