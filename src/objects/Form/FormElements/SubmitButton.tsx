@@ -25,7 +25,6 @@ export const SubmitButton = (props: SubmitButtonProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor:'rgb(100, 0, 0)',
     borderRadius: 25,
     alignItems: 'center',
     justifyContent: 'center',

@@ -5,8 +5,6 @@ import { getBackLogin } from "../utils/getBackLogin";
 import { Platform } from "react-native";
 
 export const RegisterStackOptions = ({ navigation, route }: any): StackNavigationOptions => ({
-  headerTransparent: true,
-  headerTintColor: 'red',
   headerTitleStyle: {
     fontWeight: '800',
     fontSize: 17,
@@ -18,7 +16,6 @@ export const RegisterStackOptions = ({ navigation, route }: any): StackNavigatio
       height: 40,
       width: 60,
       marginRight: 10,
-      backgroundColor: 'rgb(50, 50, 50)',
     }}/>
   ),
   headerLeft: () => (
@@ -27,7 +24,6 @@ export const RegisterStackOptions = ({ navigation, route }: any): StackNavigatio
       height: 40,
       width: 60,
       marginLeft: 10,
-      backgroundColor: 'rgb(50, 50, 50)',
     }}/>
   ),
 });
