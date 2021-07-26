@@ -42,12 +42,12 @@ const s = StyleSheet.create({
 
 export const StatusForm = ({ navigation, route, setStatus, onSubmit }: any) => {
 
-  const { user: { school: { schoolName } } }: any = useContext(Auth);
+  // const { user: { school: { schoolName } } }: any = useContext(Auth);
   
   return (
     <View style={styles.container}>
       <View style={styles.inputView}>
-        <Switch name={schoolName} onChangeValue={setStatus}/>
+        <Switch name={'Leibniz-Gymnasium Potsdam'} onChangeValue={setStatus}/>
         <SubmitButton onSubmit={onSubmit} style={styles.submit}/>
       </View>
     </View>

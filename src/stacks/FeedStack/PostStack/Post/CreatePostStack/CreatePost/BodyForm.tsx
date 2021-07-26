@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, View, Keyboard, ScrollView } from "react-native";
 import { Form } from "../../../../../../objects/Form/Form";
 import { SubmitButton } from '../../../../../../objects/Form/FormElements/SubmitButton';
 import { TextField } from '../../../../../../objects/Form/FormElements/TextField';
@@ -8,7 +8,7 @@ import { validateBody } from "../../../../../../utils/validateBody";
 export const BodyForm = ({ navigation, route, setBody }: any) => {
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container} keyboardDismissMode='on-drag' keyboardShouldPersistTaps='always'>
       <View style={styles.inputView}>
         <Form
           buttonProps={{
@@ -26,7 +26,7 @@ export const BodyForm = ({ navigation, route, setBody }: any) => {
           }}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

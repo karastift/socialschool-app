@@ -41,6 +41,7 @@ export const CreatePostStack = ({ navigation, route }: any) => {
     const clientError = validatePostInput(input);
     if (clientError) {
       const { field, message } = clientError;
+      console.log(message);
       return navigation.navigate(realName(field), { message });
     }
 

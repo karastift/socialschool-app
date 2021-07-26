@@ -6,18 +6,18 @@ import PostPreview from '../../../objects/PostPreview';
 
 export const Feed = ({ navigation, route }: any) => {
 
-    const styles = useStyles();
-    const [isRefreshing, setRefreshing] = useState(false);
-    const [variables, setVariables] = useState({ limit: 20, cursor: null });
+  const styles = useStyles();
+  const [isRefreshing, setRefreshing] = useState(false);
+  const [variables, setVariables] = useState({ limit: 20, cursor: null });
 
-    const [{ data: postData, fetching: postFetching, error: postError }, reloadPosts] = usePosts(variables);
+  const [{ data: postData, fetching: postFetching, error: postError }, reloadPosts] = usePosts(variables);
 
-    const refresh = () => {
-        setRefreshing(true);
-        reloadPosts({ requestPolicy: 'network-only' });
-        setRefreshing(false);
-    };
-
+  const refresh = () => {
+      setRefreshing(true);
+      reloadPosts({ requestPolicy: 'network-only' });
+      setRefreshing(false);
+  };
+  
   return (
     <SafeAreaView style={styles.container}>
       <View>
