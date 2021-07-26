@@ -1,0 +1,1 @@
+export default 'http://192.168.178.61:4000/graphql';
