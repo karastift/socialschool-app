@@ -8,6 +8,7 @@ import { GradeTypes, SubjectGradesDataType } from '../types/GradeTypes';
 import { SubjectChartBlockProps } from '../types/objectProps/SubjectChartBlockProps';
 import { useSubjectGrades } from '../graphql/queries/useSubjectGrades';
 import { ColorTheme } from '../contexts/ColorTheme';
+import { getAverage } from '../utils/getAverage';
 
 const SubjectChartBlock = (props: SubjectChartBlockProps) => {
 
@@ -27,14 +28,6 @@ const SubjectChartBlock = (props: SubjectChartBlockProps) => {
     );
   }
   else {
-    const average = () => {
-      let sum = 0;
-      data!.subjectGrades.map((grade: GradeTypes) => {
-          sum += grade.grade;
-      });
-      return (sum / data!.subjectGrades.length).toFixed(2);
-    };
-
     return (
       <TouchableOpacity style={[styles.chartContainer, chartContainerStyle]} onPress={props.onPress}>
         <Text style={styles.subjectText}>{subject}</Text>
@@ -57,7 +50,7 @@ const SubjectChartBlock = (props: SubjectChartBlockProps) => {
           <Decorator {...props}/>
         </AreaChart>
         
-        <Text style={styles.averageText}>Ø {average()}</Text>
+        <Text style={styles.averageText}>Ø {getAverage(data!.subjectGrades)}</Text>
       </TouchableOpacity>
     );
   }

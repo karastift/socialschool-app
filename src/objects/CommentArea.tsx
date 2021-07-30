@@ -25,7 +25,7 @@ export const CommentArea = (props: CommentAreaProps) => {
         onChangeText={text => { props.onChangeText(text); setValue(text) }}
       />
 
-      <SubmitButton onSubmit={value ? () => submit() : () => null} style={styles.submit}/>
+      <SubmitButton onSubmit={value ? submit : () => null} style={styles.submit}/>
     </View>
   );
 };
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   textInput: {
     width: 300,
     height: 50,
-    backgroundColor: 'rgba(255, 255, 255, 0.07)',
+    backgroundColor: 'rgb(35, 35, 35)',
     borderRadius: 20,
     textAlign: 'center',
     color: 'white',
@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
   submit: {
     height: 30,
     width: 80,
-    backgroundColor: 'darkred',
     alignSelf: 'center',
     marginTop: 10,
   },

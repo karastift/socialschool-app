@@ -90,7 +90,7 @@ const useStyles = () => {
     },
     scrollView: {
       zIndex: 1,
-      marginTop: Platform.OS === 'ios' ? 20 : 120,
+      marginTop: 20,
     },
     discussionpostWrapper: {
       marginBottom: 10,

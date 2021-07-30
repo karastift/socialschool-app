@@ -29,16 +29,13 @@ const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     discussionpost: {
         color: 'white',
-        backgroundColor: 'rgb(26, 26, 26)',
+        backgroundColor: 'rgb(35, 35, 35)',
         borderRadius: 24,
         alignItems: 'center',
         width: windowWidth-30,
         maxHeight: 700,
         overflow: 'hidden',
         paddingHorizontal: 6,
-        borderColor: 'white',
-        borderWidth: 5,
-        
     },
     discussionpostInfo: {
         color: 'grey',

@@ -35,7 +35,7 @@ export const CreatePostStack = ({ navigation, route }: any) => {
     const input: PostInput = {
       title,
       text,
-      status,
+      status: status.trimEnd(),
     };
 
     const clientError = validatePostInput(input);

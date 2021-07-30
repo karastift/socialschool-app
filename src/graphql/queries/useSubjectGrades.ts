@@ -10,6 +10,7 @@ export function useSubjectGrades(variables: variables) {
       query SubjectGrades($subject: String!) {
         subjectGrades(subject: $subject) {
           grade
+          value
           createdAt
         }
       } 

@@ -5,6 +5,7 @@ export type GradeTypes = {
     id: number;
     grade: number;
     subject: string;
+    value: number;
     thoughts: string;
     updatedAt: string;
     createdAt: string;

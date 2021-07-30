@@ -17,6 +17,7 @@ const AllChartBlock = (props: AllChartBlockProps) => {
   const onPress = props.onPress;
 
   const [{ data, fetching, error }]: GradesDataTypes = useAllGrades();
+  
   if (typeof error !== 'undefined') {
     
     return (
@@ -78,7 +79,7 @@ const useStyles = () => {
 
   return StyleSheet.create({
     chartContainer: {
-      width: '92%',
+      marginHorizontal: 20,
       height: 145,
       margin: 10,
       paddingTop: 10,
@@ -86,9 +87,10 @@ const useStyles = () => {
       borderRadius: 20,
     },
     chart: {
-      paddingLeft: 20,
+      paddingHorizontal: 15,
+      alignSelf: 'center',
       height: 100,
-      width: '95%',
+      flexDirection: 'row',
     },
     subjectText: {
       textAlign: 'center',

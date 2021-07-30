@@ -32,13 +32,13 @@ const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
-    zIndex: 0,
     flex: 1,
     backgroundColor: 'rgb(26, 26, 26)',
     alignItems: 'center',
     width: windowWidth,
     height: windowHeight,
     color: 'white',
+    marginTop: -30,
   },
   inputView: {
     height: windowHeight,

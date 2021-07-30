@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     width: windowWidth,
     height: windowHeight,
     color: 'white',
+    marginTop: -30,
   },
   inputView: {
     height: windowHeight,

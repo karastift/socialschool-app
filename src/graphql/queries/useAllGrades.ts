@@ -7,6 +7,7 @@ export function useAllGrades() {
         allGrades {
           grade
           createdAt
+          value
         }
       }
     `
