@@ -11,7 +11,7 @@ export const ProfileScreenOptions = ({ navigation, route }: any): StackNavigatio
     alignSelf: 'center',
   },
   headerRight: () => (
-    <SubmitButton onSubmit={navigation.goBack} icon='edit-3' style={{
+    <SubmitButton onSubmit={() => null} icon='edit-3' style={{
       ...Platform.OS === 'ios' ? { marginTop: 20 } : undefined,
       height: 40,
       width: 60,
