@@ -15,7 +15,7 @@ export const ProfileScreenOptions = ({ navigation, route }: any): StackNavigatio
       ...Platform.OS === 'ios' ? { marginTop: 20 } : undefined,
       height: 40,
       width: 60,
-      marginLeft: 10,
+      marginRight: 10,
     }}/>
   ),
   // if headerLeft does not exist, the title would not be centered on android
@@ -24,7 +24,7 @@ export const ProfileScreenOptions = ({ navigation, route }: any): StackNavigatio
       ...Platform.OS === 'ios' ? { marginTop: 20 } : undefined,
       height: 40,
       width: 60,
-      marginRight: 10,
+      marginLeft: 10,
     }}/>
   ),
 });
