@@ -30,15 +30,17 @@ const Content = () => {
 
   const [authenticated, setAuthenticated] = useState(false);
   const [{ data, fetching }] = useMe();
+  const [me, setMe] = useState(data?.me);
 
   useEffect(() => {
     if (data?.me !== null && typeof data?.me !== 'undefined') {
+      setMe(data.me);
       setAuthenticated(true);
     };
   }, [fetching]);
   
   return (
-    <Auth.Provider value={{ setAuthenticated, user: data?.me }}>
+    <Auth.Provider value={{ setAuthenticated, user: me, setMe }}>
       <NavigationContainer theme={navigationTheme}>
         <Tab.Navigator tabBarOptions={TabBarOptions}>
             { authenticated

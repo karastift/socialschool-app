@@ -42,7 +42,8 @@ const s = StyleSheet.create({
 
 export const StatusForm = ({ navigation, route, setStatus, onSubmit }: any) => {
 
-  // const { user: { school: { schoolName } } }: any = useContext(Auth);
+  const { user }: any = useContext(Auth); // fix undefined school bug
+  console.log(user);
   
   return (
     <View style={styles.container}>

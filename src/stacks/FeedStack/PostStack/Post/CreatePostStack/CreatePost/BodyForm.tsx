@@ -17,7 +17,7 @@ export const BodyForm = ({ navigation, route, setBody }: any) => {
           }}
           textFieldProps={{
             placeholder:'body',
-            multiline: true,
+            // multiline: true,
             onChangeText: (text) => setBody(text),
             error: route.params?.message,
           }}

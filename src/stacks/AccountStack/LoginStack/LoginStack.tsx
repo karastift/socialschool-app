@@ -17,7 +17,7 @@ const StackScreenOptions = ({ navigation }: any): StackNavigationOptions => ({
 
 export const LoginStack = ({ navigation }: any) => {
 
-  const { setAuthenticated }: any = useContext(Auth);
+  const { setAuthenticated, setMe }: any = useContext(Auth);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
