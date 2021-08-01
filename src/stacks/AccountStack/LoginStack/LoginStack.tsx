@@ -23,7 +23,7 @@ export const LoginStack = ({ navigation }: any) => {
   const [password, setPassword] = useState('');
   const [school, setSchool] = useState('');
 
-  const [, login] = useMutation(LOGIN_MUTATION);
+  const [,login] = useMutation(LOGIN_MUTATION);
 
   const submit = () => login({
     usernameOrEmail: username,
@@ -41,6 +41,7 @@ export const LoginStack = ({ navigation }: any) => {
 
     }
     else {
+      setMe(data.login.user);
       setAuthenticated(true);
     }
   });
