@@ -35,7 +35,7 @@ export const CreateGradeStack = ({ navigation, route }: any) => {
     const { data, error } = await createGrade({ input });
 
     if (error) {
-      navigation.navigate('Grade', error.message);
+      navigation.navigate('GradeSummary');
     }
     else if (data.createGrade.errors) {
       const { field, message } = data.createGrade.errors[0];
