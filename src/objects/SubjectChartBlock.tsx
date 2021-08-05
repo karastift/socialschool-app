@@ -9,6 +9,7 @@ import { SubjectChartBlockProps } from '../types/objectProps/SubjectChartBlockPr
 import { useSubjectGrades } from '../graphql/queries/useSubjectGrades';
 import { ColorTheme } from '../contexts/ColorTheme';
 import { getAverage } from '../utils/getAverage';
+import { useEffect } from 'react';
 
 const SubjectChartBlock = (props: SubjectChartBlockProps) => {
 
@@ -16,10 +17,13 @@ const SubjectChartBlock = (props: SubjectChartBlockProps) => {
 
   const subject = props.subject;
   const chartContainerStyle = props.chartContainerStyle;
-  const chartStyle = props.chartStyle; 
 
-  const [{ data, fetching, error }]: SubjectGradesDataType = useSubjectGrades({ subject });
+  const [{ data, fetching, error }, reload]: SubjectGradesDataType = useSubjectGrades({ subject });
   
+  useEffect(() => {
+    reload({ requestPolicy: 'network-only' });
+  }, [])
+
   if (fetching || error) {
     return (
       <View style={styles.chartContainer}>

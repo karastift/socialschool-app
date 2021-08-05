@@ -1,15 +1,23 @@
 import React from 'react';
-import { ActivityIndicator, Platform, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Platform, RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { useAllSubjects } from '../../../graphql/queries/useAllSubjects';
 import AllChartBlock from '../../../objects/AllChartBlock';
 import SubjectChartBlock from '../../../objects/SubjectChartBlock';
 
 export const GradeSummary = ({ navigation }: any) => {
 
-    const [{ data: data, fetching: fetching}] = useAllSubjects();
+    const [{ data: data, fetching: fetching}, reload] = useAllSubjects();
     
     return (
-      <View style={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        refreshControl={
+          <RefreshControl
+            refreshing={fetching}
+            onRefresh={() => reload({ requestPolicy: 'network-only' })}
+          />
+        }
+      >
         { !fetching && data.allSubjects !== null
         ? (
         <View style={styles.chartWrapper}>
@@ -28,7 +36,7 @@ export const GradeSummary = ({ navigation }: any) => {
         )
         }
         <AllChartBlock onPress={() => null}/>
-      </View>
+      </ScrollView>
     );
 };
 
