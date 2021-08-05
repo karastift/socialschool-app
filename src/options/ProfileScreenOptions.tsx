@@ -32,7 +32,7 @@ export const ProfileScreenOptions = ({ navigation, route }: any): StackNavigatio
       <SubmitButton onSubmit={() => {
         setAuthenticated(false);
         logout();
-      }} icon='user-x' style={{
+      }} icon='log-out' style={{
         ...Platform.OS === 'ios' ? { marginTop: 20 } : undefined,
         height: 40,
         width: 60,
