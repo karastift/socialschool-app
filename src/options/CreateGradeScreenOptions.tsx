@@ -3,24 +3,22 @@ import { StackNavigationOptions } from "@react-navigation/stack";
 import { SubmitButton } from "../objects/Form/FormElements/SubmitButton";
 import { Platform, View } from "react-native";
 
-export const GradeSummaryScreenOptions = ({ navigation, route }: any): StackNavigationOptions => ({
-  headerTitle: 'My Grades',
+export const CreateGradeScreenOptions = ({ navigation, route }: any): StackNavigationOptions => ({
   headerTitleStyle: {
     fontWeight: '800',
     fontSize: 17,
     alignSelf: 'center',
   },
   headerRight: () => (
-    <SubmitButton onSubmit={() => navigation.navigate('Grade', { screen: 'Create' })} icon='plus' style={{
+    <View style={{
       ...Platform.OS === 'ios' ? { marginTop: 20 } : undefined,
       height: 40,
       width: 60,
       marginRight: 10,
     }}/>
   ),
-  // if headerLeft does not exist, the title would not be centered on android
   headerLeft: () => (
-    <View style={{
+    <SubmitButton onSubmit={() => navigation.goBack()} icon='arrow-left' style={{
       ...Platform.OS === 'ios' ? { marginTop: 20 } : undefined,
       height: 40,
       width: 60,

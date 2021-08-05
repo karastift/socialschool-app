@@ -3,15 +3,6 @@ export default `
     createGrade(input: $input) {
       grade {
         id
-        grade
-        subject
-        thoughts
-        updatedAt
-        createdAt
-        creatorId
-        creator {
-          username
-        }
       }
       errors {
         field
