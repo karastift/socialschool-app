@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet, View } from "react-native";
 import { Form } from "../../../../../objects/Form/Form";
 import { validateSubject } from "../../../../../utils/validateSubject";
 
-export const SubjectForm = ({ navigation, route, setSubject }: any) => {
+export const SubjectForm: React.FC = ({ navigation, route, setSubject }: any) => {
 
   return (
     <View style={styles.container}>

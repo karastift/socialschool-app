@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet, View } from "react-native";
 import { Form } from "../../../../../objects/Form/Form";
 import { validateThoughts } from "../../../../../utils/validateThoughts";
 
-export const ThoughtsForm = ({ navigation, route, setThoughts, onSubmit }: any) => {
+export const ThoughtsForm: React.FC = ({ navigation, route, setThoughts, onSubmit }: any) => {
 
   return (
     <View style={styles.container}>

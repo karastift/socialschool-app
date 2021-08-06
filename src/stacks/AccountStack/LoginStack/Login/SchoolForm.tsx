@@ -4,7 +4,7 @@ import { useSchoolCompletion } from "../../../../hooks/useSchoolCompletion";
 import { SubmitButton } from "../../../../objects/Form/FormElements/SubmitButton";
 import { TextField } from "../../../../objects/Form/FormElements/TextField";
 
-export const SchoolForm = ({ navigation, route, setSchool, onSubmit }: any) => {
+export const SchoolForm: React.FC = ({ navigation, route, setSchool, onSubmit }: any) => {
 
   const [value, setValue] = useSchoolCompletion('');
 

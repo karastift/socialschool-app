@@ -3,7 +3,7 @@ import { Text, View, TextInput, StyleSheet, Animated, TouchableHighlight } from 
 import { PostInput } from "../../../types/PostInput";
 import { SubmitButton } from "./SubmitButton";
 
-export type TextFieldProps = {
+export interface TextFieldProps {
   placeholder: string;
   onChangeText: (arg0: string) => void,
   password?: boolean,
@@ -12,7 +12,7 @@ export type TextFieldProps = {
   multiline?: boolean,
 };
 
-export const TextField = (props: TextFieldProps) => {
+export const TextField: React.FC<TextFieldProps> = (props) => {
 
   return (
     <>

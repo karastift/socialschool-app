@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 
-const Comment = (props: CommentProps) => {
+const Comment: React.FC = (props) => {
     const username = props.username;
     const body = props.body;
     const index = props.id;

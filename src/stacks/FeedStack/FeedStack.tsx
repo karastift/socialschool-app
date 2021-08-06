@@ -7,7 +7,7 @@ import { PostStackOptions } from "../../options/PostStackOptions";
 
 const Stack = createStackNavigator();
 
-export const FeedStack = () => {
+export const FeedStack: React.FC = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Feed" component={Feed} options={FeedScreenOptions}/>

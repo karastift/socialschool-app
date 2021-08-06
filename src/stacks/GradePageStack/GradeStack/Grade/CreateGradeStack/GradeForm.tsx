@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet, View } from "react-native";
 import { Form } from "../../../../../objects/Form/Form";
 import { validateGrade } from "../../../../../utils/validateGrade";
 
-export const GradeForm = ({ navigation, route, setGrade }: any) => {
+export const GradeForm: React.FC = ({ navigation, route, setGrade }: any) => {
 
   return (
     <View style={styles.container}>

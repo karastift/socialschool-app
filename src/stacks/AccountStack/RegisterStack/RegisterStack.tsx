@@ -15,9 +15,9 @@ const StackScreenOptions: StackNavigationOptions = {
   headerShown: false,
 };
 
-export const RegisterStack = ({ navigation }: any) => {
+export const RegisterStack: React.FC = ({ navigation }: any) => {
 
-  const { setAuthenticated }: any = useContext(Auth);
+  const { setAuthenticated } = useContext(Auth);
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');

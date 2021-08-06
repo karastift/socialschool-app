@@ -1,10 +1,10 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-export const EditPost = ({ navigation, route }: any) => {
+export const EditPost: React.FC = ({ navigation, route }: any) => {
   return (
     <View>
-      <Text>adsskdjks</Text>
+      <Text></Text>
     </View>
   );
 };

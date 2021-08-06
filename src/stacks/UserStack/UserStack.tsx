@@ -6,7 +6,7 @@ import { Profile } from "./Profile/Profile";
 
 const Stack = createStackNavigator();
 
-export const UserStack = () => {
+export const UserStack: React.FC = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Profile" component={Profile} options={ProfileScreenOptions}/>

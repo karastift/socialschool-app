@@ -4,7 +4,7 @@ import { ColorTheme } from '../../../contexts/ColorTheme';
 import { usePosts } from '../../../graphql/queries/usePosts';
 import PostPreview from '../../../objects/PostPreview';
 
-export const Feed = ({ navigation, route }: any) => {
+export const Feed: React.FC = ({ navigation, route }: any) => {
 
   const styles = useStyles();
   const [isRefreshing, setRefreshing] = useState(false);

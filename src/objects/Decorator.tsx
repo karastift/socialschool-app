@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Circle } from "react-native-svg";
 import { ColorTheme } from "../contexts/ColorTheme";
 
-export const Decorator = ({ x, y, data }: any) => {
+export const Decorator: React.FC = ({ x, y, data }: any) => {
 
   const { chartTheme: { decoratorStroke, decoratorFill } } = useContext(ColorTheme);
 

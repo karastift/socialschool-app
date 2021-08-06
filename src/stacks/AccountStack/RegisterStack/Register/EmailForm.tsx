@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet, View } from "react-native";
 import { SubmitButton } from "../../../../objects/Form/FormElements/SubmitButton";
 import { TextField } from "../../../../objects/Form/FormElements/TextField";
 
-export const EmailForm = ({ navigation, route, setEmail }: any) => {
+export const EmailForm: React.FC = ({ navigation, route, setEmail }: any) => {
 
   return (
     <View style={styles.container}>

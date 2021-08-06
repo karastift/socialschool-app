@@ -4,7 +4,7 @@ import { useAllSubjects } from '../../../graphql/queries/useAllSubjects';
 import AllChartBlock from '../../../objects/AllChartBlock';
 import SubjectChartBlock from '../../../objects/SubjectChartBlock';
 
-export const GradeSummary = ({ navigation }: any) => {
+export const GradeSummary: React.FC = ({ navigation }: any) => {
 
     const [{ data: data, fetching: fetching}, reload] = useAllSubjects();
     

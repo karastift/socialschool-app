@@ -12,7 +12,7 @@ const PostStackScreenOptions: StackNavigationOptions = {
   headerShown: false,
 };
 
-export const PostStack = ({ route }: any) => {
+export const PostStack: React.FC = ({ route }: any) => {
   const { postId } = route.params;
 
   const [comment, setComment] = useState('');

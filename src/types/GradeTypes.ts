@@ -1,7 +1,7 @@
 import { UserTypes } from "./UserTypes";
 import { UseQueryResponse } from "urql";
 
-export type GradeTypes = {
+export interface GradeTypes {
     id: number;
     grade: number;
     subject: string;

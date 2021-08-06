@@ -15,7 +15,7 @@ const StackScreenOptions = ({ navigation }: any): StackNavigationOptions => ({
   headerShown: false,
 });
 
-export const LoginStack = ({ navigation }: any) => {
+export const LoginStack: React.FC = ({ navigation }: any) => {
 
   const { setAuthenticated, setMe }: any = useContext(Auth);
 

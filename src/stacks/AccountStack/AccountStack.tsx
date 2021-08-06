@@ -7,7 +7,7 @@ import { RegisterStack } from "./RegisterStack/RegisterStack";
 
 const Stack = createStackNavigator();
 
-export const AccountStack = () => {
+export const AccountStack: React.FC = () => {
 
   return (
     <Stack.Navigator>

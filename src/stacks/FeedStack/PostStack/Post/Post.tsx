@@ -5,7 +5,7 @@ import { usePostComments } from "../../../../graphql/queries/usePostComments";
 import Comment from "../../../../objects/Comment";
 import { CommentArea } from "../../../../objects/CommentArea";
 
-export const Post = ({ navigation, route, setComment, submitComment }: any) => {
+export const Post: React.FC = ({ navigation, route, setComment, submitComment }: any) => {
 
   const [{data, fetching, error}] = usePost({ id: route.params.postId });
 
@@ -34,7 +34,7 @@ export const Post = ({ navigation, route, setComment, submitComment }: any) => {
                 <Text style={styles.buttonText}>{data.post.status}</Text>
               </TouchableHighlight>
             </View>
-            <CommentArea style={styles.createComment} onChangeText={text => setComment(text)} onSubmit={() => submitComment()} refresh={() => refreshComments({ requestPolicy: 'network-only' })}/>
+            <CommentArea style={styles.createComment} onChangeText={(text: string) => setComment(text)} onSubmit={() => submitComment()} refresh={() => refreshComments({ requestPolicy: 'network-only' })}/>
             {!commentsFetching && !commentsError
             ? (
               <ScrollView

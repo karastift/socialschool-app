@@ -8,7 +8,7 @@ import { SubjectGrades } from "./SubjectGrades/SubjectGrades";
 
 const Stack = createStackNavigator();
 
-export const GradePageStack = () => {
+export const GradePageStack: React.FC = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="GradeSummary" component={GradeSummary} options={GradeSummaryScreenOptions}/>

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { TextInput, TouchableOpacity, Text, View, StyleSheet, Dimensions } from 'react-native';
 import { useMutation } from 'urql';
-import { CommentAreaProps } from '../types/objectProps/CommentAreaProps';
 import { SubmitButton } from './Form/FormElements/SubmitButton';
 
-export const CommentArea = (props: CommentAreaProps) => {
+export const CommentArea: React.FC = (props) => {
 
   const [value, setValue] = useState('');
 

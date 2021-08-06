@@ -3,7 +3,7 @@ import { Text, View, TextInput, StyleSheet } from "react-native";
 import { TextField, TextFieldProps } from "./FormElements/TextField";
 import { SubmitButton, SubmitButtonProps } from "./FormElements/SubmitButton";
 
-export type FormProps = {
+export interface FormProps {
   textFieldProps: TextFieldProps,
   buttonProps: SubmitButtonProps,
   formProps: {
@@ -11,7 +11,7 @@ export type FormProps = {
   },
 };
 
-export const Form = (props: FormProps) => {
+export const Form: React.FC<FormProps> = (props) => {
 
   const { textFieldProps, buttonProps, formProps } = props;
 

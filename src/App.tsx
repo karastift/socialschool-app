@@ -24,7 +24,7 @@ const Tab = createBottomTabNavigator<RootStackParamList>();
 // bundesländer sortieren
 // bilder für noten
 
-const Content = () => {
+const Content: React.FC = () => {
 
   const { navigationTheme }: any = useContext(ColorTheme)
 

@@ -5,14 +5,12 @@ import { Line } from './Line';
 import { Decorator } from './Decorator';
 import { AreaChart, Grid } from 'react-native-svg-charts';
 import { GradeTypes, SubjectGradesDataType } from '../types/GradeTypes';
-import { SubjectChartBlockProps } from '../types/objectProps/SubjectChartBlockProps';
 import { useSubjectGrades } from '../graphql/queries/useSubjectGrades';
 import { ColorTheme } from '../contexts/ColorTheme';
 import { getAverage } from '../utils/getAverage';
 import { useEffect } from 'react';
 
-const SubjectChartBlock = (props: SubjectChartBlockProps) => {
-
+const SubjectChartBlock: React.FC = (props) => {
   const { chartTheme } = useContext(ColorTheme);
 
   const subject = props.subject;

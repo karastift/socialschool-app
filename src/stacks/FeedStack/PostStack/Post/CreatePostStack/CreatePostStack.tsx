@@ -23,7 +23,7 @@ const validatePostInput = (input: PostInput): { field: string, message: string }
   if (text.length < 5) return { field: 'text', message: 'Your text is too short.' };
 };
 
-export const CreatePostStack = ({ navigation, route }: any) => {
+export const CreatePostStack: React.FC = ({ navigation, route }: any) => {
 
   const [title, setTitle] = useState('');
   const [text, setBody] = useState('');

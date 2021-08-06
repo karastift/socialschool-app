@@ -6,7 +6,7 @@ import { Grade } from "./Grade/Grade";
 
 const Stack = createStackNavigator();
 
-export const GradeStack = () => {
+export const GradeStack: React.FC = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Grade" component={Grade}/>

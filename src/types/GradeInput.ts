@@ -1,4 +1,4 @@
-export type GradeInput = {
+export interface GradeInput {
 	grade: number;
 	value: number;
 	subject: string;

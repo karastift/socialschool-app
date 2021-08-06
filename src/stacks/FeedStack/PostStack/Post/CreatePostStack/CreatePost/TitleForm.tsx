@@ -1,9 +1,14 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { Form } from "../../../../../../objects/Form/Form";
 import { validateTitle } from "../../../../../../utils/validateTitle";
 
-export const TitleForm = ({ navigation, route, setTitle }: any) => {
+interface BodyFormProps {
+  setTitle: Dispatch<SetStateAction<string>>;
+  [key: string]: any;
+}
+
+export const TitleForm: React.FC<BodyFormProps> = ({ navigation, route, setTitle }) => {
 
   return (
     <View style={styles.container}>

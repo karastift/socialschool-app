@@ -15,7 +15,7 @@ const CreatePostStackOptions: StackNavigationOptions = {
   headerShown: false,
 };
 
-export const CreateGradeStack = ({ navigation, route }: any) => {
+export const CreateGradeStack: React.FC = ({ navigation, route }: any) => {
 
   const [grade, setGrade] = useState('')
   const [subject, setSubject] = useState('');

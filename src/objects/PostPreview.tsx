@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import { PostProps } from '../types/objectProps/PostProps';
 
-const PostPreview = (props: PostProps) => {
+const PostPreview: React.FC = (props: PostProps) => {
     let username = props.username;
     let status = props.status;
     // let createdAt = props.createdAt;

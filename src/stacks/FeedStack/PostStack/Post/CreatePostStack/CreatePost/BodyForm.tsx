@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { Dimensions, StyleSheet, View, Keyboard, ScrollView } from "react-native";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import { Dimensions, StyleSheet, View, ScrollView } from "react-native";
 import { Form } from "../../../../../../objects/Form/Form";
-import { SubmitButton } from '../../../../../../objects/Form/FormElements/SubmitButton';
-import { TextField } from '../../../../../../objects/Form/FormElements/TextField';
 import { validateBody } from "../../../../../../utils/validateBody";
 
-export const BodyForm = ({ navigation, route, setBody }: any) => {
+interface BodyFormProps {
+  setBody: Dispatch<SetStateAction<string>>;
+  [key: string]: any;
+}
+
+export const BodyForm: React.FC<BodyFormProps> = ({ navigation, route, setBody }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container} keyboardDismissMode='on-drag' keyboardShouldPersistTaps='always'>

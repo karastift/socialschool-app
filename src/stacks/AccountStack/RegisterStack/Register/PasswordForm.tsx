@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet, View } from "react-native";
 import { SubmitButton } from "../../../../objects/Form/FormElements/SubmitButton";
 import { TextField } from "../../../../objects/Form/FormElements/TextField";
 
-export const PasswordForm = ({ navigation, route, setPassword }: any) => {
+export const PasswordForm: React.FC = ({ navigation, route, setPassword }: any) => {
 
   return (
     <View style={styles.container}>
