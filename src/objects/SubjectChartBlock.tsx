@@ -4,7 +4,7 @@ import * as shape from 'd3-shape';
 import { Line } from './Line';
 import { Decorator } from './Decorator';
 import { AreaChart, Grid } from 'react-native-svg-charts';
-import { SubjectGradesDataType } from '../types/GradeTypes';
+import { SubjectGradesData } from '../types/Grade';
 import { useSubjectGrades } from '../graphql/queries/useSubjectGrades';
 import { ColorTheme } from '../contexts/ColorTheme';
 import { getAverage } from '../utils/getAverage';
@@ -23,7 +23,7 @@ const SubjectChartBlock: React.FC<SubjectChartBlockProps> = (props) => {
   const subject = props.subject;
   const chartContainerStyle = props.chartContainerStyle;
 
-  const [{ data, fetching, error }, reload]: SubjectGradesDataType = useSubjectGrades({ subject });
+  const [{ data, fetching, error }, reload]: SubjectGradesData = useSubjectGrades({ subject });
   
   useEffect(() => {
     reload({ requestPolicy: 'network-only' });

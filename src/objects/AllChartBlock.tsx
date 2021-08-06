@@ -4,7 +4,7 @@ import { AreaChart, Grid } from 'react-native-svg-charts';
 import { Line } from './Line';
 import { Decorator } from './Decorator';
 import * as shape from 'd3-shape';
-import { GradesDataTypes, GradeTypes } from '../types/GradeTypes';
+import { GradesData, Grade } from '../types/Grade';
 import { useAllGrades } from '../graphql/queries/useAllGrades';
 import { getAverage } from '../utils/getAverage';
 import { ColorTheme } from '../contexts/ColorTheme';
@@ -19,7 +19,7 @@ const AllChartBlock: React.FC<AllChartBlockProps> = (props) => {
   const { chartTheme } = useContext(ColorTheme);
   const onPress = props.onPress;
 
-  const [{ data, fetching, error }]: GradesDataTypes = useAllGrades();
+  const [{ data, fetching, error }]: GradesData = useAllGrades();
   
   if (typeof error !== 'undefined') {
     

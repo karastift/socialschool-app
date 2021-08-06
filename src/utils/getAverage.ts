@@ -1,6 +1,6 @@
-import { GradeTypes } from "../types/GradeTypes";
+import { Grade } from "../types/Grade";
 
-export const getAverage = (array: GradeTypes[]) => {
+export const getAverage = (array: Grade[]) => {
   
   if (array.every(({ value }) => value === array[0].value)) {
     const sum = array.reduce((sum, curr) => sum + curr.grade, 0);
@@ -20,7 +20,7 @@ export const getAverage = (array: GradeTypes[]) => {
   let average = 0;
 
   for (let val of Object.keys(gradesByValues)) {
-    let sum = gradesByValues[val].reduce((a: number, { grade }: GradeTypes) => a + grade, 0);
+    let sum = gradesByValues[val].reduce((a: number, { grade }: Grade) => a + grade, 0);
     average += (sum / gradesByValues[val].length) * parseFloat(val);
   }
   return average.toFixed(2);
