@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
-import { CommentProps } from "../types/objectProps/CommentProps";
 
 const Comment = (props: CommentProps) => {
     const username = props.username;
