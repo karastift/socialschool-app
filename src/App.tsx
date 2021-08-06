@@ -16,7 +16,7 @@ import { TabBarOptions } from './options/TabBarOptions';
 import { UserTabOptions } from './options/UserTabOptions';
 import { DarkTheme } from './themes/DarkTheme';
 import { ColorTheme } from './contexts/ColorTheme';
-import { RootStackParamList } from './types/RootStackParamList';
+import { RootStackParamList } from './types/NavigationTypes';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
