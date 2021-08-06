@@ -3,7 +3,7 @@ import { TouchableHighlight, Text, StyleSheet } from "react-native";
 
 interface SwitchProps {
   name: string;
-  onChangeValue: (arg0: string) => void
+  onChangeValue: (arg0: string) => void;
 }
 
 export const Switch: React.FC<SwitchProps> = (props) => {

@@ -9,8 +9,15 @@ import { useSubjectGrades } from '../graphql/queries/useSubjectGrades';
 import { ColorTheme } from '../contexts/ColorTheme';
 import { getAverage } from '../utils/getAverage';
 import { useEffect } from 'react';
+import { ViewStyle } from 'react-native';
 
-const SubjectChartBlock: React.FC = (props) => {
+interface SubjectChartBlockProps {
+	subject: string;
+	chartContainerStyle: ViewStyle;
+	onPress: () => void;
+}
+
+const SubjectChartBlock: React.FC<SubjectChartBlockProps> = (props) => {
   const { chartTheme } = useContext(ColorTheme);
 
   const subject = props.subject;

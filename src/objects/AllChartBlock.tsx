@@ -9,7 +9,11 @@ import { useAllGrades } from '../graphql/queries/useAllGrades';
 import { getAverage } from '../utils/getAverage';
 import { ColorTheme } from '../contexts/ColorTheme';
 
-const AllChartBlock: React.FC = (props) => {
+interface AllChartBlockProps {
+  onPress: () => void;
+}
+
+const AllChartBlock: React.FC<AllChartBlockProps> = (props) => {
 
   const styles = useStyles();
   const { chartTheme } = useContext(ColorTheme);

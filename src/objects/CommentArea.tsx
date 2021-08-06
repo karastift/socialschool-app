@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
-import { TextInput, TouchableOpacity, Text, View, StyleSheet, Dimensions } from 'react-native';
-import { useMutation } from 'urql';
+import { ViewStyle } from 'react-native';
+import { TextInput, View, StyleSheet, Dimensions } from 'react-native';
 import { SubmitButton } from './Form/FormElements/SubmitButton';
 
-export const CommentArea: React.FC = (props) => {
+interface CommentAreaProps {
+	onSubmit: () => void;
+	refresh: () => void;
+	onChangeText: (arg0: string) => void;
+	style: ViewStyle;
+}
+
+export const CommentArea: React.FC<CommentAreaProps> = (props) => {
 
   const [value, setValue] = useState('');
 
