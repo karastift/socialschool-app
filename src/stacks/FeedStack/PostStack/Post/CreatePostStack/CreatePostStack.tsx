@@ -7,9 +7,9 @@ import CREATE_POST_MUTATION from "../../../../../graphql/mutations/CreatePostMut
 import { StatusForm } from "./CreatePost/StatusForm";
 import { realName } from "../../../../../utils/realName";
 import { PostInput } from "../../../../../types/PostInput";
-import { CreatePostStackProps } from "../../../../../types/NavigationTypes";
+import { CreatePostStackParamList, CreatePostStackProps } from "../../../../../types/NavigationTypes";
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<CreatePostStackParamList>();
 
 const CreatePostStackOptions: StackNavigationOptions = {
   headerShown: false,
@@ -24,7 +24,7 @@ const validatePostInput = (input: PostInput): { field: string, message: string }
   if (text.length < 5) return { field: 'text', message: 'Your text is too short.' };
 };
 
-export const CreatePostStack: React.FC<CreatePostStackProps> = ({ navigation, route }: any) => {
+export const CreatePostStack: React.FC<CreatePostStackProps> = ({ navigation }) => {
 
   const [title, setTitle] = useState('');
   const [text, setBody] = useState('');

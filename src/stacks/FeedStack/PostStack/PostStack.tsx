@@ -5,9 +5,9 @@ import { EditPost } from "./Post/EditPost";
 import { useMutation } from "urql";
 import CREATE_POST_COMMENT_MUTATION from "../../../graphql/mutations/CreatePostComment";
 import { CreatePostStack } from "./Post/CreatePostStack/CreatePostStack";
-import { PostStackProps } from "../../../types/NavigationTypes";
+import { PostStackParamList, PostStackProps } from "../../../types/NavigationTypes";
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<PostStackParamList>();
 
 const PostStackScreenOptions: StackNavigationOptions = {
   headerShown: false,

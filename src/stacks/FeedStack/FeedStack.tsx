@@ -4,9 +4,9 @@ import { Feed } from "./Feed/Feed";
 import { PostStack } from "./PostStack/PostStack";
 import { FeedScreenOptions } from "../../options/FeedScreenOptions";
 import { PostStackOptions } from "../../options/PostStackOptions";
-import { FeedStackProps } from "../../types/NavigationTypes";
+import { FeedStackParamList, FeedStackProps } from "../../types/NavigationTypes";
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<FeedStackParamList>();
 
 export const FeedStack: React.FC<FeedStackProps> = () => {
   return (

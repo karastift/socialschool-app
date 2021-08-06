@@ -2,14 +2,14 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { CreateGradeScreenOptions } from "../../options/CreateGradeScreenOptions";
 import { GradeSummaryScreenOptions } from "../../options/GradeSummaryScreenOptions";
-import { GradePageProps } from "../../types/NavigationTypes";
+import { GradePageStackParamList, GradePageStackProps } from "../../types/NavigationTypes";
 import { GradeStack } from "./GradeStack/GradeStack";
 import { GradeSummary } from "./GradeSummary/GradeSummary";
 import { SubjectGrades } from "./SubjectGrades/SubjectGrades";
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<GradePageStackParamList>();
 
-export const GradePageStack: React.FC<GradePageProps> = () => {
+export const GradePageStack: React.FC<GradePageStackProps> = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="GradeSummary" component={GradeSummary} options={GradeSummaryScreenOptions}/>

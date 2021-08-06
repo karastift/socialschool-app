@@ -160,7 +160,7 @@ export type GradeSummaryProps = StackScreenProps<GradePageStackParamList, 'Grade
 export type SubjectGradesProps = StackScreenProps<GradePageStackParamList, 'SubjectGrades'>;
 
 // gradepage
-type GradePageStackParamList = {
+export type GradePageStackParamList = {
 	GradeSummary: undefined;
 	Grade: NavigatorScreenParams<GradeStackParamList>;
 	SubjectGrades: undefined;
