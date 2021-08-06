@@ -8,6 +8,7 @@ import { SubjectForm } from "./CreateGradeStack/SubjectForm";
 import { ThoughtsForm } from "./CreateGradeStack/ThoughtsForm";
 import { GradeInput } from "../../../../types/GradeInput";
 import CREATE_GRADE_MUTATION from "../../../../graphql/mutations/CreateGradeMutation";
+import { CreateGradeStackProps } from "../../../../types/NavigationTypes";
 
 const Stack = createStackNavigator();
 
@@ -15,7 +16,7 @@ const CreatePostStackOptions: StackNavigationOptions = {
   headerShown: false,
 };
 
-export const CreateGradeStack: React.FC = ({ navigation, route }: any) => {
+export const CreateGradeStack: React.FC<CreateGradeStackProps> = ({ navigation, route }: any) => {
 
   const [grade, setGrade] = useState('')
   const [subject, setSubject] = useState('');

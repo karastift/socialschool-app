@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { registerRootComponent } from 'expo';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { client } from './utils/createClient';
-import { RootStackParamList } from './types/RootStackParamList';
 import { Provider } from 'urql';
 
 import { useMe } from './graphql/queries/useMe';
@@ -18,6 +16,7 @@ import { TabBarOptions } from './options/TabBarOptions';
 import { UserTabOptions } from './options/UserTabOptions';
 import { DarkTheme } from './themes/DarkTheme';
 import { ColorTheme } from './contexts/ColorTheme';
+import { RootStackParamList } from './types/RootStackParamList';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 

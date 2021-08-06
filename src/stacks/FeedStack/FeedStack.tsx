@@ -4,10 +4,11 @@ import { Feed } from "./Feed/Feed";
 import { PostStack } from "./PostStack/PostStack";
 import { FeedScreenOptions } from "../../options/FeedScreenOptions";
 import { PostStackOptions } from "../../options/PostStackOptions";
+import { FeedStackProps } from "../../types/NavigationTypes";
 
 const Stack = createStackNavigator();
 
-export const FeedStack: React.FC = () => {
+export const FeedStack: React.FC<FeedStackProps> = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Feed" component={Feed} options={FeedScreenOptions}/>

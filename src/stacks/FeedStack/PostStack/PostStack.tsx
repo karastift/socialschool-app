@@ -5,6 +5,7 @@ import { EditPost } from "./Post/EditPost";
 import { useMutation } from "urql";
 import CREATE_POST_COMMENT_MUTATION from "../../../graphql/mutations/CreatePostComment";
 import { CreatePostStack } from "./Post/CreatePostStack/CreatePostStack";
+import { PostStackProps } from "../../../types/NavigationTypes";
 
 const Stack = createStackNavigator();
 
@@ -12,7 +13,7 @@ const PostStackScreenOptions: StackNavigationOptions = {
   headerShown: false,
 };
 
-export const PostStack: React.FC = ({ route }: any) => {
+export const PostStack: React.FC<PostStackProps> = ({ route }) => {
   const { postId } = route.params;
 
   const [comment, setComment] = useState('');
@@ -25,7 +26,7 @@ export const PostStack: React.FC = ({ route }: any) => {
       <Stack.Screen name='Post' options={PostStackScreenOptions} initialParams={{ postId }}>
         { props => <Post {...props} setComment={setComment} submitComment={submitComment}/>}
       </Stack.Screen>
-      <Stack.Screen name='Edit' options={PostStackScreenOptions} initialParams={{ postId }}>
+      <Stack.Screen name='EditPost' options={PostStackScreenOptions} initialParams={{ postId }}>
         { props => <EditPost {...props}/>}
       </Stack.Screen>
       <Stack.Screen name='Create' options={PostStackScreenOptions}>

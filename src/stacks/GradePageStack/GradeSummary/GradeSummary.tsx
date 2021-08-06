@@ -3,8 +3,9 @@ import { ActivityIndicator, Platform, RefreshControl, ScrollView, StyleSheet, Vi
 import { useAllSubjects } from '../../../graphql/queries/useAllSubjects';
 import AllChartBlock from '../../../objects/AllChartBlock';
 import SubjectChartBlock from '../../../objects/SubjectChartBlock';
+import { GradeSummaryProps } from '../../../types/NavigationTypes';
 
-export const GradeSummary: React.FC = ({ navigation }: any) => {
+export const GradeSummary: React.FC<GradeSummaryProps> = ({ navigation }) => {
 
     const [{ data: data, fetching: fetching}, reload] = useAllSubjects();
     

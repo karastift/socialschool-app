@@ -4,8 +4,9 @@ import { usePost } from "../../../../graphql/queries/usePost";
 import { usePostComments } from "../../../../graphql/queries/usePostComments";
 import Comment from "../../../../objects/Comment";
 import { CommentArea } from "../../../../objects/CommentArea";
+import { PostProps } from "../../../../types/NavigationTypes";
 
-export const Post: React.FC = ({ navigation, route, setComment, submitComment }: any) => {
+export const Post: React.FC<PostProps> = ({ route, setComment, submitComment }) => {
 
   const [{data, fetching, error}] = usePost({ id: route.params.postId });
 

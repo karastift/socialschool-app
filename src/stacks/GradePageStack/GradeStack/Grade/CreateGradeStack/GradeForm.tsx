@@ -1,9 +1,10 @@
 import React from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { Form } from "../../../../../objects/Form/Form";
+import { GradeFormProps } from "../../../../../types/NavigationTypes";
 import { validateGrade } from "../../../../../utils/validateGrade";
 
-export const GradeForm: React.FC = ({ navigation, route, setGrade }: any) => {
+export const GradeForm: React.FC<GradeFormProps> = ({ navigation, route, setGrade }: any) => {
 
   return (
     <View style={styles.container}>

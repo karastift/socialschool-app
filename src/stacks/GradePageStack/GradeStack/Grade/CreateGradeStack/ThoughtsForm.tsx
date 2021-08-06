@@ -1,9 +1,10 @@
 import React from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { Form } from "../../../../../objects/Form/Form";
+import { ThoughtsFormProps } from "../../../../../types/NavigationTypes";
 import { validateThoughts } from "../../../../../utils/validateThoughts";
 
-export const ThoughtsForm: React.FC = ({ navigation, route, setThoughts, onSubmit }: any) => {
+export const ThoughtsForm: React.FC<ThoughtsFormProps> = ({ navigation, route, setThoughts, onSubmit }: any) => {
 
   return (
     <View style={styles.container}>
