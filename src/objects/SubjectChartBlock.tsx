@@ -4,7 +4,7 @@ import * as shape from 'd3-shape';
 import { Line } from './Line';
 import { Decorator } from './Decorator';
 import { AreaChart, Grid } from 'react-native-svg-charts';
-import { GradeTypes, SubjectGradesDataType } from '../types/GradeTypes';
+import { SubjectGradesDataType } from '../types/GradeTypes';
 import { useSubjectGrades } from '../graphql/queries/useSubjectGrades';
 import { ColorTheme } from '../contexts/ColorTheme';
 import { getAverage } from '../utils/getAverage';
