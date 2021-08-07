@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Dimensions, Platform, RefreshControl, ScrollView, StyleSheet, Text, TouchableHighlight, View } from "react-native";
+import { ActivityIndicator, Dimensions, Keyboard, KeyboardAvoidingView, Platform, RefreshControl, ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { usePost } from "../../../../graphql/queries/usePost";
 import { usePostComments } from "../../../../graphql/queries/usePostComments";
 import Comment from "../../../../objects/Comment";
 import { CommentArea } from "../../../../objects/CommentArea";
+import { CommentInput } from "../../../../objects/CommentInput";
+import { SubmitButton } from "../../../../objects/Form/FormElements/SubmitButton";
 import { PostProps } from "../../../../types/NavigationTypes";
 
 export const Post: React.FC<PostProps> = ({ route, setComment, submitComment }) => {
@@ -14,7 +16,7 @@ export const Post: React.FC<PostProps> = ({ route, setComment, submitComment }) 
   const [{ data: commentsData, fetching: commentsFetching, error: commentsError }, refreshComments] = usePostComments(variables);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: 'space-between', flex: 1 }}>
       { !fetching && !error
         ? (
           <>
@@ -35,30 +37,37 @@ export const Post: React.FC<PostProps> = ({ route, setComment, submitComment }) 
                 <Text style={styles.buttonText}>{data.post.status}</Text>
               </TouchableHighlight>
             </View>
-            <CommentArea style={styles.createComment} onChangeText={(text: string) => setComment(text)} onSubmit={() => submitComment()} refresh={() => refreshComments({ requestPolicy: 'network-only' })}/>
+
             {!commentsFetching && !commentsError
             ? (
-              <ScrollView
-                style={styles.commentsArea}
-                showsVerticalScrollIndicator={false}
-                refreshControl={
-                  <RefreshControl
-                    refreshing={false}
-                    onRefresh={() => refreshComments({ requestPolicy: 'network-only' })}
-                  />
-                }
-              >
-                {commentsData.postComments.postComments.map((comment: any, index: number) => {
-                  return (
-                    <Comment
-                      id={comment.id}
-                      key={index}
-                      username={comment.creator.username}
-                      body={comment.text}
-                    />
-                  );
-                })}
-              </ScrollView>
+							<>
+								<ScrollView
+									style={styles.commentsArea}
+									showsVerticalScrollIndicator={false}
+									refreshControl={
+										<RefreshControl
+											refreshing={false}
+											onRefresh={() => refreshComments({ requestPolicy: 'network-only' })}
+										/>
+									}
+								>
+									{commentsData.postComments.postComments.map((comment: any, index: number) => {
+										return (
+											<Comment
+												id={comment.id}
+												key={index}
+												username={comment.creator.username}
+												body={comment.text}
+											/>
+										);
+									})}
+								</ScrollView>
+								<CommentInput
+									onChangeText={setComment}
+									onSubmit={submitComment}
+									refresh={() => refreshComments({ requestPolicy: 'network-only' })}
+								/>
+							</>
             ) : (
               <ActivityIndicator color='red' style={styles.loading}/>
             )
