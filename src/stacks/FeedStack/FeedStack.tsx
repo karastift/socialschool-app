@@ -12,7 +12,7 @@ export const FeedStack: React.FC<FeedStackProps> = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Feed" component={Feed} options={FeedScreenOptions}/>
-      <Stack.Screen name="Post" component={PostStack} options={PostStackOptions}/>
+      <Stack.Screen name="PostStack" component={PostStack} options={PostStackOptions}/>
     </Stack.Navigator>
   );
 };

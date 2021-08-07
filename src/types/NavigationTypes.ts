@@ -57,11 +57,11 @@ export type PostStackParamList = {
 };
 
 type PostStackNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<FeedStackParamList, 'Post'>,
+  StackNavigationProp<FeedStackParamList, 'PostStack'>,
   StackNavigationProp<PostStackParamList>
 >;
 
-type PostStackRouteProp = RouteProp<FeedStackParamList, 'Post'>
+type PostStackRouteProp = RouteProp<FeedStackParamList, 'PostStack'>
 
 export type PostStackProps = {
 	navigation: PostStackNavigationProp;
@@ -74,7 +74,7 @@ export type FeedProps = StackScreenProps<FeedStackParamList, 'Feed'>;
 // feedstack
 export type FeedStackParamList = {
 	Feed: undefined;
-	Post: NavigatorScreenParams<PostStackParamList> & { postId: number };
+	PostStack: NavigatorScreenParams<PostStackParamList> & { postId: number };
 };
 
 type FeedStackNavigationProp = CompositeNavigationProp<

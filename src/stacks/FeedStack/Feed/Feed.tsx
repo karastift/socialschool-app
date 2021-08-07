@@ -39,7 +39,7 @@ export const Feed: React.FC<FeedProps> = ({ navigation }) => {
             return (
               <TouchableOpacity
                 key={post.id}
-                onPress={() => navigation.navigate('Post', { postId: post.id })}
+                onPress={() => navigation.navigate('PostStack', { postId: post.id })}
               >
                 <PostPreview
                   key={post.id} 
