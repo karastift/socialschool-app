@@ -5,6 +5,7 @@ import { Platform, View } from "react-native";
 import { SubmitButton } from "../objects/Form/FormElements/SubmitButton";
 
 export const PostStackOptions = ({ navigation, route }: any): StackNavigationOptions => ({
+  title: 'Post',
   headerTitleStyle: {
     fontWeight: '800',
     fontSize: 17,

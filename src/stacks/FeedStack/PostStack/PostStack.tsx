@@ -29,7 +29,7 @@ export const PostStack: React.FC<PostStackProps> = ({ route }) => {
       <Stack.Screen name='EditPost' options={PostStackScreenOptions} initialParams={{ postId }}>
         { props => <EditPost {...props}/>}
       </Stack.Screen>
-      <Stack.Screen name='Create' options={PostStackScreenOptions}>
+      <Stack.Screen name='CreatePostStack' options={PostStackScreenOptions}>
         { props => <CreatePostStack {...props}/>}
       </Stack.Screen>
     </Stack.Navigator>

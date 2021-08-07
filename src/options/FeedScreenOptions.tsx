@@ -11,7 +11,7 @@ export const FeedScreenOptions = ({ navigation, route }: any): StackNavigationOp
     alignSelf: 'center',
   },
   headerRight: () => (
-    <SubmitButton onSubmit={() => navigation.navigate('Post', { screen: 'Create' })} icon='plus' style={{
+    <SubmitButton onSubmit={() => navigation.navigate('PostStack', { screen: 'CreatePostStack' })} icon='plus' style={{
       ...Platform.OS === 'ios' ? { marginTop: 20 } : undefined,
       height: 40,
       width: 60,
