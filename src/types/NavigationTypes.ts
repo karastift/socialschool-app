@@ -13,15 +13,9 @@ export type StatusFormProps = StackScreenProps<CreatePostStackParamList, 'Status
 
 // createpoststack
 export type CreatePostStackParamList = {
-	Title: {
-		setTitle: React.Dispatch<React.SetStateAction<string>>;
-	};
-	Text: {
-		setText: React.Dispatch<React.SetStateAction<string>>;
-	};
-	Status: {
-		setStatus: React.Dispatch<React.SetStateAction<string>>;
-	};
+	Title: undefined;
+	Text: undefined;
+	Status: undefined;
 };
 
 type CreatePostStackNavigationProp = CompositeNavigationProp<

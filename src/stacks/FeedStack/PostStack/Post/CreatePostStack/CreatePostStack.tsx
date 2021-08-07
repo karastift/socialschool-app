@@ -43,20 +43,20 @@ export const CreatePostStack: React.FC<CreatePostStackProps> = ({ navigation }) 
     if (clientError) {
       const { field, message } = clientError;
       console.log(message);
-      return navigation.navigate(realName(field), { message });
+      return navigation.navigate(realName(field) as any);
     }
 
     const { data, error } = await createPost({ input });
    
     if (error) {
-      navigation.navigate('Title', error.message);
+      navigation.navigate('Title');
     }
     else if (data.createPost.errors) {
-      const { field, message } = data.createPost.errors[0];
-      navigation.navigate(realName(field), { message });
+      const { field } = data.createPost.errors[0];
+      navigation.navigate(realName(field) as any);
     }
     else {
-      navigation.navigate('Feed');
+      navigation.goBack();
     }
   };
 
