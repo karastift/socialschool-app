@@ -51,6 +51,7 @@ export const Post: React.FC<PostProps> = ({ route, setComment, submitComment }) 
                 {commentsData.postComments.postComments.map((comment: any, index: number) => {
                   return (
                     <Comment
+                      id={comment.id}
                       key={index}
                       username={comment.creator.username}
                       body={comment.text}
